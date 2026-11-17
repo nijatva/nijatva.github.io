@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vasudev-work.github.io/sitemap.xml
+Sitemap: https://nijatva.github.io/sitemap.xml

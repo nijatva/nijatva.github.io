@@ -293,7 +293,7 @@ def build_index():
           <h2 class="section-title">Seven apps ship releases</h2>
         </div>
         <div>
-          <p class="lead">Seven of the twenty-four have a downloadable build, and the Appstore ties them together. The other sixteen are in progress or planned.</p>
+          <p class="lead">Seven of the twenty-four have a downloadable build, two more have repositories, and the Appstore ties them together. The other fifteen are planned.</p>
           <a class="section-link" href="apps.html">View the full list</a>
         </div>
       </div>
@@ -347,7 +347,7 @@ def build_index():
       <article class="panel">
         <p class="eyebrow">Status</p>
         <h2>What exists today</h2>
-        <p>Seven apps have releases, one has a repository without one, and sixteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
+        <p>Seven apps have releases, two more have repositories without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
         <div class="text-link-list"><a href="architecture.html#roadmap">Real status</a></div>
       </article>
       <article class="panel">
@@ -440,7 +440,7 @@ def build_apps():
         <div>
           <p class="eyebrow">Apps</p>
           <h1 class="page-title">The Nijatva suite</h1>
-          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Seven have releases today, one has a repository, sixteen are planned, and every card says which.</p>
+          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Seven have releases today, two have repositories, fifteen are planned, and every card says which.</p>
           <div class="actions" style="margin-top:22px">
 {chips}
           </div>
@@ -652,7 +652,7 @@ def build_architecture():
     <div class="container">
       <div class="section-heading">
         <div><p class="eyebrow">3 &middot; Roadmap</p><h2 class="section-title">Roadmap and real status</h2></div>
-        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and one more has a repository. Status as of {UPDATED}.</p></div>
+        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and two more have repositories. Status as of {UPDATED}.</p></div>
       </div>
       <div class="scroll">
       <table>
@@ -667,7 +667,7 @@ def build_architecture():
         <tr>
           <td class="ph">Phase 1</td><td>Small apps</td><td class="num">5</td>
           <td class="apps">Calc, Clock, Notes, QR Scanner, Files</td><td class="num">4-6 weeks</td>
-          <td><span class="st st-active">Files repo created</span></td>
+          <td><span class="st st-active">Files and Notes repos created</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 2</td><td>Media and utility</td><td class="num">6</td>
@@ -687,9 +687,9 @@ def build_architecture():
         </tbody>
       </table>
       </div>
-      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Seven apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages) and Files has a repository without one. Several of those releases are debug builds, which the app pages say plainly.</p>
+      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Seven apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages); Files and Notes have repositories without one. Several of those releases are debug builds, which the app pages say plainly.</p>
       <h3 style="margin:34px 0 10px">Outside the 24</h3>
-      <p class="lead">Six projects sit beside the plan and are not counted in the table: <b>Nijatva Appstore</b> (the store that ships the suite, with its own page on this site), <code>nijatva-photo-editor</code>, <code>nijatva-browser-mini-x</code>, <code>nijatva-drive</code> (an offline-first file vault on Expo and React Native), <code>nijatva-video-player-multiplatform</code> (Compose Multiplatform for Android, Windows, macOS, Linux and the web) and <code>nijatva-web-store</code> (a userscript store for the Nijatva and Aekant browsers).</p>
+      <p class="lead">Eight projects sit beside the plan and are not counted in the table: <b>Nijatva Appstore</b> (the store that ships the suite, with its own page on this site), <code>nijatva-photos</code> (a local-first gallery with on-device labelling, face detection and text recognition), <code>nijatva-video-player</code> (Kotlin, Compose and Media3), <code>nijatva-photo-editor</code>, <code>nijatva-browser-mini-x</code>, <code>nijatva-drive</code> (an offline-first file vault on Expo and React Native), <code>nijatva-video-player-multiplatform</code> (Compose Multiplatform for Android, Windows, macOS, Linux and the web) and <code>nijatva-web-store</code> (a userscript store for the Nijatva and Aekant browsers).</p>
     </div>
   </section>
 

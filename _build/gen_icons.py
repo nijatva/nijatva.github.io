@@ -45,6 +45,8 @@ G = {
  "launcher": '<rect x="29" y="29" width="15" height="15" rx="4"/><rect x="52" y="29" width="15" height="15" rx="4"/>'
              '<rect x="29" y="52" width="15" height="15" rx="4"/><rect x="52" y="52" width="15" height="15" rx="4"/>',
  "browser": '<circle cx="48" cy="48" r="23"/><path d="M25 48h46"/><path d="M48 25a30 30 0 0 1 0 46 30 30 0 0 1 0-46z"/>',
+ "appstore": '<path d="M32 38h32l-3 30a4 4 0 0 1-4 4H39a4 4 0 0 1-4-4z"/>'
+              '<path d="M40 38v-6a8 8 0 0 1 16 0v6"/><path d="M42 50h12"/>',
  "appmanager": '<rect x="27" y="27" width="15" height="15" rx="4"/><rect x="27" y="50" width="15" height="15" rx="4"/>'
                '<rect x="50" y="27" width="15" height="15" rx="4"/><circle cx="58" cy="58" r="9"/><path d="M64 64l7 7"/>',
 }

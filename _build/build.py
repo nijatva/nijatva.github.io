@@ -123,7 +123,7 @@ def header(root="", current=""):
   <div class="container header-inner">
     <a class="brand" href="{root}index.html" aria-label="Nijatva home">
       <img src="{root}assets/logo.svg" alt="" width="34" height="34">
-      <span>Nijatva</span><small>by DEVIRA</small>
+      <span>Nijatva</span>
     </a>
     <nav class="nav" aria-label="Primary">
 {links}
@@ -149,7 +149,7 @@ def footer(root=""):
           <img src="{root}assets/logo.svg" alt="" width="32" height="32">
           <span>Nijatva</span>
         </div>
-        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. A DEVIRA project, built in India.</p>
+        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. Built in India.</p>
         <a class="dev-card" href="{root}developer.html">
           <div class="dev-avatar" aria-hidden="true">VD</div>
           <div>
@@ -185,7 +185,7 @@ def footer(root=""):
       </div>
     </div>
     <div class="footer-legal">
-      <span>Status as of {UPDATED}. Nijatva &middot; a DEVIRA project &middot; India</span>
+      <span>Status as of {UPDATED}. Nijatva &middot; India</span>
       <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
     </div>
   </div>
@@ -284,7 +284,7 @@ def build_index():
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">A DEVIRA project &middot; Made in India</p>
+        <p class="eyebrow">Made in India</p>
         <h1 class="hero-title">Nijatva</h1>
         <p class="lead lede-narrow">Twenty-four small, single-purpose Android apps for the things a phone already does. Each one does a job and then gets out of the way. No account, no ads, no tracker, no Google Play Services.</p>
         <div class="actions">
@@ -384,7 +384,7 @@ def build_index():
       <p class="eyebrow">The name</p>
       <h2 class="section-title">Why "Nijatva"?</h2>
       <p class="lead">In Sanskrit, <em>nijatva</em> means own-ness &mdash; the state of being your own. It is a good word for software that does not ask for your data in exchange for doing its job.</p>
-      <p class="lead">Nijatva is a project of <strong>DEVIRA</strong>, a complete IT company. The Browser ships releases today; the Camera is being built in the open; the rest of the twenty-four are planned, and this site says which is which.</p>
+      <p class="lead">Nijatva is built in India, independently. The Browser ships releases today; the Camera is being built in the open; the rest of the twenty-four are planned, and this site says which is which.</p>
       <div class="actions"><a class="button primary" href="apps.html">See the apps</a>
       <a class="button" href="mailto:{EMAIL}">Write to us</a></div>
     </div>
@@ -393,7 +393,7 @@ def build_index():
 </main>
 {footer("")}"""
     return head("Nijatva — 24 Android apps with no Google Play Services",
-                "Nijatva is a suite of 24 small, single-purpose Android apps built without Google Play Services, accounts, ads or analytics. A DEVIRA project, made in India.",
+                "Nijatva is a suite of 24 small, single-purpose Android apps built without Google Play Services, accounts, ads or analytics. Made in India.",
                 SITE + "/") + body
 
 
@@ -726,7 +726,7 @@ def build_architecture():
       </div>
       <div class="cards" style="margin-top:30px">
         <div class="card"><h3>Repository naming</h3><p><code>nijatva-&lt;app&gt;</code>, lowercase and hyphenated. Foundation repos follow the same rule.</p></div>
-        <div class="card"><h3>Package name</h3><p><code>in.nijatva.&lt;app&gt;</code>, fallback <code>com.devira.&lt;app&gt;</code>. Locked before the first release.</p></div>
+        <div class="card"><h3>Package name</h3><p><code>in.nijatva.&lt;app&gt;</code>, fallback <code>com.nijatva.&lt;app&gt;</code>. Locked before the first release.</p></div>
         <div class="card"><h3>Display name</h3><p><code>Nijatva &lt;App&gt;</code>, one prefix everywhere, never abbreviated.</p></div>
       </div>
     </div>

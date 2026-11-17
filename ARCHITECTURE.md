@@ -119,13 +119,13 @@ Recorded so the same two mistakes do not come back:
 ## 6. Naming
 
 - Repository: `nijatva-<app>`, lowercase and hyphenated.
-- Package: `in.nijatva.<app>` (fallback `com.devira.<app>`). Locked before the
+- Package: `in.nijatva.<app>` (fallback `com.nijatva.<app>`). Locked before the
   first release; changing it later breaks update paths.
 - Display name: `Nijatva <App>`.
 
 ---
 
-Nijatva is a DEVIRA project. Contact: Vasudev.work@rediffmail.com
+Nijatva is built in India. Contact: Vasudev.work@rediffmail.com
 
 ## 6. How this is published
 

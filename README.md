@@ -1,7 +1,7 @@
 # nijatva.github.io
 
 Landing site for **Nijatva**, a suite of small Android apps built without Google
-Play Services, accounts, ads or analytics. A DEVIRA project.
+Play Services, accounts, ads or analytics. Built in India.
 
 Static HTML. No framework, no JavaScript, no external fonts, no analytics.
 

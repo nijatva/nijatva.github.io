@@ -249,7 +249,7 @@ def build_index():
         f'        <div class="metric"><svg viewBox="0 0 24 24" aria-hidden="true">{icons[i]}</svg>'
         f'<strong>{E(t)}</strong><span>{E(b)}</span></div>' for i, t, b in trust)
 
-    featured = "\n".join(app_card(by[s]) for s in ("browser", "camera", "appstore"))
+    featured = "\n".join(app_card(by[s]) for s in ("browser", "camera", "photos", "appstore"))
     phases = "\n".join(
         f"""      <article class="card">
         <div class="badge-row"><span class="badge">Phase {n}</span><span class="badge">{len([a for a in SUITE if a['phase'] == n])} apps</span></div>
@@ -293,11 +293,11 @@ def build_index():
           <h2 class="section-title">Seven apps ship releases</h2>
         </div>
         <div>
-          <p class="lead">Seven of the twenty-four have a downloadable build, two more have repositories, and the Appstore ties them together. The other fifteen are planned.</p>
+          <p class="lead">Seven of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
           <a class="section-link" href="apps.html">View the full list</a>
         </div>
       </div>
-      <div class="grid three">
+      <div class="grid two">
 {featured}
       </div>
     </div>
@@ -412,7 +412,7 @@ def build_apps():
           <p class="eyebrow">Ecosystem</p>
           <h2 class="section-title">Not one of the 24</h2>
         </div>
-        <div><p class="lead">The store that ships everything else. It is not counted in the twenty-four, and it is not on any store itself.</p></div>
+        <div><p class="lead">Seven projects that sit beside the plan: the store that ships the suite, a gallery with on-device machine learning, a player that runs on five platforms, a file vault and a browser that installs alongside the main one.</p></div>
       </div>
       <div class="grid three">
 {eco_cards}
@@ -689,7 +689,7 @@ def build_architecture():
       </div>
       <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Seven apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages); Files and Notes have repositories without one. Several of those releases are debug builds, which the app pages say plainly.</p>
       <h3 style="margin:34px 0 10px">Outside the 24</h3>
-      <p class="lead">Eight projects sit beside the plan and are not counted in the table: <b>Nijatva Appstore</b> (the store that ships the suite, with its own page on this site), <code>nijatva-photos</code> (a local-first gallery with on-device labelling, face detection and text recognition), <code>nijatva-video-player</code> (Kotlin, Compose and Media3), <code>nijatva-photo-editor</code>, <code>nijatva-browser-mini-x</code>, <code>nijatva-drive</code> (an offline-first file vault on Expo and React Native), <code>nijatva-video-player-multiplatform</code> (Compose Multiplatform for Android, Windows, macOS, Linux and the web) and <code>nijatva-web-store</code> (a userscript store for the Nijatva and Aekant browsers).</p>
+      <p class="lead">Seven projects sit beside the plan and are not counted in the table. Each has its own page on the apps screen: the Appstore, Photos, Video Player, Drive, Browser Mini X, Photo Editor and the Web Store. Two of them are not one app but a family: the video player ships for Android, Windows, macOS, Linux and the web from one Compose Multiplatform codebase, and <code>nijatva-video-player</code> is its Android-only sibling.</p>
     </div>
   </section>
 

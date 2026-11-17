@@ -45,6 +45,17 @@ G = {
  "launcher": '<rect x="29" y="29" width="15" height="15" rx="4"/><rect x="52" y="29" width="15" height="15" rx="4"/>'
              '<rect x="29" y="52" width="15" height="15" rx="4"/><rect x="52" y="52" width="15" height="15" rx="4"/>',
  "browser": '<circle cx="48" cy="48" r="23"/><path d="M25 48h46"/><path d="M48 25a30 30 0 0 1 0 46 30 30 0 0 1 0-46z"/>',
+ "photos": '<rect x="34" y="24" width="34" height="26" rx="5"/><rect x="26" y="36" width="40" height="30" rx="5"/>'
+           '<circle cx="38" cy="47" r="3.5"/><path d="M30 63l11-11 8 8 5-5 8 8"/>',
+ "video": '<rect x="25" y="30" width="46" height="36" rx="7"/><path d="M43 40l14 8-14 8z"/>',
+ "drive": '<rect x="27" y="24" width="42" height="48" rx="7"/><circle cx="48" cy="43" r="6"/><path d="M48 49v9"/>',
+ "minix": '<rect x="25" y="29" width="46" height="38" rx="7"/><path d="M25 41h46"/>'
+          '<path d="M33 35h.1M40 35h.1" stroke-width="6"/>',
+ "editor": '<path d="M28 34h40M28 48h40M28 62h40"/>'
+           '<circle cx="40" cy="34" r="5" fill="#ffffff"/><circle cx="58" cy="48" r="5" fill="#ffffff"/>'
+           '<circle cx="36" cy="62" r="5" fill="#ffffff"/>',
+ "webstore": '<path d="M32 40h32l-3 28a4 4 0 0 1-4 4H39a4 4 0 0 1-4-4z"/>'
+             '<path d="M40 40v-6a8 8 0 0 1 16 0v6"/><path d="M43 52l-4 4 4 4M53 52l4 4-4 4"/>',
  "appstore": '<path d="M32 38h32l-3 30a4 4 0 0 1-4 4H39a4 4 0 0 1-4-4z"/>'
               '<path d="M40 38v-6a8 8 0 0 1 16 0v6"/><path d="M42 50h12"/>',
  "appmanager": '<rect x="27" y="27" width="15" height="15" rx="4"/><rect x="27" y="50" width="15" height="15" rx="4"/>'

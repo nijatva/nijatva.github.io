@@ -55,6 +55,29 @@ Indigo** accents.
 That is the only script on the site: inline, ~1.5 KB, no network calls. The
 footer says "no third-party requests" rather than "no scripts" for that reason.
 
+## App status
+
+`status` in `_build/apps_data.py` is the only thing that drives every badge, card
+and roadmap row: `shipped` (a release you can download), `in-progress` (repository
+but no release) and `planned`.
+
+It was set from the repositories on 17 November 2026: seven apps ship releases
+(Browser, Camera, Gallery, Music, Dialer, Contacts, Messages), Files has a
+repository without one, and sixteen are planned. Several of those releases are
+debug builds, and the app pages say so in the `note` field. Check the release
+list before changing a status; the site's credibility is the whole product.
+
+## The Appstore
+
+`apps/appstore.html` is generated like every other app page, from an entry with
+`suite=False` in `apps_data.py`. It is not one of the 24, so it sits in its own
+Ecosystem section on the apps page and is excluded from the suite counts by
+`SUITE = [a for a in APPS if a.get("suite", True)]`.
+
+Its source is not published yet, so the entry sets `source_public=False`: the
+page shows no GitHub button and marks the repository as private. Remove that flag
+the day the repository goes public.
+
 ## Developer page
 
 `developer.html` follows the profile layout used by RepoStore: back link, circular

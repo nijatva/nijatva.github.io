@@ -2,8 +2,8 @@
 """Build every Nijatva page from apps_data.py. No framework, no build step at runtime."""
 import pathlib, sys, html, json
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from apps_data import (APPS, FOUNDATION, PHASES, STATUS_LABEL, STATUS_CLASS, SIZE_LABEL,
-                       GH, SITE, EMAIL, UPDATED)
+from apps_data import (APPS, SUITE, ECOSYSTEM, FOUNDATION, PHASES, STATUS_LABEL, STATUS_CLASS,
+                       SIZE_LABEL, GH, SITE, EMAIL, UPDATED)
 
 ASSET_V = "6"  # bump to force browsers past a cached stylesheet
 ROOT = pathlib.Path(__file__).parent.parent
@@ -249,29 +249,13 @@ def build_index():
         f'        <div class="metric"><svg viewBox="0 0 24 24" aria-hidden="true">{icons[i]}</svg>'
         f'<strong>{E(t)}</strong><span>{E(b)}</span></div>' for i, t, b in trust)
 
-    featured = "\n".join(app_card(by[s]) for s in ("browser", "camera"))
-    other22 = """      <article class="card app-card">
-        <div class="app-card-preview">
-          <img src="assets/icons/launcher.svg" alt="" width="76" height="76" loading="lazy">
-        </div>
-        <div class="app-card-body">
-          <div class="app-card-header">
-            <div class="app-card-title-block">
-              <h3>The other 22</h3>
-              <div class="badge-row"><span class="status-badge planned">Planned</span></div>
-            </div>
-          </div>
-          <p>Every other app in the suite is a plan, not a download. The four foundation repositories exist and are still empty; apps land one at a time.</p>
-          <div class="app-card-actions"><a class="button primary" href="apps.html">See all 24</a></div>
-        </div>
-      </article>"""
-
+    featured = "\n".join(app_card(by[s]) for s in ("browser", "camera", "appstore"))
     phases = "\n".join(
         f"""      <article class="card">
-        <div class="badge-row"><span class="badge">Phase {n}</span><span class="badge">{len([a for a in APPS if a['phase'] == n])} apps</span></div>
+        <div class="badge-row"><span class="badge">Phase {n}</span><span class="badge">{len([a for a in SUITE if a['phase'] == n])} apps</span></div>
         <h3>{E(PHASES[n][0])}</h3>
         <p>{E(PHASES[n][1])}</p>
-        <p class="app-card-note">{E(", ".join(a["name"] for a in APPS if a["phase"] == n))}</p>
+        <p class="app-card-note">{E(", ".join(a["name"] for a in SUITE if a["phase"] == n))}</p>
         <div class="app-card-actions"><a class="button subtle" href="apps.html#phase-{n}">Open phase {n}</a></div>
       </article>""" for n in (1, 2, 3, 4))
 
@@ -306,16 +290,15 @@ def build_index():
       <div class="section-heading">
         <div>
           <p class="eyebrow">Available now</p>
-          <h2 class="section-title">Two apps have code</h2>
+          <h2 class="section-title">Seven apps ship releases</h2>
         </div>
         <div>
-          <p class="lead">The Browser ships releases for Android and the desktop. The Camera is being built in the open. Everything else is planned.</p>
+          <p class="lead">Seven of the twenty-four have a downloadable build, and the Appstore ties them together. The other sixteen are in progress or planned.</p>
           <a class="section-link" href="apps.html">View the full list</a>
         </div>
       </div>
       <div class="grid three">
 {featured}
-{other22}
       </div>
     </div>
   </section>
@@ -357,14 +340,14 @@ def build_index():
     <div class="container grid three">
       <article class="panel">
         <p class="eyebrow">Install</p>
-        <h2>APK, not a store</h2>
-        <p>Releases are published on GitHub with the APK attached. Desktop builds of the Browser ship from the same pipeline. A self-hosted F-Droid style index comes with the suite repository.</p>
+        <h2>Our own store</h2>
+        <p>Releases are published on GitHub with the APK attached, and the Nijatva Appstore lists them, verifies every download against a SHA-256 hash and installs it. No Play Store, no account.</p>
         <div class="text-link-list"><a href="{GH}/nijatva-browser/releases/latest">Latest Browser release</a></div>
       </article>
       <article class="panel">
         <p class="eyebrow">Status</p>
         <h2>What exists today</h2>
-        <p>Two apps have code, four foundation repositories are created and empty, and twenty-two apps are planned. The roadmap page says so in a table rather than in adjectives.</p>
+        <p>Seven apps have releases, one has a repository without one, and sixteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
         <div class="text-link-list"><a href="architecture.html#roadmap">Real status</a></div>
       </article>
       <article class="panel">
@@ -421,6 +404,23 @@ def build_apps():
       </div>
     </div>
   </section>""")
+    eco_cards = "\n".join(app_card(a) for a in ECOSYSTEM)
+    ecosystem = f"""  <section class="section section-band" id="ecosystem">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Ecosystem</p>
+          <h2 class="section-title">Not one of the 24</h2>
+        </div>
+        <div><p class="lead">The store that ships everything else. It is not counted in the twenty-four, and it is not on any store itself.</p></div>
+      </div>
+      <div class="grid three">
+{eco_cards}
+      </div>
+    </div>
+  </section>
+
+"""
     sections = "\n\n".join(sections)
 
     foundation = "\n".join(
@@ -440,7 +440,7 @@ def build_apps():
         <div>
           <p class="eyebrow">Apps</p>
           <h1 class="page-title">The Nijatva suite</h1>
-          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Two have code today; the rest are planned, and each card says which.</p>
+          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Seven have releases today, one has a repository, sixteen are planned, and every card says which.</p>
           <div class="actions" style="margin-top:22px">
 {chips}
           </div>
@@ -469,7 +469,7 @@ def build_apps():
 
 {sections}
 
-  <section class="section section-band" id="foundation">
+{ecosystem}  <section class="section section-band" id="foundation">
     <div class="container">
       <div class="section-heading">
         <div>
@@ -503,14 +503,18 @@ def build_app_pages():
         actions = [f'<a class="button" href="../apps.html">All apps</a>']
         if app["status"] == "shipped":
             actions.insert(0, f'<a class="button primary" href="{GH}/{app["repo"] if "repo" in app else "nijatva-" + app["slug"]}/releases/latest">Download the APK</a>')
-        if app["status"] != "planned":
+        if app["status"] != "planned" and app.get("source_public", True):
             actions.insert(0, f'<a class="button primary" href="{GH}/nijatva-{app["slug"]}">Source on GitHub</a>')
         actions = "\n          ".join(actions)
 
         features = "\n".join(f'        <li>{E(f)}</li>' for f in app["features"])
         repo_name = "nijatva-" + app["slug"]
-        repo_row = (f'<dd><a href="{GH}/{repo_name}">{E(repo_name)}</a></dd>' if app["status"] != "planned"
-                    else f'<dd>{E(repo_name)} <span style="font-weight:400;color:var(--muted)">(planned)</span></dd>')
+        if app.get("source_public", True) and app["status"] != "planned":
+            repo_row = f'<dd><a href="{GH}/{repo_name}">{E(repo_name)}</a></dd>'
+        elif app["status"] != "planned":
+            repo_row = f'<dd>{E(repo_name)} <span style="font-weight:400;color:var(--muted)">(private)</span></dd>'
+        else:
+            repo_row = f'<dd>{E(repo_name)} <span style="font-weight:400;color:var(--muted)">(planned)</span></dd>'
         note = f'\n      <p class="note">{E(app["note"])}</p>' if app.get("note") else ""
 
         pager = ""
@@ -521,6 +525,10 @@ def build_app_pages():
                      if next_app else "<div></div>")
             pager = f'\n  <div class="container pager">\n    {left}\n    {right}\n  </div>'
 
+        store_note = ("This is the store itself: every other app on this site installs through it. "
+                      "No Google Play Services, no account, no ads, no analytics."
+                      if not app.get("suite", True) else
+                      "Like every app in the suite: no Google Play Services, no account, no ads, no analytics. Distribution is an APK, never a store.")
         body = f"""{header("../", "")}
 <main id="main">
   <div class="container breadcrumb"><a href="../apps.html">Apps</a> &nbsp;/&nbsp; {E(app["name"])}</div>
@@ -535,7 +543,7 @@ def build_app_pages():
             <div class="badge-row">
               <span class="status-badge {cls}">{status}</span>
               <span class="badge">{SIZE_LABEL[app["size"]]}</span>
-              <span class="badge">Phase {app["phase"]}</span>
+              <span class="badge">{("Ecosystem" if app["phase"] == 0 else "Phase %d" % app["phase"])}</span>
             </div>
           </div>
         </div>
@@ -546,7 +554,7 @@ def build_app_pages():
       </div>
       <dl class="app-meta">
         <div><dt>Status</dt><dd>{status}</dd></div>
-        <div><dt>Phase</dt><dd>{app["phase"]} &middot; {E(PHASES[app["phase"]][0])}</dd></div>
+        <div><dt>{"Part of" if app["phase"] == 0 else "Phase"}</dt><dd>{(E("The ecosystem, not the 24")) if app["phase"] == 0 else (str(app["phase"]) + " &middot; " + E(PHASES[app["phase"]][0]))}</dd></div>
         <div><dt>Build size</dt><dd>{SIZE_LABEL[app["size"]]}</dd></div>
         <div><dt>Repository</dt>{repo_row}</div>
         <div><dt>Store</dt><dd>None &middot; APK only</dd></div>
@@ -561,7 +569,7 @@ def build_app_pages():
       <ul class="feature-list">
 {features}
       </ul>
-      <p class="lead" style="margin-top:28px;font-size:15.5px">Like every app in the suite: no Google Play Services, no account, no ads, no analytics. Distribution is an APK, never a store.</p>
+      <p class="lead" style="margin-top:28px;font-size:15.5px">{store_note}</p>
     </div>
   </section>
 {pager}
@@ -644,7 +652,7 @@ def build_architecture():
     <div class="container">
       <div class="section-heading">
         <div><p class="eyebrow">3 &middot; Roadmap</p><h2 class="section-title">Roadmap and real status</h2></div>
-        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. Four foundation repos exist and are still empty; two apps have real code. Status as of {UPDATED}.</p></div>
+        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and one more has a repository. Status as of {UPDATED}.</p></div>
       </div>
       <div class="scroll">
       <table>
@@ -654,34 +662,34 @@ def build_architecture():
         <tr>
           <td class="ph">Phase 0</td><td>Foundation base</td><td class="num">4</td>
           <td class="apps">nijatva-core, no-gms-check, nijatva-design, nijatva-suite</td><td class="num">2-3 weeks</td>
-          <td><span class="st st-done">4 repos created</span></td>
+          <td><span class="st st-done">4 repos, core has code</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 1</td><td>Small apps</td><td class="num">5</td>
           <td class="apps">Calc, Clock, Notes, QR Scanner, Files</td><td class="num">4-6 weeks</td>
-          <td><span class="st st-idle">Not started</span></td>
+          <td><span class="st st-active">Files repo created</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 2</td><td>Media and utility</td><td class="num">6</td>
           <td class="apps">Gallery, Music, Recorder, PDF Viewer, Device Info, Weather</td><td class="num">6-8 weeks</td>
-          <td><span class="st st-idle">Not started</span></td>
+          <td><span class="st st-done">Gallery and Music released</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 3</td><td>Phone roles</td><td class="num">9</td>
           <td class="apps">Dialer, Contacts, SMS, Calendar, Camera, Expenses, Tasks, RSS, Vault</td><td class="num">8-10 weeks</td>
-          <td><span class="st st-active">Camera in progress</span></td>
+          <td><span class="st st-done">4 of 9 released</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 4</td><td>Flagship</td><td class="num">4</td>
           <td class="apps">Keyboard, Launcher, Browser, App Manager</td><td class="num">10-12 weeks</td>
-          <td><span class="st st-done">Browser shipped</span></td>
+          <td><span class="st st-done">Browser released</span></td>
         </tr>
         </tbody>
       </table>
       </div>
-      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. The Browser has public releases; the Camera has public code and tags but no release yet. Nothing in Phases 1 and 2 exists as a repository today, so those rows read "Not started" on purpose.</p>
+      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Seven apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages) and Files has a repository without one. Several of those releases are debug builds, which the app pages say plainly.</p>
       <h3 style="margin:34px 0 10px">Outside the 24</h3>
-      <p class="lead">Three repositories sit beside the plan and are not counted in the table: <code>nijatva-drive</code> (an offline-first file vault on Expo and React Native), <code>nijatva-video-player-multiplatform</code> (Compose Multiplatform for Android, Windows, macOS, Linux and the web) and <code>nijatva-web-store</code> (a userscript store for the Nijatva and Aekant browsers). The Browser's desktop builds ship from the same release pipeline.</p>
+      <p class="lead">Six projects sit beside the plan and are not counted in the table: <b>Nijatva Appstore</b> (the store that ships the suite, with its own page on this site), <code>nijatva-photo-editor</code>, <code>nijatva-browser-mini-x</code>, <code>nijatva-drive</code> (an offline-first file vault on Expo and React Native), <code>nijatva-video-player-multiplatform</code> (Compose Multiplatform for Android, Windows, macOS, Linux and the web) and <code>nijatva-web-store</code> (a userscript store for the Nijatva and Aekant browsers).</p>
     </div>
   </section>
 
@@ -703,7 +711,7 @@ def build_architecture():
         <tr><td class="ph">Crash and analytics</td><td class="no">Crashlytics, Firebase Analytics</td><td class="yes">Nothing, or self-hosted Sentry; local log export</td><td class="apps">Default is nothing</td></tr>
         <tr><td class="ph">Accounts</td><td class="no">Google Sign-In</td><td class="yes">No account at all</td><td class="apps">This is the entire pitch</td></tr>
         <tr><td class="ph">App updates</td><td class="no">Play Core in-app updates</td><td class="yes">Own F-Droid style index on Pages</td><td class="apps">nijatva-suite does this</td></tr>
-        <tr><td class="ph">Distribution</td><td class="no">Play Store</td><td class="yes">APK repository, F-Droid, sideload</td><td class="apps">Signing key never in the repo</td></tr>
+        <tr><td class="ph">Distribution</td><td class="no">Play Store</td><td class="yes">APK repository, Nijatva Appstore, F-Droid, sideload</td><td class="apps">Signing key never in the repo</td></tr>
         </tbody>
       </table>
       </div>
@@ -744,7 +752,7 @@ def build_architecture():
 def build_developer():
     # facts pulled from the GitHub API on 13 November 2026; update the numbers here
     repos = 28
-    apps = len(APPS)
+    apps = len(SUITE)
     shipped = len([a for a in APPS if a["status"] == "shipped"])
     coded = len([a for a in APPS if a["status"] != "planned"])
     maintain = [a for a in APPS if a["status"] != "planned"]

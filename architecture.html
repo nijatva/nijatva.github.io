@@ -177,7 +177,7 @@
     <div class="container">
       <div class="section-heading">
         <div><p class="eyebrow">3 &middot; Roadmap</p><h2 class="section-title">Roadmap and real status</h2></div>
-        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. Four foundation repos exist and are still empty; two apps have real code. Status as of 13 November 2026.</p></div>
+        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and one more has a repository. Status as of 13 November 2026.</p></div>
       </div>
       <div class="scroll">
       <table>
@@ -187,34 +187,34 @@
         <tr>
           <td class="ph">Phase 0</td><td>Foundation base</td><td class="num">4</td>
           <td class="apps">nijatva-core, no-gms-check, nijatva-design, nijatva-suite</td><td class="num">2-3 weeks</td>
-          <td><span class="st st-done">4 repos created</span></td>
+          <td><span class="st st-done">4 repos, core has code</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 1</td><td>Small apps</td><td class="num">5</td>
           <td class="apps">Calc, Clock, Notes, QR Scanner, Files</td><td class="num">4-6 weeks</td>
-          <td><span class="st st-idle">Not started</span></td>
+          <td><span class="st st-active">Files repo created</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 2</td><td>Media and utility</td><td class="num">6</td>
           <td class="apps">Gallery, Music, Recorder, PDF Viewer, Device Info, Weather</td><td class="num">6-8 weeks</td>
-          <td><span class="st st-idle">Not started</span></td>
+          <td><span class="st st-done">Gallery and Music released</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 3</td><td>Phone roles</td><td class="num">9</td>
           <td class="apps">Dialer, Contacts, SMS, Calendar, Camera, Expenses, Tasks, RSS, Vault</td><td class="num">8-10 weeks</td>
-          <td><span class="st st-active">Camera in progress</span></td>
+          <td><span class="st st-done">4 of 9 released</span></td>
         </tr>
         <tr>
           <td class="ph">Phase 4</td><td>Flagship</td><td class="num">4</td>
           <td class="apps">Keyboard, Launcher, Browser, App Manager</td><td class="num">10-12 weeks</td>
-          <td><span class="st st-done">Browser shipped</span></td>
+          <td><span class="st st-done">Browser released</span></td>
         </tr>
         </tbody>
       </table>
       </div>
-      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. The Browser has public releases; the Camera has public code and tags but no release yet. Nothing in Phases 1 and 2 exists as a repository today, so those rows read "Not started" on purpose.</p>
+      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Seven apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages) and Files has a repository without one. Several of those releases are debug builds, which the app pages say plainly.</p>
       <h3 style="margin:34px 0 10px">Outside the 24</h3>
-      <p class="lead">Three repositories sit beside the plan and are not counted in the table: <code>nijatva-drive</code> (an offline-first file vault on Expo and React Native), <code>nijatva-video-player-multiplatform</code> (Compose Multiplatform for Android, Windows, macOS, Linux and the web) and <code>nijatva-web-store</code> (a userscript store for the Nijatva and Aekant browsers). The Browser's desktop builds ship from the same release pipeline.</p>
+      <p class="lead">Six projects sit beside the plan and are not counted in the table: <b>Nijatva Appstore</b> (the store that ships the suite, with its own page on this site), <code>nijatva-photo-editor</code>, <code>nijatva-browser-mini-x</code>, <code>nijatva-drive</code> (an offline-first file vault on Expo and React Native), <code>nijatva-video-player-multiplatform</code> (Compose Multiplatform for Android, Windows, macOS, Linux and the web) and <code>nijatva-web-store</code> (a userscript store for the Nijatva and Aekant browsers).</p>
     </div>
   </section>
 
@@ -236,7 +236,7 @@
         <tr><td class="ph">Crash and analytics</td><td class="no">Crashlytics, Firebase Analytics</td><td class="yes">Nothing, or self-hosted Sentry; local log export</td><td class="apps">Default is nothing</td></tr>
         <tr><td class="ph">Accounts</td><td class="no">Google Sign-In</td><td class="yes">No account at all</td><td class="apps">This is the entire pitch</td></tr>
         <tr><td class="ph">App updates</td><td class="no">Play Core in-app updates</td><td class="yes">Own F-Droid style index on Pages</td><td class="apps">nijatva-suite does this</td></tr>
-        <tr><td class="ph">Distribution</td><td class="no">Play Store</td><td class="yes">APK repository, F-Droid, sideload</td><td class="apps">Signing key never in the repo</td></tr>
+        <tr><td class="ph">Distribution</td><td class="no">Play Store</td><td class="yes">APK repository, Nijatva Appstore, F-Droid, sideload</td><td class="apps">Signing key never in the repo</td></tr>
         </tbody>
       </table>
       </div>

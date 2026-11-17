@@ -9,9 +9,9 @@ Static HTML. No framework, no JavaScript, no external fonts, no analytics.
 
 | Item | State |
 |------|-------|
-| Site | Live at <https://vasudev-work.github.io/> |
+| Site | Live at <https://nijatva.github.io/> |
 | Pages source | `main` branch, `/ (root)`, legacy build, HTTPS enforced, custom 404 active |
-| Repository | `vasudev-work/vasudev-work.github.io`, public |
+| Repository | `nijatva/nijatva.github.io`, public |
 | `nijatva` organisation | **Not created yet** — the transfer below has not happened |
 | Custom domain | Not active. `CNAME.example` is inert and `nijatva.in` is not registered |
 | Repository "Website" field | Points at `https://nijatva.in`, which does not resolve. Clear it, or accept that visitors clicking it land nowhere |
@@ -126,7 +126,7 @@ Pages rebuilds on every push to `main`; the site is live about a minute later.
    (organisation creation cannot be done through the API).
 2. Transfer this repository to it and rename it `nijatva.github.io`. GitHub keeps
    the redirect, and the address becomes `https://nijatva.github.io`.
-3. Search and replace `vasudev-work.github.io` with `nijatva.github.io` in
+3. The URLs already point at `nijatva.github.io`; if the domain changes again, replace them in
    `_build/build.py`, then rebuild. The canonical and `og:` URLs are absolute and
    break silently otherwise.
 

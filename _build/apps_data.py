@@ -157,7 +157,8 @@ STATUS_LABEL = {"shipped": "Shipped", "in-progress": "In progress", "planned": "
 STATUS_CLASS = {"shipped": "shipped", "in-progress": "progress", "planned": "planned"}
 SIZE_LABEL = {"S": "Small build", "M": "Medium build", "L": "Large build"}
 
-GH = "https://github.com/vasudev-work"
-SITE = "https://vasudev-work.github.io"
+GH = "https://github.com/nijatva"
+GH_USER = "https://github.com/vasudev-work"  # the person, not the organisation
+SITE = "https://nijatva.github.io"
 EMAIL = "Vasudev.work@rediffmail.com"
 UPDATED = "13 November 2026"

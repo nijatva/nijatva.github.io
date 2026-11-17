@@ -471,6 +471,15 @@
 </head>
 <body>
 
+  <!-- The page is published under the suite's site, so it needs a way back to it. -->
+  <a id="back-to-site" href="../apps.html" aria-label="Back to the Nijatva apps"
+     style="position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:40;
+            display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;
+            background:rgba(12,14,16,.62);border:1px solid rgba(255,255,255,.14);
+            color:#f3f1ec;font:600 12px/1 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+            letter-spacing:.04em;text-decoration:none;backdrop-filter:blur(10px);
+            -webkit-backdrop-filter:blur(10px)">&#8592; Nijatva</a>
+
 <main class="stage" id="stage">
   <video id="preview" autoplay playsinline muted></video>
   <div class="scrim top"></div>

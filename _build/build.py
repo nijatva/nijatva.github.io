@@ -196,6 +196,8 @@ def footer(root=""):
 
 
 def app_card(app, root="", media_note=False):
+    web_action = (f'\n            <a class="button subtle" href="{root}{app["web"]}">'
+                  f'In the browser</a>') if app.get("web") else ""
     status = STATUS_LABEL[app["status"]]
     cls = STATUS_CLASS[app["status"]]
     note = ""
@@ -217,7 +219,7 @@ def app_card(app, root="", media_note=False):
           </div>
           <p>{E(app["summary"])}</p>{note}
           <div class="app-card-actions">
-            <a class="button primary" href="{root}apps/{app['slug']}.html">View app</a>
+            <a class="button primary" href="{root}apps/{app['slug']}.html">View app</a>{web_action}
           </div>
         </div>
       </article>"""
@@ -505,10 +507,11 @@ def build_app_pages():
             actions.insert(0, f'<a class="button primary" href="{GH}/{app["repo"] if "repo" in app else "nijatva-" + app["slug"]}/releases/latest">Download the APK</a>')
         if app["status"] != "planned" and app.get("source_public", True):
             actions.insert(0, f'<a class="button primary" href="{GH}/nijatva-{app["slug"]}">Source on GitHub</a>')
-        # A web page, where the app has one. Kept as a plain button: two primaries
+        # A web app, where the app has one. Kept as a plain button: two primaries
         # already carry the two things people came for, and a third would shout.
         if app.get("web"):
-            actions.insert(len(actions) - 1, f'<a class="button" href="../{app["web"]}">Open the web page</a>')
+            actions.insert(len(actions) - 1,
+                           f'<a class="button" href="../{app["web"]}">Try it in the browser</a>')
         actions = "\n          ".join(actions)
 
         features = "\n".join(f'        <li>{E(f)}</li>' for f in app["features"])
@@ -856,6 +859,8 @@ def build_static():
     urls = [("", "1.0", "weekly"), ("apps.html", "0.9", "weekly"),
             ("architecture.html", "0.8", "monthly"), ("developer.html", "0.5", "monthly")]
     urls += [(f"apps/{a['slug']}.html", "0.6", "monthly") for a in APPS]
+    # A published web app is a page too, so it belongs in the sitemap.
+    urls += [(a["web"], "0.7", "monthly") for a in APPS + ECOSYSTEM if a.get("web")]
     entries = "\n".join(
         f"  <url>\n    <loc>{SITE}/{u}</loc>\n    <lastmod>2026-11-13</lastmod>\n"
         f"    <changefreq>{c}</changefreq>\n    <priority>{p}</priority>\n  </url>" for u, p, c in urls)

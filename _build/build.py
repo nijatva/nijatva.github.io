@@ -505,6 +505,10 @@ def build_app_pages():
             actions.insert(0, f'<a class="button primary" href="{GH}/{app["repo"] if "repo" in app else "nijatva-" + app["slug"]}/releases/latest">Download the APK</a>')
         if app["status"] != "planned" and app.get("source_public", True):
             actions.insert(0, f'<a class="button primary" href="{GH}/nijatva-{app["slug"]}">Source on GitHub</a>')
+        # A web page, where the app has one. Kept as a plain button: two primaries
+        # already carry the two things people came for, and a third would shout.
+        if app.get("web"):
+            actions.insert(len(actions) - 1, f'<a class="button" href="../{app["web"]}">Open the web page</a>')
         actions = "\n          ".join(actions)
 
         features = "\n".join(f'        <li>{E(f)}</li>' for f in app["features"])

@@ -94,6 +94,7 @@ APPS = [
          summary="Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.",
          features=["Manual ISO, shutter and focus", "RAW capture", "Night stacking and exposure fusion",
                    "Panorama", "A GPS-strip toggle on export"],
+         web="camera/",
          note="v0.4.10 debug build, 17 November 2026. Release signing is not set up yet."),
     dict(slug="expenses", name="Expenses", phase=3, size="M", status="planned", tile="olive",
          summary="Offline expense tracking with CSV export. No bank linking.",

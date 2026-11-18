@@ -28,11 +28,13 @@ APPS = [
          summary="Alarm, timer, stopwatch, world clock. No ads, no upsell.",
          features=["Alarms that survive a reboot", "Timer and stopwatch", "World clock for the cities you pick",
                    "No upsell, no premium tier"]),
-    dict(slug="notes", name="Notes", phase=1, size="S", status="in-progress", tile="green",
+    dict(slug="notes", name="Notes", phase=1, size="S", status="shipped", tile="green",
          summary="Offline Markdown notes with an optional encrypted vault.",
-         features=["Markdown editing with a live preview", "Optional encrypted vault for private notes",
-                   "Plain files in a folder you choose", "Export and import without a cloud account"],
-         note="Repository created, no release yet."),
+         features=["Markdown editing with a preview, autosave and a syntax toolbar",
+                   "Optional encrypted vault: AES-256-GCM, key held in memory only",
+                   "Notebooks, a 30-day trash, search and pins",
+                   "No permissions at all \u2014 not even INTERNET; export through the system picker"],
+         note="v0.3.0 debug build, 17 November 2026."),
     dict(slug="qr", name="QR Scanner", phase=1, size="S", status="planned", tile="teal",
          summary="Scan and generate QR codes offline. Nothing leaves the device.",
          features=["Offline decoding, no upload", "Generate codes for text, links and Wi-Fi",
@@ -207,4 +209,4 @@ GH = "https://github.com/nijatva"
 GH_USER = "https://github.com/vasudev-work"  # the person, not the organisation
 SITE = "https://nijatva.github.io"
 EMAIL = "Vasudev.work@rediffmail.com"
-UPDATED = "13 November 2026"
+UPDATED = "18 November 2026"

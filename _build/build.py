@@ -292,10 +292,10 @@ def build_index():
       <div class="section-heading">
         <div>
           <p class="eyebrow">Available now</p>
-          <h2 class="section-title">Seven apps ship releases</h2>
+          <h2 class="section-title">Eight apps ship releases</h2>
         </div>
         <div>
-          <p class="lead">Seven of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
+          <p class="lead">Eight of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
           <a class="section-link" href="apps.html">View the full list</a>
         </div>
       </div>
@@ -349,7 +349,7 @@ def build_index():
       <article class="panel">
         <p class="eyebrow">Status</p>
         <h2>What exists today</h2>
-        <p>Seven apps have releases, two more have repositories without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
+        <p>Eight apps have releases, one more has a repository without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
         <div class="text-link-list"><a href="architecture.html#roadmap">Real status</a></div>
       </article>
       <article class="panel">
@@ -442,7 +442,7 @@ def build_apps():
         <div>
           <p class="eyebrow">Apps</p>
           <h1 class="page-title">The Nijatva suite</h1>
-          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Seven have releases today, two have repositories, fifteen are planned, and every card says which.</p>
+          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Eight have releases today, one has a repository, fifteen are planned, and every card says which.</p>
           <div class="actions" style="margin-top:22px">
 {chips}
           </div>
@@ -488,7 +488,7 @@ def build_apps():
 
 </main>
 {footer("")}"""
-    return head("Apps — Nijatva", "All 24 Nijatva Android apps by phase, with honest release status: two have code today, twenty-two are planned.",
+    return head("Apps — Nijatva", "All 24 Nijatva Android apps by phase, with honest release status: eight have releases today, one is in progress, fifteen are planned.",
                 SITE + "/apps.html") + body
 
 
@@ -659,7 +659,7 @@ def build_architecture():
     <div class="container">
       <div class="section-heading">
         <div><p class="eyebrow">3 &middot; Roadmap</p><h2 class="section-title">Roadmap and real status</h2></div>
-        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and two more have repositories. Status as of {UPDATED}.</p></div>
+        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, eight apps ship releases and one more has a repository. Status as of {UPDATED}.</p></div>
       </div>
       <div class="scroll">
       <table>
@@ -694,7 +694,7 @@ def build_architecture():
         </tbody>
       </table>
       </div>
-      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Seven apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages); Files and Notes have repositories without one. Several of those releases are debug builds, which the app pages say plainly.</p>
+      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Eight apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages, Notes); Files has a repository without one. Several of those releases are debug builds, which the app pages say plainly.</p>
       <h3 style="margin:34px 0 10px">Outside the 24</h3>
       <p class="lead">Seven projects sit beside the plan and are not counted in the table. Each has its own page on the apps screen: the Appstore, Photos, Video Player, Drive, Browser Mini X, Photo Editor and the Web Store. Two of them are not one app but a family: the video player ships for Android, Windows, macOS, Linux and the web from one Compose Multiplatform codebase, and <code>nijatva-video-player</code> is its Android-only sibling.</p>
     </div>

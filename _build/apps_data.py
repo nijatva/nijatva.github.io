@@ -28,14 +28,11 @@ APPS = [
          summary="Alarm, timer, stopwatch, world clock. No ads, no upsell.",
          features=["Alarms that survive a reboot", "Timer and stopwatch", "World clock for the cities you pick",
                    "No upsell, no premium tier"]),
-    dict(slug="notes", name="Notes", phase=1, size="S", status="shipped", tile="green",
+    dict(slug="notes", name="Notes", phase=1, size="S", status="in-progress", tile="green",
          summary="Offline Markdown notes with an optional encrypted vault.",
-         features=["Markdown editing with a preview, autosave and a syntax toolbar",
-                   "Optional encrypted vault: AES-256-GCM, key held in memory only",
-                   "Notebooks, a 30-day trash, search and pins",
-                   "No permissions at all \u2014 not even INTERNET; export through the system picker"],
-         web="notes/",
-         note="v0.3.0 debug build, 17 November 2026. A browser version opens at /notes/."),
+         features=["Markdown editing with a live preview", "Optional encrypted vault for private notes",
+                   "Plain files in a folder you choose", "Export and import without a cloud account"],
+         note="Repository created, no release yet."),
     dict(slug="qr", name="QR Scanner", phase=1, size="S", status="planned", tile="teal",
          summary="Scan and generate QR codes offline. Nothing leaves the device.",
          features=["Offline decoding, no upload", "Generate codes for text, links and Wi-Fi",
@@ -51,7 +48,6 @@ APPS = [
          summary="Local-first gallery with albums and EXIF stripping on share.",
          features=["Albums built from your own folders", "EXIF stripped when you share a photo",
                    "No cloud backup, no sync target", "Video plays in the same grid"],
-         web="gallery/",
          note="v0.1.3 debug build, 17 November 2026."),
     dict(slug="music", name="Music", phase=2, size="M", status="shipped", tile="maroon",
          summary="Offline, folder-based player with an equaliser and sleep timer.",
@@ -98,7 +94,6 @@ APPS = [
          summary="Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.",
          features=["Manual ISO, shutter and focus", "RAW capture", "Night stacking and exposure fusion",
                    "Panorama", "A GPS-strip toggle on export"],
-         web="camera/",
          note="v0.4.10 debug build, 17 November 2026. Release signing is not set up yet."),
     dict(slug="expenses", name="Expenses", phase=3, size="M", status="planned", tile="olive",
          summary="Offline expense tracking with CSV export. No bank linking.",
@@ -210,4 +205,4 @@ GH = "https://github.com/nijatva"
 GH_USER = "https://github.com/vasudev-work"  # the person, not the organisation
 SITE = "https://nijatva.github.io"
 EMAIL = "Vasudev.work@rediffmail.com"
-UPDATED = "18 November 2026"
+UPDATED = "13 November 2026"

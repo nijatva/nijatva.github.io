@@ -1017,6 +1017,11 @@ def build_static():
             ("architecture.html", "0.8", "monthly"), ("developer.html", "0.5", "monthly"),
             ("search.html", "0.4", "monthly")]
     urls += [(f"apps/{a['slug']}.html", "0.6", "monthly") for a in APPS]
+    # A browser build served from this repository is a page of this site, so it belongs
+    # in the sitemap. Absolute URLs point at another repository's Pages site, which has
+    # its own sitemap; listing them here would claim pages this site does not serve.
+    urls += [(a["web"], "0.7", "monthly") for a in APPS + ECOSYSTEM
+             if a.get("web") and not a["web"].startswith("http")]
     entries = "\n".join(
         f"  <url>\n    <loc>{SITE}/{u}</loc>\n    <lastmod>2026-11-13</lastmod>\n"
         f"    <changefreq>{c}</changefreq>\n    <priority>{p}</priority>\n  </url>" for u, p, c in urls)

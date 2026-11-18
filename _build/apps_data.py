@@ -56,7 +56,7 @@ APPS = [
     dict(slug="music", name="Music", phase=2, size="M", status="shipped", tile="slate",
          repo="nijatva-music-player",
          web="https://nijatva.github.io/nijatva-music-player/player/",
-         download_page="https://nijatva.github.io/nijatva-music-player/",
+         website="https://nijatva.github.io/nijatva-music-player/",
          summary="Offline player for the music already on your phone: background playback, equaliser and sleep timer.",
          features=["Library from MediaStore, with a folders view",
                    "Keeps playing in the background, with lock-screen controls",

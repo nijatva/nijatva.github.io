@@ -513,8 +513,8 @@ def build_app_pages():
         actions = [f'<a class="button" href="../apps.html">All apps</a>']
         if app["status"] != "planned" and app.get("source_public", True):
             actions.insert(0, f'<a class="button" href="{GH}/{repo_name}">Source on GitHub</a>')
-        if app.get("download_page"):
-            actions.insert(0, f'<a class="button" href="{app["download_page"]}">Download page</a>')
+        if app.get("website"):
+            actions.insert(0, f'<a class="button" href="{app["website"]}">Website</a>')
         if app["status"] == "shipped":
             actions.insert(0, f'<a class="button primary" href="{GH}/{repo_name}/releases/latest">Download</a>')
         if app.get("web"):

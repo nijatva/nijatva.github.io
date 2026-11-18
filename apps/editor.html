@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Photo Editor — Nijatva</title>
-<meta name="description" content="Photo Editor — A standalone, fully offline editor for photos already on the device. Non-destructive, no internet permission, APK plus a browser edition.">
+<meta name="description" content="Photo Editor — Offline, non-destructive editor for the photos already on your phone: curves, eight-channel HSL, six mask types, markup and real redaction.">
 <meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -48,7 +48,7 @@
 <meta property="og:site_name" content="Nijatva">
 <meta property="og:locale" content="en_IN">
 <meta property="og:title" content="Photo Editor — Nijatva">
-<meta property="og:description" content="Photo Editor — A standalone, fully offline editor for photos already on the device. Non-destructive, no internet permission, APK plus a browser edition.">
+<meta property="og:description" content="Photo Editor — Offline, non-destructive editor for the photos already on your phone: curves, HSL, masks, markup and real redaction.">
 <meta property="og:url" content="https://nijatva.github.io/apps/editor.html">
 <meta property="og:image" content="https://nijatva.github.io/og.png">
 <meta property="og:image:width" content="1200">
@@ -127,28 +127,29 @@
           <div>
             <h1>Photo Editor</h1>
             <div class="badge-row">
-              <span class="status-badge shipped">Released</span>
+              <span class="status-badge shipped">Shipped</span>
               <span class="badge">Medium build</span>
               <span class="badge">Ecosystem</span>
             </div>
           </div>
         </div>
-        <p class="lead">A standalone, fully offline editor for photos already on the device. Non-destructive, no internet permission, APK plus a browser edition.</p>
+        <p class="lead">Offline, non-destructive editor for the photos already on your phone: curves, eight-channel HSL, six mask types, markup and real redaction.</p>
         <div class="actions">
-          <a class="button primary" href="https://github.com/nijatva/nijatva-photo-editor/releases/download/v1.5.0/Nijatva-Editor-1.5.0.apk">Download APK &middot; v1.5.0</a>
-          <a class="button" href="https://nijatva.github.io/nijatva-photo-editor/app/">Open web app</a>
+          <a class="button primary" href="https://nijatva.github.io/nijatva-photo-editor/app/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open web app</a>
+          <a class="button primary" href="https://github.com/nijatva/nijatva-photo-editor/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Download</a>
+          <a class="button" href="https://nijatva.github.io/nijatva-photo-editor/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a3.9 3.9 0 0 0 5.5 0l2.2-2.2a3.9 3.9 0 0 0-5.5-5.5l-1.1 1.1"/><path d="M13.4 10.6a3.9 3.9 0 0 0-5.5 0l-2.2 2.2a3.9 3.9 0 0 0 5.5 5.5l1.1-1.1"/></svg>Website</a>
           <a class="button" href="https://github.com/nijatva/nijatva-photo-editor">Source on GitHub</a>
           <a class="button" href="../apps.html">All apps</a>
         </div>
-      <p class="note"><strong>Released 18 November 2026 — v1.5.0.</strong> Signed APK for Android 8.0 and newer, 6.3&nbsp;MB, updates over older builds signed with the same key. The <a href="https://nijatva.github.io/nijatva-photo-editor/app/">browser edition</a> needs no install and no upload: open a photo, edit it, export it — every pixel stays in the tab.</p>
+      <p class="note">v1.5.0 release build, 18 November 2026.</p>
       </div>
       <dl class="app-meta">
-        <div><dt>Status</dt><dd>Released &middot; v1.5.0</dd></div>
+        <div><dt>Status</dt><dd>Shipped</dd></div>
         <div><dt>Part of</dt><dd>The ecosystem, not the 24</dd></div>
         <div><dt>Build size</dt><dd>Medium build</dd></div>
         <div><dt>Repository</dt><dd><a href="https://github.com/nijatva/nijatva-photo-editor">nijatva-photo-editor</a></dd></div>
+        <div><dt>Web app</dt><dd><a href="https://nijatva.github.io/nijatva-photo-editor/app/">Open in browser</a></dd></div>
         <div><dt>Store</dt><dd>None &middot; APK + web app</dd></div>
-        <div><dt>Web app</dt><dd><a href="https://nijatva.github.io/nijatva-photo-editor/app/">nijatva.github.io/&hellip;/app</a></dd></div>
       </dl>
     </div>
   </section>
@@ -156,14 +157,17 @@
   <section class="section" style="border-bottom:0">
     <div class="container" style="max-width:760px">
       <p class="eyebrow">What it does</p>
-      <h2 class="section-title">Features in the build</h2>
+      <h2 class="section-title">Shipped features</h2>
       <ul class="feature-list">
-        <li>Edits stay on the device</li>
-        <li>Opens from any folder you grant</li>
-        <li>Planned as a handoff target for Photos and Camera</li>
-        <li>No upload, no account</li>
+        <li>Non-destructive edit stack with unlimited undo and redo</li>
+        <li>Tone curve, eight-channel HSL mixer and detail controls</li>
+        <li>Six mask types &mdash; brush, gradients, light and colour ranges, eraser</li>
+        <li>Markup with real pixelate, blur and blackout redaction</li>
+        <li>Healing brush, thirteen presets, split compare and a live histogram</li>
+        <li>Runs in the browser too, no install, nothing uploaded</li>
+        <li>No INTERNET permission, so no photo can ever leave the device</li>
       </ul>
-      <p class="lead" style="margin-top:28px;font-size:15.5px">This is the store itself: every other app on this site installs through it. No Google Play Services, no account, no ads, no analytics.</p>
+      <p class="lead" style="margin-top:28px;font-size:15.5px">Like every app in the suite: no Google Play Services, no account, no ads, no analytics. Distribution is an APK, never a store.</p>
     </div>
   </section>
 
@@ -217,7 +221,7 @@
       </div>
     </div>
     <div class="footer-legal">
-      <span>Status as of 18 November 2026. Nijatva &middot; India</span>
+      <span>Status as of 13 November 2026. Nijatva &middot; India</span>
       <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
     </div>
   </div>

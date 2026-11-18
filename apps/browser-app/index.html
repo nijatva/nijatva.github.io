@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nijatva Web</title>
+<meta name="theme-color" content="#0a0a0a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root{--bg:#0a0a0a;--surf:#151515;--surf2:#1f1f1f;--line:#2a2a2a;
+        --fg:#f2f2f2;--dim:#9a9a9a;--brand:#ff6a00;--ok:#2ecc71}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--fg);display:flex;flex-direction:column;
+       font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       -webkit-font-smoothing:antialiased}
+  button{font-family:inherit}
+
+  /* tabs */
+  .tabs{display:flex;gap:6px;padding:8px 10px 0;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{display:flex;align-items:center;gap:8px;flex:none;max-width:180px;
+       background:var(--surf);border:1px solid var(--line);border-radius:12px 12px 0 0;
+       padding:8px 10px;font-size:13px;color:var(--dim);cursor:pointer}
+  .tab.on{background:var(--surf2);color:var(--fg);border-bottom-color:var(--surf2)}
+  .tab span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:120px}
+  .tab .x{opacity:.5;font-size:15px;line-height:1}
+  .tab .x:hover{opacity:1}
+  .newtab{flex:none;background:none;border:1px dashed var(--line);color:var(--dim);
+          border-radius:12px;width:34px;height:34px;font-size:18px;cursor:pointer}
+
+  /* bar */
+  .bar{display:flex;gap:8px;align-items:center;padding:8px 10px;background:var(--surf2);
+       border-bottom:1px solid var(--line)}
+  .bar button{background:none;border:0;color:var(--fg);font-size:17px;padding:6px 8px;
+              border-radius:9px;cursor:pointer}
+  .bar button:active{background:#2c2c2c}
+  .bar button:disabled{opacity:.3}
+  form{flex:1;display:flex;margin:0}
+  input[type=text]{flex:1;background:var(--bg);border:1px solid var(--line);color:var(--fg);
+    border-radius:999px;padding:10px 16px;font-size:14px;outline:none}
+  input[type=text]:focus{border-color:var(--brand)}
+
+  /* page */
+  .stage{flex:1;position:relative;background:#101010}
+  iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+  .notice{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;
+    justify-content:center;gap:14px;padding:28px;text-align:center;color:var(--dim);background:#101010}
+  .notice.on{display:flex}
+  .notice h3{margin:0;color:var(--fg);font-size:16px}
+  .notice p{margin:0;max-width:420px;font-size:13.5px}
+  .notice a{color:#160a00;background:var(--brand);text-decoration:none;font-weight:700;
+    padding:11px 20px;border-radius:999px}
+
+  /* home */
+  .home{position:absolute;inset:0;overflow:auto;padding:26px 18px;display:none}
+  .home.on{display:block}
+  .home h1{font-size:26px;margin:0 0 6px;letter-spacing:-.6px}
+  .home p{color:var(--dim);margin:0 0 20px;font-size:14px}
+  .quick{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-bottom:26px}
+  .q{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:14px 10px;
+     text-align:center;font-size:12.5px;color:var(--dim);cursor:pointer}
+  .q b{display:block;font-size:19px;color:var(--fg);margin-bottom:6px;font-weight:800}
+  .q:hover{border-color:#3a3a3a}
+  .sect{font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);
+        font-weight:700;margin:22px 0 8px}
+  .row{display:flex;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line);
+       cursor:pointer}
+  .row:last-child{border-bottom:0}
+  .row .t{flex:1;min-width:0}
+  .row .t div:first-child{font-size:14px;color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .row .t div:last-child{font-size:12px;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .row .del{opacity:.45;padding:4px 8px}
+  .row .del:hover{opacity:1}
+  .empty{color:var(--dim);font-size:13.5px;padding:10px 2px}
+
+  /* bottom */
+  nav{display:flex;border-top:1px solid var(--line);background:var(--surf)}
+  nav button{flex:1;background:none;border:0;color:var(--dim);padding:10px 4px 12px;
+             font-size:11px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+  nav button b{font-size:17px;font-weight:400}
+  nav button.on{color:var(--brand)}
+</style>
+</head>
+<body>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="bar">
+  <button id="back" title="Back">&#8592;</button>
+  <button id="fwd" title="Forward">&#8594;</button>
+  <form id="go" autocomplete="off">
+    <input id="url" type="text" placeholder="Search or enter address" spellcheck="false">
+  </form>
+  <button id="reload" title="Reload">&#8635;</button>
+</div>
+
+<div class="stage">
+  <iframe id="frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          referrerpolicy="no-referrer" title="Page"></iframe>
+
+  <div class="notice" id="notice">
+    <h3>This site will not open in a frame</h3>
+    <p id="noticeText">It sends a header that forbids it. That is the site's choice and no page can override it.</p>
+    <a id="openOut" href="#" target="_blank" rel="noopener">Open in a new tab</a>
+  </div>
+
+  <div class="home on" id="home">
+    <h1>Nijatva Web</h1>
+    <p>A window with tabs, bookmarks and history, kept on this device.</p>
+    <div class="quick">
+      <div class="q" data-go="https://example.com"><b>E</b>example.com</div>
+      <div class="q" data-go="https://en.m.wikipedia.org"><b>W</b>Wikipedia</div>
+      <div class="q" data-go="https://lite.duckduckgo.com/lite/"><b>D</b>DuckDuckGo</div>
+      <div class="q" data-go="https://vasudev-work.github.io/nijatva-web-store/"><b>N</b>Store</div>
+    </div>
+
+    <div class="sect">Bookmarks</div>
+    <div id="bmlist"></div>
+
+    <div class="sect">History</div>
+    <div id="histlist"></div>
+  </div>
+</div>
+
+<nav>
+  <button id="nHome" class="on"><b>&#8962;</b>Home</button>
+  <button id="nMark"><b>&#9733;</b>Bookmark</button>
+  <button id="nClear"><b>&#128465;</b>Clear</button>
+  <button id="nApp"><b>&#8942;</b>App</button>
+</nav>
+
+<script>
+(function () {
+  'use strict';
+  var frame = document.getElementById('frame');
+  var urlBox = document.getElementById('url');
+  var notice = document.getElementById('notice');
+  var home = document.getElementById('home');
+  var tabsEl = document.getElementById('tabs');
+
+  var LS = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
+  };
+
+  var tabs = LS.get('nj_tabs', [{ url: '', title: 'New tab' }]);
+  var active = 0;
+  var bookmarks = LS.get('nj_bookmarks', []);
+  var history = LS.get('nj_history', []);
+
+  function save() {
+    LS.set('nj_tabs', tabs.map(function (t) { return { url: t.url, title: t.title }; }));
+    LS.set('nj_bookmarks', bookmarks);
+    LS.set('nj_history', history.slice(0, 200));
+  }
+
+  function host(u) {
+    try { return new URL(u).host.replace(/^www\./, ''); } catch (e) { return u; }
+  }
+
+  function looksLikeUrl(s) {
+    if (/^https?:\/\//i.test(s)) return true;
+    return /^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(s) && s.indexOf(' ') < 0;
+  }
+
+  function searchUrl(q) {
+    return 'https://lite.duckduckgo.com/lite/?q=' + encodeURIComponent(q);
+  }
+
+  function drawTabs() {
+    tabsEl.innerHTML = '';
+    tabs.forEach(function (t, i) {
+      var el = document.createElement('div');
+      el.className = 'tab' + (i === active ? ' on' : '');
+      var s = document.createElement('span');
+      s.textContent = t.title || 'New tab';
+      var x = document.createElement('div');
+      x.className = 'x';
+      x.innerHTML = '&times;';
+      x.onclick = function (ev) { ev.stopPropagation(); closeTab(i); };
+      el.appendChild(s);
+      el.appendChild(x);
+      el.onclick = function () { select(i); };
+      tabsEl.appendChild(el);
+    });
+    var add = document.createElement('button');
+    add.className = 'newtab';
+    add.textContent = '+';
+    add.onclick = function () { newTab(''); };
+    tabsEl.appendChild(add);
+  }
+
+  function drawHome() {
+    var bm = document.getElementById('bmlist');
+    bm.innerHTML = '';
+    if (!bookmarks.length) {
+      bm.innerHTML = '<div class="empty">Nothing saved yet. Tap the star while a page is open.</div>';
+    } else {
+      bookmarks.slice().reverse().forEach(function (b, ri) {
+        var idx = bookmarks.length - 1 - ri;
+        bm.appendChild(row(b.title, b.url, function () { open(b.url); }, function () {
+          bookmarks.splice(idx, 1); save(); drawHome();
+        }));
+      });
+    }
+
+    var hs = document.getElementById('histlist');
+    hs.innerHTML = '';
+    if (!history.length) {
+      hs.innerHTML = '<div class="empty">No pages opened yet.</div>';
+    } else {
+      history.slice(0, 12).forEach(function (h, i) {
+        hs.appendChild(row(h.title, host(h.url), function () { open(h.url); }, null));
+      });
+    }
+  }
+
+  function row(title, sub, onClick, onDel) {
+    var r = document.createElement('div');
+    r.className = 'row';
+    var t = document.createElement('div');
+    t.className = 't';
+    var a = document.createElement('div'); a.textContent = title || sub;
+    var b = document.createElement('div'); b.textContent = sub;
+    t.appendChild(a); t.appendChild(b);
+    r.appendChild(t);
+    if (onDel) {
+      var d = document.createElement('div');
+      d.className = 'del';
+      d.innerHTML = '&times;';
+      d.onclick = function (ev) { ev.stopPropagation(); onDel(); };
+      r.appendChild(d);
+    }
+    r.onclick = onClick;
+    return r;
+  }
+
+  function showHome(on) {
+    home.classList.toggle('on', on);
+    frame.style.display = on ? 'none' : 'block';
+    notice.classList.remove('on');
+    document.getElementById('nHome').classList.toggle('on', on);
+  }
+
+  function open(input) {
+    var target = input;
+    if (!target) return;
+    if (!looksLikeUrl(target)) target = searchUrl(target);
+    else if (!/^https?:\/\//i.test(target)) target = 'https://' + target;
+
+    var t = tabs[active];
+    t.url = target;
+    t.title = host(target);
+    urlBox.value = target;
+    showHome(false);
+    notice.classList.remove('on');
+    frame.src = target;
+
+    history = history.filter(function (h) { return h.url !== target; });
+    history.unshift({ url: target, title: t.title, at: Date.now() });
+    save();
+    drawTabs();
+  }
+
+  function select(i) {
+    active = i;
+    drawTabs();
+    var t = tabs[i];
+    urlBox.value = t.url || '';
+    if (!t.url) { showHome(true); drawHome(); }
+    else { showHome(false); frame.src = t.url; }
+  }
+
+  function newTab(url) {
+    tabs.push({ url: '', title: 'New tab' });
+    active = tabs.length - 1;
+    drawTabs();
+    if (url) open(url); else select(active);
+  }
+
+  function closeTab(i) {
+    tabs.splice(i, 1);
+    if (!tabs.length) tabs.push({ url: '', title: 'New tab' });
+    active = Math.min(active, tabs.length - 1);
+    select(active);
+    save();
+  }
+
+  document.getElementById('go').addEventListener('submit', function (e) {
+    e.preventDefault();
+    open(urlBox.value.trim());
+  });
+
+  document.getElementById('back').onclick = function () { try { frame.contentWindow.history.back(); } catch (e) { } };
+  document.getElementById('fwd').onclick = function () { try { frame.contentWindow.history.forward(); } catch (e) { } };
+  document.getElementById('reload').onclick = function () {
+    if (tabs[active].url) frame.src = tabs[active].url;
+  };
+
+  document.getElementById('nHome').onclick = function () { showHome(true); drawHome(); };
+  document.getElementById('nMark').onclick = function () {
+    var u = tabs[active].url;
+    if (!u) { urlBox.focus(); return; }
+    bookmarks = bookmarks.filter(function (b) { return b.url !== u; });
+    bookmarks.push({ url: u, title: tabs[active].title || host(u) });
+    save();
+    document.getElementById('nMark').classList.add('on');
+    setTimeout(function () { document.getElementById('nMark').classList.remove('on'); }, 600);
+  };
+  document.getElementById('nClear').onclick = function () {
+    history = []; save(); drawHome();
+  };
+  document.getElementById('nApp').onclick = function () {
+    location.href = '../../';
+  };
+
+  document.querySelectorAll('.q').forEach(function (q) {
+    q.onclick = function () { open(q.getAttribute('data-go')); };
+  });
+
+  // a frame that stays blank after a while is almost always a site that refuses framing
+  var guard = null;
+  frame.addEventListener('load', function () {
+    clearTimeout(guard);
+    notice.classList.remove('on');
+    try {
+      var d = frame.contentDocument;
+      if (d && d.location && d.location.href === 'about:blank') throw 0;
+    } catch (e) { }
+  });
+  frame.addEventListener('error', function () { blocked(); });
+
+  function blocked() {
+    var u = tabs[active].url || '';
+    document.getElementById('openOut').href = u;
+    notice.classList.add('on');
+  }
+
+  urlBox.addEventListener('focus', function () { urlBox.select(); });
+
+  select(active);
+  drawHome();
+  save();
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () { });
+    });
+  }
+})();
+</script>
+</body>
+</html>

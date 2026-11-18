@@ -461,7 +461,6 @@
     previewEl.classList.remove("on");
     bodyEl.style.display = "";
     var text = isLocked(n) ? (n._plain || "") : (n.body || "");
-    var sep = text.indexOf("\n");
     titleEl.value = isLocked(n) ? (n._plainTitle || n.title || "") : (n.title || "");
     bodyEl.value = isLocked(n) ? (n._plain || "") : text;
     updateStamp(n);
@@ -496,7 +495,9 @@
     if (isLocked(n)) {
       n._plain = body;
       n._plainTitle = title;
-      n.title = title;           // shown only while unlocked in this session
+      // The title is encrypted with the body: a locked note must not leave a
+      // readable title behind in local storage.
+      n.title = "";
       encryptNote(n, title, body);
     } else {
       n.title = title;
@@ -766,7 +767,8 @@
     var html = '<div class="menu">' + rows.map(function (r, i) {
       return '<button type="button" data-i="' + i + '"' + (r.danger ? ' class="danger"' : "") + ">" + r.label + "</button>";
     }).join("") + "</div>";
-    var d = dialog(n.title || "Untitled note", "", html, []);
+    var heading = n.title || (isLocked(n) ? "Locked note" : "Untitled note");
+    var d = dialog(heading, "", html, []);
     d.querySelectorAll(".menu button").forEach(function (b) {
       b.onclick = function () { d.close(); rows[+b.getAttribute("data-i")].run(); };
     });

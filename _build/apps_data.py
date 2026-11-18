@@ -48,6 +48,7 @@ APPS = [
          summary="Local-first gallery with albums and EXIF stripping on share.",
          features=["Albums built from your own folders", "EXIF stripped when you share a photo",
                    "No cloud backup, no sync target", "Video plays in the same grid"],
+         web="gallery/",
          note="v0.1.3 debug build, 17 November 2026."),
     dict(slug="music", name="Music", phase=2, size="M", status="shipped", tile="maroon",
          summary="Offline, folder-based player with an equaliser and sleep timer.",

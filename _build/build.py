@@ -128,6 +128,9 @@ def header(root="", current=""):
     <nav class="nav" aria-label="Primary">
 {links}
     </nav>
+    <a class="header-search" href="{root}search.html" aria-label="Search the site">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.4"/><path d="M15.6 15.6L21 21"/></svg>
+    </a>
 {APPEARANCE}    <details class="nav-menu">
       <summary><span class="menu-icon" aria-hidden="true"></span><span>Menu</span></summary>
       <nav class="nav-menu-panel" aria-label="Mobile">
@@ -196,8 +199,6 @@ def footer(root=""):
 
 
 def app_card(app, root="", media_note=False):
-    web_action = (f'\n            <a class="button subtle" href="{root}{app["web"]}">'
-                  f'In the browser</a>') if app.get("web") else ""
     status = STATUS_LABEL[app["status"]]
     cls = STATUS_CLASS[app["status"]]
     note = ""
@@ -219,7 +220,7 @@ def app_card(app, root="", media_note=False):
           </div>
           <p>{E(app["summary"])}</p>{note}
           <div class="app-card-actions">
-            <a class="button primary" href="{root}apps/{app['slug']}.html">View app</a>{web_action}
+            <a class="button primary" href="{root}apps/{app['slug']}.html">View app</a>
           </div>
         </div>
       </article>"""
@@ -292,10 +293,10 @@ def build_index():
       <div class="section-heading">
         <div>
           <p class="eyebrow">Available now</p>
-          <h2 class="section-title">Eight apps ship releases</h2>
+          <h2 class="section-title">Seven apps ship releases</h2>
         </div>
         <div>
-          <p class="lead">Eight of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
+          <p class="lead">Seven of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
           <a class="section-link" href="apps.html">View the full list</a>
         </div>
       </div>
@@ -349,7 +350,7 @@ def build_index():
       <article class="panel">
         <p class="eyebrow">Status</p>
         <h2>What exists today</h2>
-        <p>Eight apps have releases, one more has a repository without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
+        <p>Seven apps have releases, two more have repositories without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
         <div class="text-link-list"><a href="architecture.html#roadmap">Real status</a></div>
       </article>
       <article class="panel">
@@ -442,7 +443,7 @@ def build_apps():
         <div>
           <p class="eyebrow">Apps</p>
           <h1 class="page-title">The Nijatva suite</h1>
-          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Eight have releases today, one has a repository, fifteen are planned, and every card says which.</p>
+          <p class="lead">Twenty-four Android apps for photos, files, calls, messages, music, notes, documents, the keyboard and the home screen. Seven have releases today, two have repositories, fifteen are planned, and every card says which.</p>
           <div class="actions" style="margin-top:22px">
 {chips}
           </div>
@@ -488,7 +489,7 @@ def build_apps():
 
 </main>
 {footer("")}"""
-    return head("Apps — Nijatva", "All 24 Nijatva Android apps by phase, with honest release status: eight have releases today, one is in progress, fifteen are planned.",
+    return head("Apps — Nijatva", "All 24 Nijatva Android apps by phase, with honest release status: two have code today, twenty-two are planned.",
                 SITE + "/apps.html") + body
 
 
@@ -507,11 +508,6 @@ def build_app_pages():
             actions.insert(0, f'<a class="button primary" href="{GH}/{app["repo"] if "repo" in app else "nijatva-" + app["slug"]}/releases/latest">Download the APK</a>')
         if app["status"] != "planned" and app.get("source_public", True):
             actions.insert(0, f'<a class="button primary" href="{GH}/nijatva-{app["slug"]}">Source on GitHub</a>')
-        # A web app, where the app has one. Kept as a plain button: two primaries
-        # already carry the two things people came for, and a third would shout.
-        if app.get("web"):
-            actions.insert(len(actions) - 1,
-                           f'<a class="button" href="../{app["web"]}">Try it in the browser</a>')
         actions = "\n          ".join(actions)
 
         features = "\n".join(f'        <li>{E(f)}</li>' for f in app["features"])
@@ -659,7 +655,7 @@ def build_architecture():
     <div class="container">
       <div class="section-heading">
         <div><p class="eyebrow">3 &middot; Roadmap</p><h2 class="section-title">Roadmap and real status</h2></div>
-        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, eight apps ship releases and one more has a repository. Status as of {UPDATED}.</p></div>
+        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and two more have repositories. Status as of {UPDATED}.</p></div>
       </div>
       <div class="scroll">
       <table>
@@ -694,7 +690,7 @@ def build_architecture():
         </tbody>
       </table>
       </div>
-      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Eight apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages, Notes); Files has a repository without one. Several of those releases are debug builds, which the app pages say plainly.</p>
+      <p class="note" style="margin-top:22px">7 apps are easy, 12 medium and 5 hard. The timeline assumes part-time work and is a floor, not a promise. Seven apps have public releases (Browser, Camera, Gallery, Music, Dialer, Contacts, Messages); Files and Notes have repositories without one. Several of those releases are debug builds, which the app pages say plainly.</p>
       <h3 style="margin:34px 0 10px">Outside the 24</h3>
       <p class="lead">Seven projects sit beside the plan and are not counted in the table. Each has its own page on the apps screen: the Appstore, Photos, Video Player, Drive, Browser Mini X, Photo Editor and the Web Store. Two of them are not one app but a family: the video player ships for Android, Windows, macOS, Linux and the web from one Compose Multiplatform codebase, and <code>nijatva-video-player</code> is its Android-only sibling.</p>
     </div>
@@ -834,6 +830,147 @@ def build_developer():
                 SITE + "/developer.html") + body
 
 
+
+# ---------------------------------------------------------------- search
+SEARCH_SCRIPT = """
+(function () {
+  var INDEX = window.NIJATVA_INDEX || [];
+  var q = document.getElementById("q");
+  var list = document.getElementById("results");
+  var count = document.getElementById("count");
+  var all = INDEX.slice();
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function mark(text, needle) {
+    if (!needle) return esc(text);
+    var i = text.toLowerCase().indexOf(needle);
+    if (i < 0) return esc(text);
+    return esc(text.slice(0, i)) + "<mark>" + esc(text.slice(i, i + needle.length)) + "</mark>" + esc(text.slice(i + needle.length));
+  }
+
+  function score(item, terms) {
+    var name = item.n.toLowerCase();
+    var keys = (item.k || "").toLowerCase();
+    var sum = (item.s || "").toLowerCase();
+    var total = 0;
+    for (var t = 0; t < terms.length; t++) {
+      var term = terms[t];
+      if (name === term) total += 100;
+      else if (name.indexOf(term) === 0) total += 60;
+      else if (name.indexOf(term) > -1) total += 40;
+      else if (keys.indexOf(term) > -1) total += 18;
+      else if (sum.indexOf(term) > -1) total += 8;
+      else return 0;                       // every term has to match somewhere
+    }
+    return total;
+  }
+
+  function render(items, terms, query) {
+    list.innerHTML = "";
+    if (!items.length) {
+      list.innerHTML = '<li class="search-empty">Nothing matches <strong>' + esc(query) +
+        '</strong>. Try "notes", "browser", "vault" or "camera".</li>';
+      count.textContent = "";
+      return;
+    }
+    count.textContent = items.length + (items.length === 1 ? " result" : " results");
+    items.forEach(function (item) {
+      var li = document.createElement("li");
+      li.className = "search-hit";
+      li.innerHTML =
+        '<a href="' + item.u + '">' +
+          '<img src="assets/icons/' + item.i + '.svg" alt="" width="44" height="44" loading="lazy">' +
+          "<div>" +
+            "<strong>" + mark(item.n, terms[0]) + "</strong>" +
+            '<span class="search-kind">' + esc(item.st) + "</span>" +
+            "<p>" + esc(item.s) + "</p>" +
+          "</div>" +
+        "</a>";
+      list.appendChild(li);
+    });
+  }
+
+  function run() {
+    var query = q.value.trim().toLowerCase();
+    if (!query) {
+      render(all.slice(0, 8), [], "");
+      count.textContent = INDEX.length + " apps and pages. Start typing.";
+      return;
+    }
+    var terms = query.split(/\\s+/).filter(Boolean);
+    var hits = all
+      .map(function (item) { return { item: item, s: score(item, terms) }; })
+      .filter(function (r) { return r.s > 0; })
+      .sort(function (a, b) { return b.s - a.s || a.item.n.localeCompare(b.item.n); })
+      .map(function (r) { return r.item; });
+    render(hits, terms, q.value.trim());
+  }
+
+  q.addEventListener("input", run);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "/" && document.activeElement !== q) { e.preventDefault(); q.focus(); }
+    if (e.key === "Escape" && document.activeElement === q) { q.value = ""; run(); q.blur(); }
+  });
+
+  var params = new URLSearchParams(location.search);
+  if (params.get("q")) { q.value = params.get("q"); }
+  run();
+})();
+"""
+
+
+def build_search():
+    entries = []
+    for a in APPS:
+        kind = "App" if a.get("suite", True) else "Ecosystem"
+        words = " ".join([a["name"], a["slug"], a["summary"]] + a["features"]).lower()
+        entries.append({"n": a["name"], "u": "apps/%s.html" % a["slug"], "i": a["slug"],
+                        "s": a["summary"], "k": words, "st": kind + " \u00b7 " + STATUS_LABEL[a["status"]]})
+    entries.append({"n": "All apps", "u": "apps.html", "i": "launcher", "st": "Page",
+                    "s": "The full list, grouped by phase, with the real release status of each app.",
+                    "k": "apps list suite directory all twenty four"})
+    entries.append({"n": "Architecture", "u": "architecture.html", "i": "core", "st": "Page",
+                    "s": "Layers, the shared screen skeleton, the roadmap table and the no-GMS rules.",
+                    "k": "architecture layers roadmap status no-gms firebase bharos degoogled"})
+    entries.append({"n": "Developer", "u": "developer.html", "i": "appmanager", "st": "Page",
+                    "s": "Who builds Nijatva, what the numbers are, and where the source lives.",
+                    "k": "developer vasudev dangaya profile contact github"})
+    entries.append({"n": "Why Nijatva", "u": "index.html#why", "i": "notes", "st": "Page",
+                    "s": "What the name means and what the project is trying to do.",
+                    "k": "why name sanskrit meaning about devira"})
+
+    index_js = "window.NIJATVA_INDEX = " + json.dumps(entries, ensure_ascii=False) + ";"
+
+    body = f"""{header("", "search.html")}
+<main id="main">
+  <section class="section" style="border-bottom:0">
+    <div class="container search-wrap">
+      <p class="eyebrow">Search</p>
+      <h1 class="page-title">Find an app</h1>
+      <p class="lead" style="max-width:56ch">Type a name, a job or a word from the description. Press <kbd>/</kbd> anywhere on the site to come back here.</p>
+
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.4"/><path d="M15.6 15.6L21 21"/></svg>
+        <input id="q" type="search" placeholder="notes, browser, vault, camera..." autocomplete="off" autofocus aria-label="Search apps and pages">
+      </div>
+
+      <p class="search-count" id="count"></p>
+      <ul class="search-results" id="results"></ul>
+    </div>
+  </section>
+</main>
+<script>{index_js}</script>
+<script>{SEARCH_SCRIPT}</script>
+{footer("")}"""
+    return head("Search — Nijatva", "Search every Nijatva app and page by name, job or feature.",
+                SITE + "/search.html") + body
+
+
 # ---------------------------------------------------------------- 404 + static
 def build_404():
     body = f"""{header("", "")}
@@ -857,10 +994,9 @@ def build_404():
 
 def build_static():
     urls = [("", "1.0", "weekly"), ("apps.html", "0.9", "weekly"),
-            ("architecture.html", "0.8", "monthly"), ("developer.html", "0.5", "monthly")]
+            ("architecture.html", "0.8", "monthly"), ("developer.html", "0.5", "monthly"),
+            ("search.html", "0.4", "monthly")]
     urls += [(f"apps/{a['slug']}.html", "0.6", "monthly") for a in APPS]
-    # A published web app is a page too, so it belongs in the sitemap.
-    urls += [(a["web"], "0.7", "monthly") for a in APPS + ECOSYSTEM if a.get("web")]
     entries = "\n".join(
         f"  <url>\n    <loc>{SITE}/{u}</loc>\n    <lastmod>2026-11-13</lastmod>\n"
         f"    <changefreq>{c}</changefreq>\n    <priority>{p}</priority>\n  </url>" for u, p, c in urls)
@@ -885,8 +1021,9 @@ if __name__ == "__main__":
     (ROOT / "architecture.html").write_text(build_architecture())
     (ROOT / "404.html").write_text(build_404())
     (ROOT / "developer.html").write_text(build_developer())
+    (ROOT / "search.html").write_text(build_search())
     slugs = build_app_pages()
     n_urls = build_static()
-    print("index, apps, architecture, developer, 404 written")
+    print("index, apps, architecture, developer, search, 404 written")
     print("%d app pages written" % len(slugs))
     print("%d sitemap urls" % n_urls)

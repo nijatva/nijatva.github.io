@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Nijatva">
-  <rect width="64" height="64" rx="15" fill="#e8a33d"/>
-  <path d="M20 46V18l24 28V18" fill="none" stroke="#1b1f45" stroke-width="6"
-        stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Nijatva">
+  <rect width="96" height="96" rx="21" fill="#1B2233"/>
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M48.00,5.00 L59.48,20.28 L78.41,17.59 L75.72,36.52 L91.00,48.00 L75.72,59.48 L78.41,78.41 L59.48,75.72 L48.00,91.00 L36.52,75.72 L17.59,78.41 L20.28,59.48 L5.00,48.00 L20.28,36.52 L17.59,17.59 L36.52,20.28 Z" stroke-width="1.8" opacity="0.85"/>
+    <path d="M35 68V28L61 68V28" stroke-width="5.0"/>
+  </g>
 </svg>

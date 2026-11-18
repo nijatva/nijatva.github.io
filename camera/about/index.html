@@ -2,324 +2,278 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Camera — Nijatva</title>
-<meta name="description" content="Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.">
-<meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
-
-<script>
-/* The only script on this site. It remembers your theme and accent in this
-   browser and sets two attributes on <html>. No network requests, no cookies. */
-(function () {
-  var d = document.documentElement;
-  var mq = window.matchMedia("(prefers-color-scheme: dark)");
-  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  function sync() {
-    var t = d.getAttribute("data-theme") || "system";
-    d.setAttribute("data-scheme", t === "system" ? (mq.matches ? "dark" : "light") : t);
-  }
-  var theme = read("nj-theme"), accent = read("nj-accent");
-  if (theme) d.setAttribute("data-theme", theme);
-  if (accent) d.setAttribute("data-accent", accent);
-  sync();
-  if (mq.addEventListener) mq.addEventListener("change", sync);
-  document.addEventListener("change", function (e) {
-    var el = e.target;
-    if (el.name === "theme") { d.setAttribute("data-theme", el.value); write("nj-theme", el.value); sync(); }
-    if (el.name === "accent") { d.setAttribute("data-accent", el.value); write("nj-accent", el.value); }
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    var t = d.getAttribute("data-theme") || "system";
-    var a = d.getAttribute("data-accent") || "saffron";
-    var rt = document.querySelector('input[name="theme"][value="' + t + '"]');
-    var ra = document.querySelector('input[name="accent"][value="' + a + '"]');
-    if (rt) rt.checked = true;
-    if (ra) ra.checked = true;
-  });
-})();
-</script>
-<link rel="stylesheet" href="../../assets/tokens.css?v=6">
-<link rel="stylesheet" href="../../assets/site.css?v=6">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d10">
+<title>Nijatva Camera — a camera that does the maths itself</title>
+<meta name="description" content="A Camera2 camera with manual ISO, shutter and focus, RAW and DNG, night and astro stacking, Auto HDR and panorama. No account, no ads, no analytics — and no INTERNET permission.">
 <link rel="canonical" href="https://nijatva.github.io/camera/about/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Nijatva">
-<meta property="og:locale" content="en_IN">
-<meta property="og:title" content="Camera — Nijatva">
-<meta property="og:description" content="Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.">
+<meta property="og:title" content="Nijatva Camera">
+<meta property="og:description" content="Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama. No account, no ads, no analytics, no INTERNET permission.">
 <meta property="og:url" content="https://nijatva.github.io/camera/about/">
-<meta property="og:image" content="https://nijatva.github.io/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nijatva.github.io/og.png">
+<link rel="icon" href="../../assets/favicon.svg">
+<style>
+  :root {
+    --bg: #0b0d10;
+    --bg-2: #0f1216;
+    --surface: #14181d;
+    --surface-2: #171c22;
+    --line: rgba(255,255,255,.09);
+    --line-2: rgba(255,255,255,.16);
+    --ink: #f2efe9;
+    --ink-soft: #a7a49c;
+    --ink-dim: #7e7b74;
+    --accent: #f0a04b;
+    --accent-2: #e2732f;
+    --accent-soft: rgba(240,160,75,.13);
+    --radius: 20px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+  .wrap { width: min(760px, 100% - 40px); margin-inline: auto; }
+
+  /* nav */
+  .nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px);
+         background: rgba(11,13,16,.72); border-bottom: 1px solid var(--line); }
+  .nav-inner { display: flex; align-items: center; gap: 18px; height: 58px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -.01em; }
+  .brand svg { width: 26px; height: 26px; border-radius: 8px; }
+  .nav-links { display: flex; gap: 16px; margin-left: auto; font-size: 13.5px; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 620px) { .nav-links { display: none; } }
+
+  /* hero */
+  .hero { padding: 54px 0 34px; text-align: center; }
+  .mark { width: 96px; height: 96px; margin: 0 auto 26px; border-radius: 26px;
+          box-shadow: 0 22px 60px rgba(226,115,47,.34), 0 0 0 1px rgba(255,255,255,.06) inset; }
+  h1 { font-size: clamp(34px, 7vw, 52px); line-height: 1.08; letter-spacing: -.03em; margin: 0 0 18px; font-weight: 700; }
+  h1 em { font-style: normal; background: linear-gradient(92deg, var(--accent), var(--accent-2));
+          -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { color: var(--ink-soft); font-size: 16.5px; max-width: 56ch; margin: 0 auto 26px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 26px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 999px;
+         border: 1px solid var(--line-2); font-size: 14.5px; font-weight: 600; color: var(--ink);
+         background: var(--surface); transition: transform .14s ease, border-color .14s ease, background .14s ease; }
+  .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
+  .btn.primary { background: linear-gradient(180deg, var(--accent), var(--accent-2)); border-color: transparent; color: #17120a; }
+  .btn svg { width: 16px; height: 16px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: center;
+           color: var(--ink-dim); font-size: 12.8px; }
+  .stats span { display: inline-flex; align-items: center; gap: 6px; }
+  .stats span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: .8; }
+
+  /* sections */
+  section { padding: 44px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  h2 { font-size: clamp(24px, 4.4vw, 32px); line-height: 1.14; letter-spacing: -.025em; margin: 0 0 10px; font-weight: 700; }
+  .section-sub { color: var(--ink-soft); margin: 0 0 26px; max-width: 58ch; }
+
+  /* two ways */
+  .two { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 620px) { .two { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+           padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .panel .glyph { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+                  background: var(--accent-soft); color: var(--accent); }
+  .panel h3 { margin: 0; font-size: 16.5px; letter-spacing: -.01em; }
+  .panel p { margin: 0; color: var(--ink-soft); font-size: 14.6px; }
+  .panel a.link { margin-top: auto; font-size: 14px; font-weight: 600; color: var(--accent); }
+  .panel a.link:hover { color: var(--accent-2); }
+
+  /* feature rows */
+  .rows { display: grid; gap: 12px; }
+  .row { display: flex; gap: 14px; padding: 18px; border: 1px solid var(--line);
+         border-radius: 16px; background: var(--surface); }
+  .row .glyph { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+                background: var(--accent-soft); color: var(--accent); }
+  .row h3 { margin: 0 0 4px; font-size: 15.5px; letter-spacing: -.01em; }
+  .row p { margin: 0; color: var(--ink-soft); font-size: 14.4px; }
+
+  /* build */
+  pre { margin: 0 0 16px; padding: 14px 16px; border-radius: 12px; overflow-x: auto;
+        background: #0d1014; border: 1px solid var(--line);
+        font: 13px/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #cfd3d8; }
+  .note { color: var(--ink-dim); font-size: 13.5px; }
+  footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--ink-dim); font-size: 13px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  footer a:hover { color: var(--ink); }
+  footer .spacer { margin-left: auto; }
+  .back { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: 12px; z-index: 30;
+          display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px;
+          background: rgba(12,14,16,.62); border: 1px solid var(--line-2); color: var(--ink);
+          font-size: 12px; font-weight: 600; letter-spacing: .04em; backdrop-filter: blur(10px); }
+  @media (min-width: 900px) { .back { display: none; } }
+</style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <a class="brand" href="../../index.html" aria-label="Nijatva home">
-      <img src="../../assets/logo.svg" alt="" width="34" height="34">
-      <span>Nijatva</span>
+<a class="back" href="../../apps.html" aria-label="Back to the Nijatva apps">&#8592; Nijatva</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 96 96" aria-hidden="true"><rect width="96" height="96" rx="24" fill="#8a4b0f"/><g fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M38 34l4-6h12l4 6"/><rect x="26" y="34" width="44" height="30" rx="6"/><circle cx="48" cy="49" r="9"/></g></svg>
+      <span>Nijatva Camera</span>
     </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="../../apps.html" aria-current="page">Apps</a>
-      <a href="../../architecture.html">Architecture</a>
-      <a href="../../index.html#principles">Principles</a>
-      <a href="../../developer.html">Developer</a>
-      <a href="https://github.com/nijatva">GitHub</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#web">Web</a>
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="../../apps/camera.html">App page</a>
+      <a href="https://github.com/nijatva/nijatva-camera">Source</a>
     </nav>
-    <a class="header-search" href="../../search.html" aria-label="Search the site">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.4"/><path d="M15.6 15.6L21 21"/></svg>
-    </a>
-
-    <details class="appearance">
-      <summary aria-label="Appearance settings">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/></svg>
-        <span>Appearance</span>
-      </summary>
-      <div class="appearance-panel">
-        <p class="eyebrow">Appearance</p>
-        <fieldset>
-          <legend>Theme</legend>
-          <div class="pills">
-            <label class="pill"><input type="radio" name="theme" value="system"><span>System</span></label>
-            <label class="pill"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
-            <label class="pill"><input type="radio" name="theme" value="light"><span>Light</span></label>
-            <label class="pill"><input type="radio" name="theme" value="black"><span>Black</span></label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Accent colour</legend>
-          <div class="pills">
-            <label class="pill" data-swatch="green"><input type="radio" name="accent" value="green"><span>Green</span></label>
-            <label class="pill" data-swatch="saffron"><input type="radio" name="accent" value="saffron"><span>Saffron</span></label>
-            <label class="pill" data-swatch="indigo"><input type="radio" name="accent" value="indigo"><span>Indigo</span></label>
-          </div>
-        </fieldset>
-        <p class="appearance-note">Saved in this browser only. Nothing about your choice leaves this device.</p>
-      </div>
-    </details>
-    <details class="nav-menu">
-      <summary><span class="menu-icon" aria-hidden="true"></span><span>Menu</span></summary>
-      <nav class="nav-menu-panel" aria-label="Mobile">
-      <a href="../../apps.html" aria-current="page">Apps</a>
-      <a href="../../architecture.html">Architecture</a>
-      <a href="../../index.html#principles">Principles</a>
-      <a href="../../developer.html">Developer</a>
-      <a href="https://github.com/nijatva">GitHub</a>
-      </nav>
-    </details>
   </div>
 </header>
 
-<main id="main">
+<main>
+  <div class="wrap hero">
+    <svg class="mark" viewBox="0 0 96 96" role="img" aria-label="Nijatva Camera">
+      <rect width="96" height="96" rx="26" fill="#8a4b0f"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M38 34l4-6h12l4 6"/><rect x="26" y="34" width="44" height="30" rx="6"/><circle cx="48" cy="49" r="9"/>
+      </g>
+    </svg>
+    <h1>A camera that does<br><em>the maths itself</em></h1>
+    <p class="sub">A Camera2 camera with manual ISO, shutter and focus, RAW and DNG, night and
+    astro stacking, Auto HDR and panorama. No account, no ads, no analytics — and no
+    <code>INTERNET</code> permission, so a photo cannot leave the phone even by accident.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/nijatva/nijatva-camera/releases/latest">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>
+        Download the APK
+      </a>
+      <a class="btn" href="../../camera/" id="web">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="8.4"/><path d="M10 8.6l5.4 3.4-5.4 3.4z"/></svg>
+        Open the web app
+      </a>
+      <a class="btn" href="https://github.com/nijatva/nijatva-camera">View source</a>
+    </div>
+    <p class="stats">
+      <span>Android 10+</span><span>11 MB APK</span><span>0 trackers</span>
+      <span>No INTERNET permission</span><span>English + हिंदी</span>
+    </p>
+  </div>
 
-  <section class="section">
-    <div class="container">
-      <div class="app-hero-head">
-        <img class="app-icon" src="../../assets/icons/camera.svg" alt="" width="52" height="52">
-        <div>
-          <p class="eyebrow">Project page</p>
-          <h1 class="hero-title">Camera</h1>
+  <section>
+    <div class="wrap">
+      <h2>Two ways to use it</h2>
+      <p class="section-sub">The same idea in two engines. Pick whichever fits the moment.</p>
+      <div class="two">
+        <div class="panel">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 19h3"/></svg></span>
+          <h3>Android app (APK)</h3>
+          <p>The whole camera: manual ISO, shutter and focus, RAW and DNG, night and astro
+          stacking, Auto HDR, panorama, five looks, four sliders and per-lens tuning.
+          Works with no network at all.</p>
+          <a class="link" href="https://github.com/nijatva/nijatva-camera/releases/latest">Download APK &rarr;</a>
+        </div>
+        <div class="panel">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.4"/><path d="M3.8 12h16.4M12 3.6c2.4 2.4 3.6 5.2 3.6 8.4s-1.2 6-3.6 8.4c-2.4-2.4-3.6-5.2-3.6-8.4S9.6 6 12 3.6z"/></svg></span>
+          <h3>Web app (browser)</h3>
+          <p>Runs in a tab: live viewfinder, grid, front and back cameras, capture straight to
+          your device. No install, no account. What a browser cannot give it — manual exposure,
+          RAW, stacking — it does not pretend to.</p>
+          <a class="link" href="../../camera/">Open the web app &rarr;</a>
         </div>
       </div>
-      <p class="lead">Camera2 with manual controls, RAW, night stacking, exposure fusion and
-      panorama - and the maths written here, not borrowed.</p>
-      <div class="badge-row" style="margin:0 0 22px">
-        <span class="badge">Android 10+</span><span class="badge">11 MB APK</span><span class="badge">No INTERNET permission</span>
-        <span class="badge">0 trackers</span><span class="badge">English + हिंदी</span>
-      </div>
-      <div class="actions">
-        <a class="button primary" href="https://github.com/nijatva/nijatva-camera/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Download the APK</a>
-        <a class="button primary" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open the web app</a>
-        <a class="button" href="https://github.com/nijatva/nijatva-camera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a3.9 3.9 0 0 0 5.5 0l2.2-2.2a3.9 3.9 0 0 0-5.5-5.5l-1.1 1.1"/><path d="M13.4 10.6a3.9 3.9 0 0 0-5.5 0l-2.2 2.2a3.9 3.9 0 0 0 5.5 5.5l1.1-1.1"/></svg>View source</a>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>Everything a camera needs, and nothing it cannot do offline</h2>
+      <p class="section-sub">Each capture is a real file on your phone. Nothing is uploaded, nothing is
+      analysed on a server, and no feature waits for a network.</p>
+      <div class="rows">
+
+        <article class="row">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="7.2"/><path d="M12 4.8v3M12 16.2v3M4.8 12h3M16.2 12h3"/></svg></span>
+          <div><h3>Pro controls</h3><p>Manual ISO, shutter time and focus behind
+          <code>CONTROL_AE_MODE_OFF</code>, with a live readout of what the sensor is actually
+          doing: ISO, exposure time, focus state.</p></div>
+        </article>
+
+        <article class="row">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="2.5"/><path d="M4 10h16M9 10v9"/></svg></span>
+          <div><h3>RAW and DNG</h3><p>RAW capture written as a DNG through Camera2's own writer,
+          plus a 10-bit packed path where the sensor allows it — half the file, the same
+          information.</p></div>
+        </article>
+
+        <article class="row">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.4 6.4 0 0 0 10.5 10.5z"/></svg></span>
+          <div><h3>Night and astro stacking</h3><p>Pyramid alignment and an inverse-variance merge
+          in our own C++, then demosaic, white balance, colour matrix and a tone curve that puts
+          18% grey where it belongs. Astro takes long exposures on a tripod.</p></div>
+        </article>
+
+        <article class="row">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.4 5.4l2.1 2.1M16.5 16.5l2.1 2.1M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1"/></svg></span>
+          <div><h3>Auto HDR</h3><p>When the frame is clipping, a plain photo quietly becomes a
+          short burst and is merged, so the sky keeps its colour instead of turning white. It
+          only fires when it can help, and falls back to one frame when it cannot.</p></div>
+        </article>
+
+        <article class="row">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16.5l4.5-9 4 7 3-4.5 4 6.5z"/><path d="M4 20h16"/></svg></span>
+          <div><h3>Grading after the shot</h3><p>Five looks, per-lens tuning, four sliders
+          (brightness, contrast, saturation, sharpness), chroma denoise, thresholded sharpening
+          and an optional portrait blur. One pipeline, so a look can never break a capture.</p></div>
+        </article>
+
+        <article class="row">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M12 8.5v7M8.5 12h7"/></svg></span>
+          <div><h3>Framing aids</h3><p>Grid, horizon level with a haptic tick, focus peaking and a
+          histogram — and the photo keeps the exposure and white balance the preview showed you,
+          because the capture locks them instead of converging again.</p></div>
+        </article>
+
+        <article class="row">
+          <span class="glyph"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span>
+          <div><h3>Part of a suite</h3><p>Hands a shot to Nijatva Gallery, or to Nijatva Photos for
+          editing, and accepts <code>IMAGE_CAPTURE</code> and <code>VIDEO_CAPTURE</code> so any other
+          app can ask it for a photo. Every hand-off is soft: a missing sibling never crashes it.</p></div>
+        </article>
+
       </div>
     </div>
   </section>
 
-  <section class="section section-band">
-    <div class="container">
-      <div class="section-heading">
-        <div><p class="eyebrow">Two ways to use it</p><h2 class="section-title">Same idea, two engines</h2></div>
-        <div><p class="lead">Pick whichever fits the moment.</p></div>
+  <section id="install">
+    <div class="wrap">
+      <h2>Install, or build it yourself</h2>
+      <p class="section-sub">The APK is a debug build while release signing is being set up — it
+      installs fine, and it is the same code that builds here.</p>
+      <div class="cta" style="justify-content:flex-start;margin-bottom:22px">
+        <a class="btn primary" href="https://github.com/nijatva/nijatva-camera/releases/latest">Latest release</a>
+        <a class="btn" href="https://github.com/nijatva/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
       </div>
-      <div class="grid two">
-        <article class="card">
-          <h3 style="margin:0 0 4px">Android app</h3>
-          <p style="margin:0;color:var(--ink-soft)">The whole camera: manual ISO, shutter and
-          focus, RAW and DNG, night and astro stacking, Auto HDR, panorama, looks and sliders.
-          Works with no network at all.</p>
-          <div class="app-card-actions">
-            <a class="button primary" href="https://github.com/nijatva/nijatva-camera/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Download</a>
-          </div>
-        </article>
-        <article class="card">
-          <h3 style="margin:0 0 4px">Web app</h3>
-          <p style="margin:0;color:var(--ink-soft)">Runs in a browser tab: live viewfinder,
-          grid, front and back, capture straight to your device. No install, no account.
-          What a browser cannot give it - manual exposure, RAW, stacking - it does not
-          pretend to.</p>
-          <div class="app-card-actions">
-            <a class="button" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open the web app</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <div><p class="eyebrow">What it does</p><h2 class="section-title">Everything a photo needs</h2></div>
-        <div><p class="lead">Nothing on this list needs an account, a server or a Play Services library.</p></div>
-      </div>
-      <div class="grid three">
-        <article class="card">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
-                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="7.2"/><path d="M12 4.8v3M12 16.2v3M4.8 12h3M16.2 12h3"/></svg></span>
-            <h3 style="margin:0;font-size:16px">Pro controls</h3>
-          </div>
-          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Manual ISO, shutter time and focus behind CONTROL_AE_MODE_OFF, with a live readout of what the sensor is actually doing.</p>
-        </article>
-        <article class="card">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
-                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="5" width="16" height="14" rx="2.5"/><path d="M4 10h16M9 10v9"/></svg></span>
-            <h3 style="margin:0;font-size:16px">RAW and DNG</h3>
-          </div>
-          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">RAW capture written as a DNG, and a 10-bit packed path where the sensor allows it - half the file, same information.</p>
-        </article>
-        <article class="card">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
-                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.4 6.4 0 0 0 10.5 10.5z"/></svg></span>
-            <h3 style="margin:0;font-size:16px">Night and astro stacking</h3>
-          </div>
-          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Pyramid alignment and an inverse-variance merge in our own C++, then demosaic, white balance and a tone curve that puts 18% grey where it belongs.</p>
-        </article>
-        <article class="card">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
-                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.4 5.4l2.1 2.1M16.5 16.5l2.1 2.1M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1"/></svg></span>
-            <h3 style="margin:0;font-size:16px">Auto HDR</h3>
-          </div>
-          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">When the frame is clipping, a plain photo quietly becomes a short burst and is merged, so the sky keeps its colour instead of turning white.</p>
-        </article>
-        <article class="card">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
-                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16.5l4.5-9 4 7 3-4.5 4 6.5z"/><path d="M4 20h16"/></svg></span>
-            <h3 style="margin:0;font-size:16px">Grading after the shot</h3>
-          </div>
-          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Five looks, per-lens tuning, four sliders and an optional portrait blur. The same pipeline every time, so a look can never break a capture.</p>
-        </article>
-        <article class="card">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
-                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M12 8.5v7M8.5 12h7"/></svg></span>
-            <h3 style="margin:0;font-size:16px">Framing aids</h3>
-          </div>
-          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Grid, horizon level with a haptic tick, focus peaking and a histogram - and the photo keeps the exposure and white balance the preview showed you.</p>
-        </article>
-        <article class="card">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
-                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span>
-            <h3 style="margin:0;font-size:16px">Part of a suite</h3>
-          </div>
-          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Hands shots to Nijatva Gallery and Nijatva Photos, and accepts IMAGE_CAPTURE and VIDEO_CAPTURE, so any other app can ask it for a photo.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-band">
-    <div class="container">
-      <div class="section-heading">
-        <div><p class="eyebrow">How it is built</p><h2 class="section-title">Camera2, and our own maths</h2></div>
-      </div>
-      <ul class="feature-list">
-        <li>Camera2 API directly. No CameraX, no Play Services, no analytics, no ads</li>
-        <li>Two permissions in total: <code>CAMERA</code> and <code>RECORD_AUDIO</code>. No
-            <code>INTERNET</code>, so nothing can leave the phone even by accident</li>
-        <li>Night, astro and HDR merge run in C++: pyramid alignment, inverse-variance merge,
-            demosaic, white balance, colour matrix, tone curve</li>
-        <li>Grading is Kotlin, after the capture: looks, per-lens tuning, four sliders,
-            chroma denoise, thresholded sharpening, optional portrait blur</li>
-        <li>The preview and the photo agree: the capture locks the preview's exposure and
-            white balance, and the framing maths match what the viewfinder showed</li>
-      </ul>
-      <p class="lead" style="margin-top:22px">Build it from a plain checkout - JDK 17, SDK 35,
-      NDK 27.2.12479018 and CMake 3.22.1, all pinned by the native module.</p>
-      <pre style="margin:0 0 16px;padding:14px 16px;border-radius:10px;overflow-x:auto;
-                  background:var(--surface-quiet);border:1px solid var(--line);
-                  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-                  font-size:13px;line-height:1.6;color:var(--ink-soft)">git clone https://github.com/nijatva/nijatva-camera
+      <p class="section-sub">From a plain checkout: JDK 17, Android SDK 35, NDK 27.2.12479018 and
+      CMake 3.22.1. The native module pins both, so nothing has to be edited first.</p>
+<pre>git clone https://github.com/nijatva/nijatva-camera
 cd nijatva-camera
 ./gradlew :app:assembleFullDebug</pre>
-      <p class="note">v0.4.10 debug build, 17 November 2026. Release signing is not set up yet.</p>
-      <div class="actions">
-        <a class="button" href="../../apps/camera.html">The app page</a>
-        <a class="button" href="https://github.com/nijatva/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
-      </div>
+      <p class="note">Two permissions in total: <code>CAMERA</code> and <code>RECORD_AUDIO</code>
+      for video. No <code>INTERNET</code>, no storage permission, no location.</p>
     </div>
   </section>
-
 </main>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <img src="../../assets/logo.svg" alt="" width="32" height="32">
-          <span>Nijatva</span>
-        </div>
-        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. Built in India.</p>
-        <a class="dev-card" href="../../developer.html">
-          <div class="dev-avatar" aria-hidden="true">VD</div>
-          <div>
-            <p class="dev-name">Vasudev Dangaya</p>
-            <p class="dev-role">Independent developer &middot; India</p>
-            <span class="dev-link">Developer profile</span>
-          </div>
-        </a>
-      </div>
-      <div>
-        <h2>Apps</h2>
-        <div class="footer-links">
-          <a href="../../apps.html">All 24 apps</a>
-          <a href="../../apps.html#phase-1">Phase 1 &middot; Small apps</a>
-          <a href="../../apps.html#phase-4">Phase 4 &middot; Flagship</a>
-        </div>
-      </div>
-      <div>
-        <h2>Project</h2>
-        <div class="footer-links">
-          <a href="../../architecture.html">Architecture</a>
-          <a href="../../architecture.html#roadmap">Real status</a>
-          <a href="../../developer.html">Developer</a>
-          <a href="https://github.com/nijatva">Source on GitHub</a>
-        </div>
-      </div>
-      <div>
-        <h2>Contact</h2>
-        <div class="footer-links">
-          <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>
-          <a href="../../index.html#why">Why "Nijatva"</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-legal">
-      <span>Status as of 13 November 2026. Nijatva &middot; India</span>
-      <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
-    </div>
+<footer>
+  <div class="wrap">
+    <a href="https://github.com/nijatva/nijatva-camera">GitHub</a>
+    <a href="https://github.com/nijatva/nijatva-camera/releases">Releases</a>
+    <a href="../../apps/camera.html">App page</a>
+    <span class="spacer">&copy; 2026 Vasudev Dangaya</span>
   </div>
 </footer>
+
 </body>
 </html>

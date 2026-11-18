@@ -503,23 +503,33 @@ def build_app_pages():
         next_app = APPS[i + 1] if i < len(APPS) - 1 else None
         status, cls = STATUS_LABEL[app["status"]], STATUS_CLASS[app["status"]]
 
+        repo_name = app.get("repo", "nijatva-" + app["slug"])
+
+        def web_href(target):
+            # A browser build can live in this repository (a folder) or in the app's own
+            # repository, served from its GitHub Pages site (an absolute URL).
+            return target if target.startswith("http") else "../" + target
+
         actions = [f'<a class="button" href="../apps.html">All apps</a>']
-        if app.get("web"):
-            actions.insert(0, f'<a class="button" href="../{app["web"]}">Open in the browser</a>')
-        if app["status"] == "shipped":
-            actions.insert(0, f'<a class="button primary" href="{GH}/{app["repo"] if "repo" in app else "nijatva-" + app["slug"]}/releases/latest">Download the APK</a>')
         if app["status"] != "planned" and app.get("source_public", True):
-            actions.insert(0, f'<a class="button primary" href="{GH}/nijatva-{app["slug"]}">Source on GitHub</a>')
+            actions.insert(0, f'<a class="button" href="{GH}/{repo_name}">Source on GitHub</a>')
+        if app.get("download_page"):
+            actions.insert(0, f'<a class="button" href="{app["download_page"]}">Download page</a>')
+        if app["status"] == "shipped":
+            actions.insert(0, f'<a class="button primary" href="{GH}/{repo_name}/releases/latest">Download</a>')
+        if app.get("web"):
+            actions.insert(0, f'<a class="button primary" href="{web_href(app["web"])}">Open web app</a>')
         actions = "\n          ".join(actions)
 
         features = "\n".join(f'        <li>{E(f)}</li>' for f in app["features"])
-        repo_name = "nijatva-" + app["slug"]
         if app.get("source_public", True) and app["status"] != "planned":
             repo_row = f'<dd><a href="{GH}/{repo_name}">{E(repo_name)}</a></dd>'
         elif app["status"] != "planned":
             repo_row = f'<dd>{E(repo_name)} <span style="font-weight:400;color:var(--muted)">(private)</span></dd>'
         else:
             repo_row = f'<dd>{E(repo_name)} <span style="font-weight:400;color:var(--muted)">(planned)</span></dd>'
+        web_row = (f'\n        <div><dt>Web app</dt><dd><a href="{web_href(app["web"])}">Open in browser</a></dd></div>'
+                   if app.get("web") else "")
         note = f'\n      <p class="note">{E(app["note"])}</p>' if app.get("note") else ""
 
         pager = ""
@@ -561,7 +571,7 @@ def build_app_pages():
         <div><dt>Status</dt><dd>{status}</dd></div>
         <div><dt>{"Part of" if app["phase"] == 0 else "Phase"}</dt><dd>{(E("The ecosystem, not the 24")) if app["phase"] == 0 else (str(app["phase"]) + " &middot; " + E(PHASES[app["phase"]][0]))}</dd></div>
         <div><dt>Build size</dt><dd>{SIZE_LABEL[app["size"]]}</dd></div>
-        <div><dt>Repository</dt>{repo_row}</div>
+        <div><dt>Repository</dt>{repo_row}</div>{web_row}
         <div><dt>Store</dt><dd>None &middot; APK only</dd></div>
       </dl>
     </div>

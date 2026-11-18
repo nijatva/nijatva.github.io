@@ -293,10 +293,10 @@ def build_index():
       <div class="section-heading">
         <div>
           <p class="eyebrow">Available now</p>
-          <h2 class="section-title">Seven apps ship releases</h2>
+          <h2 class="section-title">Eight apps ship releases</h2>
         </div>
         <div>
-          <p class="lead">Seven of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
+          <p class="lead">Eight of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
           <a class="section-link" href="apps.html">View the full list</a>
         </div>
       </div>
@@ -350,7 +350,7 @@ def build_index():
       <article class="panel">
         <p class="eyebrow">Status</p>
         <h2>What exists today</h2>
-        <p>Seven apps have releases, two more have repositories without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
+        <p>Eight apps have releases, one more has a repository without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
         <div class="text-link-list"><a href="architecture.html#roadmap">Real status</a></div>
       </article>
       <article class="panel">
@@ -504,6 +504,8 @@ def build_app_pages():
         status, cls = STATUS_LABEL[app["status"]], STATUS_CLASS[app["status"]]
 
         actions = [f'<a class="button" href="../apps.html">All apps</a>']
+        if app.get("web"):
+            actions.insert(0, f'<a class="button" href="../{app["web"]}">Open in the browser</a>')
         if app["status"] == "shipped":
             actions.insert(0, f'<a class="button primary" href="{GH}/{app["repo"] if "repo" in app else "nijatva-" + app["slug"]}/releases/latest">Download the APK</a>')
         if app["status"] != "planned" and app.get("source_public", True):
@@ -655,7 +657,7 @@ def build_architecture():
     <div class="container">
       <div class="section-heading">
         <div><p class="eyebrow">3 &middot; Roadmap</p><h2 class="section-title">Roadmap and real status</h2></div>
-        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and two more have repositories. Status as of {UPDATED}.</p></div>
+        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, eight apps ship releases and one more has a repository. Status as of {UPDATED}.</p></div>
       </div>
       <div class="scroll">
       <table>

@@ -12,9 +12,9 @@ Static HTML. No framework, no JavaScript, no external fonts, no analytics.
 | Site | Live at <https://nijatva.github.io/> |
 | Pages source | `main` branch, `/ (root)`, legacy build, HTTPS enforced, custom 404 active |
 | Repository | `nijatva/nijatva.github.io`, public |
-| `nijatva` organisation | **Not created yet** — the transfer below has not happened |
+| `nijatva` organisation | Created. All 22 repositories live under it |
 | Custom domain | Not active. `CNAME.example` is inert and `nijatva.in` is not registered |
-| Repository "Website" field | Points at `https://nijatva.in`, which does not resolve. Clear it, or accept that visitors clicking it land nowhere |
+| Repository "Website" field | `https://nijatva.github.io/`, which resolves |
 
 ## Structure
 

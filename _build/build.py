@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """Build every Nijatva page from apps_data.py. No framework, no build step at runtime."""
-import pathlib, sys, html, json
+import pathlib, sys, html, json, datetime
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from apps_data import (APPS, SUITE, ECOSYSTEM, FOUNDATION, PHASES, STATUS_LABEL, STATUS_CLASS,
                        SIZE_LABEL, GH, GH_USER, SITE, EMAIL, UPDATED)
 
 ASSET_V = "6"  # bump to force browsers past a cached stylesheet
 ROOT = pathlib.Path(__file__).parent.parent
+
+# Every generated file says the day it was built. A hardcoded date tells
+# crawlers the site has not changed since that day, which is how a stale
+# search snippet outlives the rename that made it wrong.
+TODAY = datetime.date.today().isoformat()
 E = html.escape
 
 
@@ -1026,7 +1031,7 @@ def build_static():
              if a.get("web") and not a["web"].startswith("http")]
     urls += [("camera/about/", "0.7", "monthly")]
     entries = "\n".join(
-        f"  <url>\n    <loc>{SITE}/{u}</loc>\n    <lastmod>2026-11-13</lastmod>\n"
+        f"  <url>\n    <loc>{SITE}/{u}</loc>\n    <lastmod>{TODAY}</lastmod>\n"
         f"    <changefreq>{c}</changefreq>\n    <priority>{p}</priority>\n  </url>" for u, p, c in urls)
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'

@@ -127,7 +127,7 @@
           <div>
             <h1>Notes</h1>
             <div class="badge-row">
-              <span class="status-badge progress">In progress</span>
+              <span class="status-badge shipped">Shipped</span>
               <span class="badge">Small build</span>
               <span class="badge">Phase 1</span>
             </div>
@@ -135,16 +135,19 @@
         </div>
         <p class="lead">Offline Markdown notes with an optional encrypted vault.</p>
         <div class="actions">
-          <a class="button primary" href="https://github.com/nijatva/nijatva-notes">Source on GitHub</a>
+          <a class="button primary" href="../notes/">Open web app</a>
+          <a class="button primary" href="https://github.com/nijatva/nijatva-notes/releases/latest">Download</a>
+          <a class="button" href="https://github.com/nijatva/nijatva-notes">Source on GitHub</a>
           <a class="button" href="../apps.html">All apps</a>
         </div>
-      <p class="note">Repository created, no release yet.</p>
+      <p class="note">v0.3.0 debug build, 17 November 2026. A browser version opens at /notes/.</p>
       </div>
       <dl class="app-meta">
-        <div><dt>Status</dt><dd>In progress</dd></div>
+        <div><dt>Status</dt><dd>Shipped</dd></div>
         <div><dt>Phase</dt><dd>1 &middot; Small apps</dd></div>
         <div><dt>Build size</dt><dd>Small build</dd></div>
         <div><dt>Repository</dt><dd><a href="https://github.com/nijatva/nijatva-notes">nijatva-notes</a></dd></div>
+        <div><dt>Web app</dt><dd><a href="../notes/">Open in browser</a></dd></div>
         <div><dt>Store</dt><dd>None &middot; APK only</dd></div>
       </dl>
     </div>
@@ -153,12 +156,12 @@
   <section class="section" style="border-bottom:0">
     <div class="container" style="max-width:760px">
       <p class="eyebrow">What it does</p>
-      <h2 class="section-title">Features in the build</h2>
+      <h2 class="section-title">Shipped features</h2>
       <ul class="feature-list">
-        <li>Markdown editing with a live preview</li>
-        <li>Optional encrypted vault for private notes</li>
-        <li>Plain files in a folder you choose</li>
-        <li>Export and import without a cloud account</li>
+        <li>Markdown editing with a preview, autosave and a syntax toolbar</li>
+        <li>Optional encrypted vault: AES-256-GCM, key held in memory only</li>
+        <li>Notebooks, a 30-day trash, search and pins</li>
+        <li>No permissions at all — not even INTERNET; export through the system picker</li>
       </ul>
       <p class="lead" style="margin-top:28px;font-size:15.5px">Like every app in the suite: no Google Play Services, no account, no ads, no analytics. Distribution is an APK, never a store.</p>
     </div>

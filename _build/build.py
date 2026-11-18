@@ -513,16 +513,18 @@ def build_app_pages():
 
         repo_name = app.get("repo", "nijatva-" + app["slug"])
 
-        def web_href(target):
-            # A browser build can live in this repository (a folder) or in the app's own
+        def local_href(target):
+            # A page can live in this repository (a folder) or in the app's own
             # repository, served from its GitHub Pages site (an absolute URL).
             return target if target.startswith("http") else "../" + target
+
+        web_href = local_href
 
         actions = [f'<a class="button" href="../apps.html">All apps</a>']
         if app["status"] != "planned" and app.get("source_public", True):
             actions.insert(0, f'<a class="button" href="{GH}/{repo_name}">Source on GitHub</a>')
         if app.get("website"):
-            actions.insert(0, f'<a class="button" href="{app["website"]}">{ICON_LINK}Website</a>')
+            actions.insert(0, f'<a class="button" href="{local_href(app["website"])}">{ICON_LINK}Website</a>')
         if app["status"] == "shipped":
             actions.insert(0, f'<a class="button primary" href="{GH}/{repo_name}/releases/latest">{ICON_DOWNLOAD}Download</a>')
         if app.get("web"):
@@ -1012,6 +1014,119 @@ def build_404():
                 extra='<meta name="robots" content="noindex">\n') + body
 
 
+def build_camera_page():
+    """The camera's project page.
+
+    The camera is the one app whose browser build is a real camera - a Camera2-style
+    viewfinder in a tab - so its page has to say both what the app is and what the
+    browser version can and cannot do. Written by the generator, like every other page,
+    so it cannot drift from the site's header, footer or tokens.
+    """
+    app = next(a for a in APPS if a["slug"] == "camera")
+    # The page is served from /camera/about/, two levels below the site root.
+    root = "../../"
+    features = "\n".join(f"        <li>{E(f)}</li>" for f in app["features"])
+    body = f"""{header(root, "apps.html")}
+<main id="main">
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Project page</p>
+      <h1 class="hero-title">{E(app["name"])}</h1>
+      <p class="lead">{E(app["summary"])}</p>
+      <div class="badge-row">
+        <span class="badge">{E(SIZE_LABEL[app["size"]])}</span>
+        <span class="status-badge {STATUS_CLASS[app["status"]]}">{E(STATUS_LABEL[app["status"]])}</span>
+        <span class="badge">Camera2 · RAW · Night</span>
+      </div>
+      <div class="actions">
+        <a class="button primary" href="{root}camera/">{ICON_PLAY}Open the camera</a>
+        <a class="button primary" href="{GH}/nijatva-camera/releases/latest">{ICON_DOWNLOAD}Download the APK</a>
+        <a class="button" href="{root}apps/camera.html">The app page</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">What it does</p><h2 class="section-title">One job, done properly</h2></div>
+      </div>
+      <ul class="feature-list">
+{features}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">In the browser</p><h2 class="section-title">What works, and what cannot</h2></div>
+      </div>
+      <p class="lead">The browser build opens your camera through <code>getUserMedia</code>, so it needs no
+      install and no account. It is the same idea, not the same engine: a browser tab cannot
+      reach the sensor directly.</p>
+      <ul class="feature-list">
+        <li>Live viewfinder with grid, mirror and front/back switching</li>
+        <li>Photo capture at the stream's own resolution, saved as a JPEG on your device</li>
+        <li>Live readout of what the browser reports: resolution, frame rate, facing mode</li>
+        <li>No manual ISO, no shutter time, no RAW - a browser exposes none of those</li>
+        <li>No night stacking: the browser gives one frame at a time</li>
+      </ul>
+      <div class="actions">
+        <a class="button primary" href="{root}camera/">{ICON_PLAY}Try it now</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">How it is built</p><h2 class="section-title">Camera2, and our own maths</h2></div>
+      </div>
+      <ul class="feature-list">
+        <li>Camera2 API, no CameraX and no Play Services</li>
+        <li>Manual ISO, shutter and focus behind <code>CONTROL_AE_MODE_OFF</code></li>
+        <li>RAW capture with a DNG writer, and a 10-bit packed path where the sensor allows it</li>
+        <li>Night and HDR merge run in our own C++: pyramid alignment, inverse-variance merge,
+            demosaic, white balance, tone curve</li>
+        <li>Auto HDR turns a plain photo into a burst when the frame is clipping</li>
+        <li>Grading runs after the shot: looks, per-lens tuning, four sliders, optional portrait blur</li>
+      </ul>
+      <div class="actions">
+        <a class="button" href="{GH}/nijatva-camera">{ICON_LINK}Source on GitHub</a>
+        <a class="button" href="{GH}/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">Build it</p><h2 class="section-title">From source</h2></div>
+      </div>
+      <p class="lead">JDK 17, Android SDK 35, NDK 27.2.12479018 and CMake 3.22.1. The native module
+      pins both, so a plain checkout builds without editing anything.</p>
+      <pre style="margin:0 0 16px;padding:14px 16px;border-radius:10px;overflow-x:auto;
+                  background:var(--surface-quiet);border:1px solid var(--line);
+                  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+                  font-size:13px;line-height:1.6;color:var(--ink-soft)">git clone https://github.com/nijatva/nijatva-camera
+cd nijatva-camera
+./gradlew :app:assembleFullDebug</pre>
+      <p class="note">{E(app.get("note", ""))}</p>
+    </div>
+  </section>
+
+</main>
+{footer(root)}"""
+    out = ROOT / "camera" / "about"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "index.html").write_text(
+        head("Camera — Nijatva", app["summary"], SITE + "/camera/about/", root=root)
+        + body)
+    return "camera/about/index.html"
+
+
 def build_static():
     urls = [("", "1.0", "weekly"), ("apps.html", "0.9", "weekly"),
             ("architecture.html", "0.8", "monthly"), ("developer.html", "0.5", "monthly"),
@@ -1022,6 +1137,7 @@ def build_static():
     # its own sitemap; listing them here would claim pages this site does not serve.
     urls += [(a["web"], "0.7", "monthly") for a in APPS + ECOSYSTEM
              if a.get("web") and not a["web"].startswith("http")]
+    urls += [("camera/about/", "0.7", "monthly")]
     entries = "\n".join(
         f"  <url>\n    <loc>{SITE}/{u}</loc>\n    <lastmod>2026-11-13</lastmod>\n"
         f"    <changefreq>{c}</changefreq>\n    <priority>{p}</priority>\n  </url>" for u, p, c in urls)
@@ -1048,7 +1164,9 @@ if __name__ == "__main__":
     (ROOT / "developer.html").write_text(build_developer())
     (ROOT / "search.html").write_text(build_search())
     slugs = build_app_pages()
+    camera_page = build_camera_page()
     n_urls = build_static()
     print("index, apps, architecture, developer, search, 404 written")
     print("%d app pages written" % len(slugs))
+    print("%s written" % camera_page)
     print("%d sitemap urls" % n_urls)

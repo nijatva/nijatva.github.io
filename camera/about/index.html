@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camera — Nijatva</title>
+<meta name="description" content="Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.">
+<meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+
+<script>
+/* The only script on this site. It remembers your theme and accent in this
+   browser and sets two attributes on <html>. No network requests, no cookies. */
+(function () {
+  var d = document.documentElement;
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function sync() {
+    var t = d.getAttribute("data-theme") || "system";
+    d.setAttribute("data-scheme", t === "system" ? (mq.matches ? "dark" : "light") : t);
+  }
+  var theme = read("nj-theme"), accent = read("nj-accent");
+  if (theme) d.setAttribute("data-theme", theme);
+  if (accent) d.setAttribute("data-accent", accent);
+  sync();
+  if (mq.addEventListener) mq.addEventListener("change", sync);
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.name === "theme") { d.setAttribute("data-theme", el.value); write("nj-theme", el.value); sync(); }
+    if (el.name === "accent") { d.setAttribute("data-accent", el.value); write("nj-accent", el.value); }
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = d.getAttribute("data-theme") || "system";
+    var a = d.getAttribute("data-accent") || "saffron";
+    var rt = document.querySelector('input[name="theme"][value="' + t + '"]');
+    var ra = document.querySelector('input[name="accent"][value="' + a + '"]');
+    if (rt) rt.checked = true;
+    if (ra) ra.checked = true;
+  });
+})();
+</script>
+<link rel="stylesheet" href="../../assets/tokens.css?v=6">
+<link rel="stylesheet" href="../../assets/site.css?v=6">
+<link rel="canonical" href="https://nijatva.github.io/camera/about/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nijatva">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Camera — Nijatva">
+<meta property="og:description" content="Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.">
+<meta property="og:url" content="https://nijatva.github.io/camera/about/">
+<meta property="og:image" content="https://nijatva.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nijatva.github.io/og.png">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="../../index.html" aria-label="Nijatva home">
+      <img src="../../assets/logo.svg" alt="" width="34" height="34">
+      <span>Nijatva</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../../apps.html" aria-current="page">Apps</a>
+      <a href="../../architecture.html">Architecture</a>
+      <a href="../../index.html#principles">Principles</a>
+      <a href="../../developer.html">Developer</a>
+      <a href="https://github.com/nijatva">GitHub</a>
+    </nav>
+    <a class="header-search" href="../../search.html" aria-label="Search the site">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.4"/><path d="M15.6 15.6L21 21"/></svg>
+    </a>
+
+    <details class="appearance">
+      <summary aria-label="Appearance settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/></svg>
+        <span>Appearance</span>
+      </summary>
+      <div class="appearance-panel">
+        <p class="eyebrow">Appearance</p>
+        <fieldset>
+          <legend>Theme</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="theme" value="system"><span>System</span></label>
+            <label class="pill"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+            <label class="pill"><input type="radio" name="theme" value="light"><span>Light</span></label>
+            <label class="pill"><input type="radio" name="theme" value="black"><span>Black</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Accent colour</legend>
+          <div class="pills">
+            <label class="pill" data-swatch="green"><input type="radio" name="accent" value="green"><span>Green</span></label>
+            <label class="pill" data-swatch="saffron"><input type="radio" name="accent" value="saffron"><span>Saffron</span></label>
+            <label class="pill" data-swatch="indigo"><input type="radio" name="accent" value="indigo"><span>Indigo</span></label>
+          </div>
+        </fieldset>
+        <p class="appearance-note">Saved in this browser only. Nothing about your choice leaves this device.</p>
+      </div>
+    </details>
+    <details class="nav-menu">
+      <summary><span class="menu-icon" aria-hidden="true"></span><span>Menu</span></summary>
+      <nav class="nav-menu-panel" aria-label="Mobile">
+      <a href="../../apps.html" aria-current="page">Apps</a>
+      <a href="../../architecture.html">Architecture</a>
+      <a href="../../index.html#principles">Principles</a>
+      <a href="../../developer.html">Developer</a>
+      <a href="https://github.com/nijatva">GitHub</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Project page</p>
+      <h1 class="hero-title">Camera</h1>
+      <p class="lead">Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.</p>
+      <div class="badge-row">
+        <span class="badge">Medium build</span>
+        <span class="status-badge shipped">Shipped</span>
+        <span class="badge">Camera2 · RAW · Night</span>
+      </div>
+      <div class="actions">
+        <a class="button primary" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open the camera</a>
+        <a class="button primary" href="https://github.com/nijatva/nijatva-camera/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Download the APK</a>
+        <a class="button" href="../../apps/camera.html">The app page</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">What it does</p><h2 class="section-title">One job, done properly</h2></div>
+      </div>
+      <ul class="feature-list">
+        <li>Manual ISO, shutter and focus</li>
+        <li>RAW capture</li>
+        <li>Night stacking and exposure fusion</li>
+        <li>Panorama</li>
+        <li>A GPS-strip toggle on export</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">In the browser</p><h2 class="section-title">What works, and what cannot</h2></div>
+      </div>
+      <p class="lead">The browser build opens your camera through <code>getUserMedia</code>, so it needs no
+      install and no account. It is the same idea, not the same engine: a browser tab cannot
+      reach the sensor directly.</p>
+      <ul class="feature-list">
+        <li>Live viewfinder with grid, mirror and front/back switching</li>
+        <li>Photo capture at the stream's own resolution, saved as a JPEG on your device</li>
+        <li>Live readout of what the browser reports: resolution, frame rate, facing mode</li>
+        <li>No manual ISO, no shutter time, no RAW - a browser exposes none of those</li>
+        <li>No night stacking: the browser gives one frame at a time</li>
+      </ul>
+      <div class="actions">
+        <a class="button primary" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Try it now</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-band">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">How it is built</p><h2 class="section-title">Camera2, and our own maths</h2></div>
+      </div>
+      <ul class="feature-list">
+        <li>Camera2 API, no CameraX and no Play Services</li>
+        <li>Manual ISO, shutter and focus behind <code>CONTROL_AE_MODE_OFF</code></li>
+        <li>RAW capture with a DNG writer, and a 10-bit packed path where the sensor allows it</li>
+        <li>Night and HDR merge run in our own C++: pyramid alignment, inverse-variance merge,
+            demosaic, white balance, tone curve</li>
+        <li>Auto HDR turns a plain photo into a burst when the frame is clipping</li>
+        <li>Grading runs after the shot: looks, per-lens tuning, four sliders, optional portrait blur</li>
+      </ul>
+      <div class="actions">
+        <a class="button" href="https://github.com/nijatva/nijatva-camera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a3.9 3.9 0 0 0 5.5 0l2.2-2.2a3.9 3.9 0 0 0-5.5-5.5l-1.1 1.1"/><path d="M13.4 10.6a3.9 3.9 0 0 0-5.5 0l-2.2 2.2a3.9 3.9 0 0 0 5.5 5.5l1.1-1.1"/></svg>Source on GitHub</a>
+        <a class="button" href="https://github.com/nijatva/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div><p class="eyebrow">Build it</p><h2 class="section-title">From source</h2></div>
+      </div>
+      <p class="lead">JDK 17, Android SDK 35, NDK 27.2.12479018 and CMake 3.22.1. The native module
+      pins both, so a plain checkout builds without editing anything.</p>
+      <pre style="margin:0 0 16px;padding:14px 16px;border-radius:10px;overflow-x:auto;
+                  background:var(--surface-quiet);border:1px solid var(--line);
+                  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+                  font-size:13px;line-height:1.6;color:var(--ink-soft)">git clone https://github.com/nijatva/nijatva-camera
+cd nijatva-camera
+./gradlew :app:assembleFullDebug</pre>
+      <p class="note">v0.4.10 debug build, 17 November 2026. Release signing is not set up yet.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="../../assets/logo.svg" alt="" width="32" height="32">
+          <span>Nijatva</span>
+        </div>
+        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. Built in India.</p>
+        <a class="dev-card" href="../../developer.html">
+          <div class="dev-avatar" aria-hidden="true">VD</div>
+          <div>
+            <p class="dev-name">Vasudev Dangaya</p>
+            <p class="dev-role">Independent developer &middot; India</p>
+            <span class="dev-link">Developer profile</span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <h2>Apps</h2>
+        <div class="footer-links">
+          <a href="../../apps.html">All 24 apps</a>
+          <a href="../../apps.html#phase-1">Phase 1 &middot; Small apps</a>
+          <a href="../../apps.html#phase-4">Phase 4 &middot; Flagship</a>
+        </div>
+      </div>
+      <div>
+        <h2>Project</h2>
+        <div class="footer-links">
+          <a href="../../architecture.html">Architecture</a>
+          <a href="../../architecture.html#roadmap">Real status</a>
+          <a href="../../developer.html">Developer</a>
+          <a href="https://github.com/nijatva">Source on GitHub</a>
+        </div>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <div class="footer-links">
+          <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>
+          <a href="../../index.html#why">Why "Nijatva"</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Status as of 13 November 2026. Nijatva &middot; India</span>
+      <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search — Nijatva</title>
+<meta name="description" content="Search every Nijatva app and page by name, job or feature.">
+<meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<script>
+/* The only script on this site. It remembers your theme and accent in this
+   browser and sets two attributes on <html>. No network requests, no cookies. */
+(function () {
+  var d = document.documentElement;
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function sync() {
+    var t = d.getAttribute("data-theme") || "system";
+    d.setAttribute("data-scheme", t === "system" ? (mq.matches ? "dark" : "light") : t);
+  }
+  var theme = read("nj-theme"), accent = read("nj-accent");
+  if (theme) d.setAttribute("data-theme", theme);
+  if (accent) d.setAttribute("data-accent", accent);
+  sync();
+  if (mq.addEventListener) mq.addEventListener("change", sync);
+  document.addEventListener("change", function (e) {
+    var el = e.target;
+    if (el.name === "theme") { d.setAttribute("data-theme", el.value); write("nj-theme", el.value); sync(); }
+    if (el.name === "accent") { d.setAttribute("data-accent", el.value); write("nj-accent", el.value); }
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var t = d.getAttribute("data-theme") || "system";
+    var a = d.getAttribute("data-accent") || "saffron";
+    var rt = document.querySelector('input[name="theme"][value="' + t + '"]');
+    var ra = document.querySelector('input[name="accent"][value="' + a + '"]');
+    if (rt) rt.checked = true;
+    if (ra) ra.checked = true;
+  });
+})();
+</script>
+<link rel="stylesheet" href="assets/tokens.css?v=6">
+<link rel="stylesheet" href="assets/site.css?v=6">
+<link rel="canonical" href="https://nijatva.github.io/search.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nijatva">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Search — Nijatva">
+<meta property="og:description" content="Search every Nijatva app and page by name, job or feature.">
+<meta property="og:url" content="https://nijatva.github.io/search.html">
+<meta property="og:image" content="https://nijatva.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nijatva.github.io/og.png">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Nijatva home">
+      <img src="assets/logo.svg" alt="" width="34" height="34">
+      <span>Nijatva</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="apps.html">Apps</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="index.html#principles">Principles</a>
+      <a href="developer.html">Developer</a>
+      <a href="https://github.com/nijatva">GitHub</a>
+    </nav>
+    <a class="header-search" href="search.html" aria-label="Search the site">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.4"/><path d="M15.6 15.6L21 21"/></svg>
+    </a>
+
+    <details class="appearance">
+      <summary aria-label="Appearance settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/></svg>
+        <span>Appearance</span>
+      </summary>
+      <div class="appearance-panel">
+        <p class="eyebrow">Appearance</p>
+        <fieldset>
+          <legend>Theme</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="theme" value="system"><span>System</span></label>
+            <label class="pill"><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+            <label class="pill"><input type="radio" name="theme" value="light"><span>Light</span></label>
+            <label class="pill"><input type="radio" name="theme" value="black"><span>Black</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Accent colour</legend>
+          <div class="pills">
+            <label class="pill" data-swatch="green"><input type="radio" name="accent" value="green"><span>Green</span></label>
+            <label class="pill" data-swatch="saffron"><input type="radio" name="accent" value="saffron"><span>Saffron</span></label>
+            <label class="pill" data-swatch="indigo"><input type="radio" name="accent" value="indigo"><span>Indigo</span></label>
+          </div>
+        </fieldset>
+        <p class="appearance-note">Saved in this browser only. Nothing about your choice leaves this device.</p>
+      </div>
+    </details>
+    <details class="nav-menu">
+      <summary><span class="menu-icon" aria-hidden="true"></span><span>Menu</span></summary>
+      <nav class="nav-menu-panel" aria-label="Mobile">
+      <a href="apps.html">Apps</a>
+      <a href="architecture.html">Architecture</a>
+      <a href="index.html#principles">Principles</a>
+      <a href="developer.html">Developer</a>
+      <a href="https://github.com/nijatva">GitHub</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section" style="border-bottom:0">
+    <div class="container search-wrap">
+      <p class="eyebrow">Search</p>
+      <h1 class="page-title">Find an app</h1>
+      <p class="lead" style="max-width:56ch">Type a name, a job or a word from the description. Press <kbd>/</kbd> anywhere on the site to come back here.</p>
+
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.4"/><path d="M15.6 15.6L21 21"/></svg>
+        <input id="q" type="search" placeholder="notes, browser, vault, camera..." autocomplete="off" autofocus aria-label="Search apps and pages">
+      </div>
+
+      <p class="search-count" id="count"></p>
+      <ul class="search-results" id="results"></ul>
+    </div>
+  </section>
+</main>
+<script>window.NIJATVA_INDEX = [{"n": "Calculator", "u": "apps/calc.html", "i": "calc", "s": "Scientific calculator, history, and an offline unit and currency converter.", "k": "calculator calc scientific calculator, history, and an offline unit and currency converter. scientific functions and constants a history you can scroll back through offline unit conversion currency rates you refresh yourself, never a background sync", "st": "App · Planned"}, {"n": "Clock", "u": "apps/clock.html", "i": "clock", "s": "Alarm, timer, stopwatch, world clock. No ads, no upsell.", "k": "clock clock alarm, timer, stopwatch, world clock. no ads, no upsell. alarms that survive a reboot timer and stopwatch world clock for the cities you pick no upsell, no premium tier", "st": "App · Planned"}, {"n": "Notes", "u": "apps/notes.html", "i": "notes", "s": "Offline Markdown notes with an optional encrypted vault.", "k": "notes notes offline markdown notes with an optional encrypted vault. markdown editing with a live preview optional encrypted vault for private notes plain files in a folder you choose export and import without a cloud account", "st": "App · In progress"}, {"n": "QR Scanner", "u": "apps/qr.html", "i": "qr", "s": "Scan and generate QR codes offline. Nothing leaves the device.", "k": "qr scanner qr scan and generate qr codes offline. nothing leaves the device. offline decoding, no upload generate codes for text, links and wi-fi camera opens only inside the app copy or share the decoded text", "st": "App · Planned"}, {"n": "Files", "u": "apps/files.html", "i": "files", "s": "SAF-based file manager with a storage analyser. No root, no broad storage permission.", "k": "files files saf-based file manager with a storage analyser. no root, no broad storage permission. storage access framework, not broad storage permission a storage analyser that shows what is eating space zip and unzip in place search inside the folders you granted", "st": "App · In progress"}, {"n": "Gallery", "u": "apps/gallery.html", "i": "gallery", "s": "Local-first gallery with albums and EXIF stripping on share.", "k": "gallery gallery local-first gallery with albums and exif stripping on share. albums built from your own folders exif stripped when you share a photo no cloud backup, no sync target video plays in the same grid", "st": "App · Shipped"}, {"n": "Music", "u": "apps/music.html", "i": "music", "s": "Offline, folder-based player with an equaliser and sleep timer.", "k": "music music offline, folder-based player with an equaliser and sleep timer. plays from folders instead of scanning the whole phone equaliser sleep timer no recommendations, no listening history", "st": "App · Shipped"}, {"n": "Recorder", "u": "apps/recorder.html", "i": "recorder", "s": "Voice recording with optional on-device transcription.", "k": "recorder recorder voice recording with optional on-device transcription. records into a folder you choose optional on-device transcription waveform and trim the model ships in the apk, nothing is uploaded", "st": "App · Planned"}, {"n": "PDF Viewer", "u": "apps/pdf.html", "i": "pdf", "s": "Open PDF and text documents from storage. Night mode and text reflow.", "k": "pdf viewer pdf open pdf and text documents from storage. night mode and text reflow. opens from any folder you granted night mode and text reflow remembers your place per file no document leaves the device", "st": "App · Planned"}, {"n": "Device Info", "u": "apps/deviceinfo.html", "i": "deviceinfo", "s": "Battery, storage, RAM, sensors and network speed. Zero tracking.", "k": "device info deviceinfo battery, storage, ram, sensors and network speed. zero tracking. battery and storage detail the system hides ram breakdown sensor list with live values network speed without a third-party sdk", "st": "App · Planned"}, {"n": "Weather", "u": "apps/weather.html", "i": "weather", "s": "Forecast from Open-Meteo. Works properly even if you deny location.", "k": "weather weather forecast from open-meteo. works properly even if you deny location. manual city entry is the primary path open-meteo data, no key shipped in the app location optional, never required no ads on the forecast", "st": "App · Planned"}, {"n": "Dialer", "u": "apps/dialer.html", "i": "dialer", "s": "T9 keypad, call log, dual-SIM picker and a spam blocklist.", "k": "dialer dialer t9 keypad, call log, dual-sim picker and a spam blocklist. t9 search across your contacts dual-sim picker on every call a spam blocklist you maintain call log stays on the device", "st": "App · Shipped"}, {"n": "Contacts", "u": "apps/contacts.html", "i": "contacts", "s": "Local contacts, vCard import and export, duplicate merge.", "k": "contacts contacts local contacts, vcard import and export, duplicate merge. vcard import and export duplicate merge groups and favourites no account, no server-side address book", "st": "App · Shipped"}, {"n": "SMS", "u": "apps/sms.html", "i": "sms", "s": "SMS and MMS threads, offline OTP detection, blocklist.", "k": "sms sms sms and mms threads, offline otp detection, blocklist. threaded sms and mms otp detection on the device per-sender blocklist default-sms role handled without a cloud path", "st": "App · Shipped"}, {"n": "Calendar", "u": "apps/calendar.html", "i": "calendar", "s": "Offline calendar with reminders and ICS import and export.", "k": "calendar calendar offline calendar with reminders and ics import and export. month, week and agenda views reminders that fire offline ics import and export no account, no caldav dependency", "st": "App · Planned"}, {"n": "Camera", "u": "apps/camera.html", "i": "camera", "s": "Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.", "k": "camera camera camera2 with manual controls, raw, night stacking, exposure fusion and panorama. manual iso, shutter and focus raw capture night stacking and exposure fusion panorama a gps-strip toggle on export", "st": "App · Shipped"}, {"n": "Expenses", "u": "apps/expenses.html", "i": "expenses", "s": "Offline expense tracking with CSV export. No bank linking.", "k": "expenses expenses offline expense tracking with csv export. no bank linking. quick entry with categories monthly totals and simple charts csv export you own no bank linking, no account aggregation", "st": "App · Planned"}, {"n": "Tasks", "u": "apps/tasks.html", "i": "tasks", "s": "Tasks, reminders and recurrence. Local database only.", "k": "tasks tasks tasks, reminders and recurrence. local database only. tasks with due dates recurring reminders local database only no sync account", "st": "App · Planned"}, {"n": "RSS Reader", "u": "apps/rss.html", "i": "rss", "s": "Offline-first feed reader with OPML import. No account.", "k": "rss reader rss offline-first feed reader with opml import. no account. opml import and export offline reading of fetched articles no account, no server-side reader refresh on your schedule, not a push service", "st": "App · Planned"}, {"n": "Vault", "u": "apps/vault.html", "i": "vault", "s": "Encrypted passwords and offline TOTP with biometric unlock.", "k": "vault vault encrypted passwords and offline totp with biometric unlock. encrypted local vault offline totp biometric unlock export that does not need a cloud", "st": "App · Planned"}, {"n": "Keyboard", "u": "apps/keyboard.html", "i": "keyboard", "s": "Indic-first keyboard for a dozen Indian scripts. The manifest has no INTERNET permission at all.", "k": "keyboard keyboard indic-first keyboard for a dozen indian scripts. the manifest has no internet permission at all. a dozen indian scripts, indic-first layout no internet permission in the manifest dictionary and autocorrect on the device clipboard history stays local", "st": "App · Planned"}, {"n": "Launcher", "u": "apps/launcher.html", "i": "launcher", "s": "A minimal home screen. No news feed, no widgets phoning home.", "k": "launcher launcher a minimal home screen. no news feed, no widgets phoning home. icon grid and dock, nothing else no news feed, no suggested apps search that only searches your phone per-app shortcuts without a tracking sdk", "st": "App · Planned"}, {"n": "Browser", "u": "apps/browser.html", "i": "browser", "s": "Containers, tracker and ad blocking, reader mode and native text-to-speech, on the system WebView.", "k": "browser browser containers, tracker and ad blocking, reader mode and native text-to-speech, on the system webview. containers to separate logins tracker and ad blocking reader mode native text-to-speech desktop builds for windows, macos and linux", "st": "App · Shipped"}, {"n": "App Manager", "u": "apps/appmanager.html", "i": "appmanager", "s": "Audit the apps on your phone and flag the ones that depend on Google Play Services.", "k": "app manager appmanager audit the apps on your phone and flag the ones that depend on google play services. lists installed apps with package detail flags apps that depend on play services export the audit as a list uninstall from one screen", "st": "App · Planned"}, {"n": "Appstore", "u": "apps/appstore.html", "i": "appstore", "s": "A curated store for the suite. Featured apps, categories, search, updates and an install pipeline that verifies every APK before it runs.", "k": "appstore appstore a curated store for the suite. featured apps, categories, search, updates and an install pipeline that verifies every apk before it runs. store, search and updates in one app sha-256 checked against the catalogue before install compares signing certificates with the installed copy the same four themes and three accents as the rest of the suite kotlin and jetpack compose, no image loader, no firebase", "st": "Ecosystem · In progress"}, {"n": "Photos", "u": "apps/photos.html", "i": "photos", "s": "A local-first gallery with on-device labelling, face detection, text recognition, albums, a vault and a trash.", "k": "photos photos a local-first gallery with on-device labelling, face detection, text recognition, albums, a vault and a trash. on-device ml kit: labelling, faces and text, all bundled in the apk albums, vault and a trash you can recover from built-in editor, so a photo never leaves the app to be cropped no cloud backup, no account", "st": "Ecosystem · Shipped"}, {"n": "Video Player", "u": "apps/video.html", "i": "video", "s": "A video player for Android, Windows, macOS, Linux and the web, built once with Compose Multiplatform.", "k": "video player video a video player for android, windows, macos, linux and the web, built once with compose multiplatform. one codebase, five platforms compose multiplatform and media3 plays from local storage, no account, no recommendations android apk plus desktop builds", "st": "Ecosystem · Shipped"}, {"n": "Drive", "u": "apps/drive.html", "i": "drive", "s": "A private, offline-first file vault. Expo and React Native, with a Proton Drive style interface.", "k": "drive drive a private, offline-first file vault. expo and react native, with a proton drive style interface. files stay on the device vault-first interface, not a cloud client expo and react native, typescript no sync server to trust", "st": "Ecosystem · Shipped"}, {"n": "Browser Mini X", "u": "apps/minix.html", "i": "minix", "s": "A smaller privacy-first browser on the system WebView, same engine as the main browser, package com.nijatva.mini.x.", "k": "browser mini x minix a smaller privacy-first browser on the system webview, same engine as the main browser, package com.nijatva.mini.x. same webview engine as the main browser installs beside nijatva browser, separate package tracker and ad blocking no account, no sync", "st": "Ecosystem · Shipped"}, {"n": "Photo Editor", "u": "apps/editor.html", "i": "editor", "s": "A standalone editor for photos already on the device. The repository exists; nothing is released yet.", "k": "photo editor editor a standalone editor for photos already on the device. the repository exists; nothing is released yet. edits stay on the device opens from any folder you grant planned as a handoff target for photos and camera no upload, no account", "st": "Ecosystem · In progress"}, {"n": "Web Store", "u": "apps/webstore.html", "i": "webstore", "s": "A userscript store for the Nijatva and Aekant browsers. One tap installs a script; no app release needed.", "k": "web store webstore a userscript store for the nijatva and aekant browsers. one tap installs a script; no app release needed. userscripts, installed without a new apk runs on the browser's own extension support no account, no telemetry the page is live; the app side is not released", "st": "Ecosystem · In progress"}, {"n": "All apps", "u": "apps.html", "i": "launcher", "st": "Page", "s": "The full list, grouped by phase, with the real release status of each app.", "k": "apps list suite directory all twenty four"}, {"n": "Architecture", "u": "architecture.html", "i": "core", "st": "Page", "s": "Layers, the shared screen skeleton, the roadmap table and the no-GMS rules.", "k": "architecture layers roadmap status no-gms firebase bharos degoogled"}, {"n": "Developer", "u": "developer.html", "i": "appmanager", "st": "Page", "s": "Who builds Nijatva, what the numbers are, and where the source lives.", "k": "developer vasudev dangaya profile contact github"}, {"n": "Why Nijatva", "u": "index.html#why", "i": "notes", "st": "Page", "s": "What the name means and what the project is trying to do.", "k": "why name sanskrit meaning about devira"}];</script>
+<script>
+(function () {
+  var INDEX = window.NIJATVA_INDEX || [];
+  var q = document.getElementById("q");
+  var list = document.getElementById("results");
+  var count = document.getElementById("count");
+  var all = INDEX.slice();
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function mark(text, needle) {
+    if (!needle) return esc(text);
+    var i = text.toLowerCase().indexOf(needle);
+    if (i < 0) return esc(text);
+    return esc(text.slice(0, i)) + "<mark>" + esc(text.slice(i, i + needle.length)) + "</mark>" + esc(text.slice(i + needle.length));
+  }
+
+  function score(item, terms) {
+    var name = item.n.toLowerCase();
+    var keys = (item.k || "").toLowerCase();
+    var sum = (item.s || "").toLowerCase();
+    var total = 0;
+    for (var t = 0; t < terms.length; t++) {
+      var term = terms[t];
+      if (name === term) total += 100;
+      else if (name.indexOf(term) === 0) total += 60;
+      else if (name.indexOf(term) > -1) total += 40;
+      else if (keys.indexOf(term) > -1) total += 18;
+      else if (sum.indexOf(term) > -1) total += 8;
+      else return 0;                       // every term has to match somewhere
+    }
+    return total;
+  }
+
+  function render(items, terms, query) {
+    list.innerHTML = "";
+    if (!items.length) {
+      list.innerHTML = '<li class="search-empty">Nothing matches <strong>' + esc(query) +
+        '</strong>. Try "notes", "browser", "vault" or "camera".</li>';
+      count.textContent = "";
+      return;
+    }
+    count.textContent = items.length + (items.length === 1 ? " result" : " results");
+    items.forEach(function (item) {
+      var li = document.createElement("li");
+      li.className = "search-hit";
+      li.innerHTML =
+        '<a href="' + item.u + '">' +
+          '<img src="assets/icons/' + item.i + '.svg" alt="" width="44" height="44" loading="lazy">' +
+          "<div>" +
+            "<strong>" + mark(item.n, terms[0]) + "</strong>" +
+            '<span class="search-kind">' + esc(item.st) + "</span>" +
+            "<p>" + esc(item.s) + "</p>" +
+          "</div>" +
+        "</a>";
+      list.appendChild(li);
+    });
+  }
+
+  function run() {
+    var query = q.value.trim().toLowerCase();
+    if (!query) {
+      render(all.slice(0, 8), [], "");
+      count.textContent = INDEX.length + " apps and pages. Start typing.";
+      return;
+    }
+    var terms = query.split(/\s+/).filter(Boolean);
+    var hits = all
+      .map(function (item) { return { item: item, s: score(item, terms) }; })
+      .filter(function (r) { return r.s > 0; })
+      .sort(function (a, b) { return b.s - a.s || a.item.n.localeCompare(b.item.n); })
+      .map(function (r) { return r.item; });
+    render(hits, terms, q.value.trim());
+  }
+
+  q.addEventListener("input", run);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "/" && document.activeElement !== q) { e.preventDefault(); q.focus(); }
+    if (e.key === "Escape" && document.activeElement === q) { q.value = ""; run(); q.blur(); }
+  });
+
+  var params = new URLSearchParams(location.search);
+  if (params.get("q")) { q.value = params.get("q"); }
+  run();
+})();
+</script>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="assets/logo.svg" alt="" width="32" height="32">
+          <span>Nijatva</span>
+        </div>
+        <p>Small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. Built in India.</p>
+        <a class="dev-card" href="developer.html">
+          <div class="dev-avatar" aria-hidden="true">VD</div>
+          <div>
+            <p class="dev-name">Vasudev Dangaya</p>
+            <p class="dev-role">Independent developer &middot; India</p>
+            <span class="dev-link">Developer profile</span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <h2>Apps</h2>
+        <div class="footer-links">
+          <a href="apps.html">All 24 apps</a>
+          <a href="apps.html#phase-1">Phase 1 &middot; Small apps</a>
+          <a href="apps.html#phase-4">Phase 4 &middot; Flagship</a>
+        </div>
+      </div>
+      <div>
+        <h2>Project</h2>
+        <div class="footer-links">
+          <a href="architecture.html">Architecture</a>
+          <a href="architecture.html#roadmap">Real status</a>
+          <a href="developer.html">Developer</a>
+          <a href="https://github.com/nijatva">Source on GitHub</a>
+        </div>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <div class="footer-links">
+          <a href="mailto:Vasudev.work@rediffmail.com">Vasudev.work@rediffmail.com</a>
+          <a href="index.html#why">Why "Nijatva"</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>Status as of 13 November 2026. Nijatva &middot; India</span>
+      <span>No cookies, no analytics, no external fonts, no third-party requests.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

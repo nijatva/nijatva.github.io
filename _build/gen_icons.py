@@ -15,8 +15,9 @@ G = {
           '<path d="M28 44h40"/>',
  "gallery": '<rect x="27" y="29" width="42" height="38" rx="6"/><circle cx="39" cy="41" r="4"/>'
             '<path d="M31 61l13-13 9 9 5-5 9 9"/>',
- "music": '<circle cx="37" cy="64" r="6"/><circle cx="60" cy="58" r="6"/>'
-          '<path d="M43 64V32l23-6v32"/>',
+ "music": '<circle cx="33" cy="65" r="7.4" stroke-width="3"/><circle cx="63.2" cy="57.6" r="7.4" stroke-width="3"/>'
+          '<path d="M40.4 65V30.4" stroke-width="3"/><path d="M70.45 57.6V19.4" stroke-width="3"/>'
+          '<path d="M42.47 29.65 68.38 20.15" stroke-width="4.6"/>',
  "recorder": '<rect x="39" y="22" width="18" height="32" rx="9"/>'
              '<path d="M32 48a16 16 0 0 0 32 0"/><path d="M48 64v9M40 73h16"/>',
  "pdf": '<path d="M36 20h17l13 13v43H36z"/><path d="M53 20v13h13"/><path d="M43 48h16M43 58h16M43 68h10"/>',

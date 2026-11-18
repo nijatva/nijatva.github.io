@@ -293,10 +293,10 @@ def build_index():
       <div class="section-heading">
         <div>
           <p class="eyebrow">Available now</p>
-          <h2 class="section-title">Seven apps ship releases</h2>
+          <h2 class="section-title">Eight apps ship releases</h2>
         </div>
         <div>
-          <p class="lead">Seven of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
+          <p class="lead">Eight of the twenty-four have a downloadable build, and four more ship beside them — Photos, Video Player, Drive and Browser Mini X. The Appstore ties them together.</p>
           <a class="section-link" href="apps.html">View the full list</a>
         </div>
       </div>
@@ -350,7 +350,7 @@ def build_index():
       <article class="panel">
         <p class="eyebrow">Status</p>
         <h2>What exists today</h2>
-        <p>Seven apps have releases, two more have repositories without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
+        <p>Eight apps have releases, one more has a repository without one, and fifteen are planned. The roadmap page says so in a table rather than in adjectives.</p>
         <div class="text-link-list"><a href="architecture.html#roadmap">Real status</a></div>
       </article>
       <article class="panel">
@@ -503,21 +503,33 @@ def build_app_pages():
         next_app = APPS[i + 1] if i < len(APPS) - 1 else None
         status, cls = STATUS_LABEL[app["status"]], STATUS_CLASS[app["status"]]
 
+        repo_name = app.get("repo", "nijatva-" + app["slug"])
+
+        def web_href(target):
+            # A browser build can live in this repository (a folder) or in the app's own
+            # repository, served from its GitHub Pages site (an absolute URL).
+            return target if target.startswith("http") else "../" + target
+
         actions = [f'<a class="button" href="../apps.html">All apps</a>']
-        if app["status"] == "shipped":
-            actions.insert(0, f'<a class="button primary" href="{GH}/{app["repo"] if "repo" in app else "nijatva-" + app["slug"]}/releases/latest">Download the APK</a>')
         if app["status"] != "planned" and app.get("source_public", True):
-            actions.insert(0, f'<a class="button primary" href="{GH}/nijatva-{app["slug"]}">Source on GitHub</a>')
+            actions.insert(0, f'<a class="button" href="{GH}/{repo_name}">Source on GitHub</a>')
+        if app.get("download_page"):
+            actions.insert(0, f'<a class="button" href="{app["download_page"]}">Download page</a>')
+        if app["status"] == "shipped":
+            actions.insert(0, f'<a class="button primary" href="{GH}/{repo_name}/releases/latest">Download</a>')
+        if app.get("web"):
+            actions.insert(0, f'<a class="button primary" href="{web_href(app["web"])}">Open web app</a>')
         actions = "\n          ".join(actions)
 
         features = "\n".join(f'        <li>{E(f)}</li>' for f in app["features"])
-        repo_name = "nijatva-" + app["slug"]
         if app.get("source_public", True) and app["status"] != "planned":
             repo_row = f'<dd><a href="{GH}/{repo_name}">{E(repo_name)}</a></dd>'
         elif app["status"] != "planned":
             repo_row = f'<dd>{E(repo_name)} <span style="font-weight:400;color:var(--muted)">(private)</span></dd>'
         else:
             repo_row = f'<dd>{E(repo_name)} <span style="font-weight:400;color:var(--muted)">(planned)</span></dd>'
+        web_row = (f'\n        <div><dt>Web app</dt><dd><a href="{web_href(app["web"])}">Open in browser</a></dd></div>'
+                   if app.get("web") else "")
         note = f'\n      <p class="note">{E(app["note"])}</p>' if app.get("note") else ""
 
         pager = ""
@@ -559,7 +571,7 @@ def build_app_pages():
         <div><dt>Status</dt><dd>{status}</dd></div>
         <div><dt>{"Part of" if app["phase"] == 0 else "Phase"}</dt><dd>{(E("The ecosystem, not the 24")) if app["phase"] == 0 else (str(app["phase"]) + " &middot; " + E(PHASES[app["phase"]][0]))}</dd></div>
         <div><dt>Build size</dt><dd>{SIZE_LABEL[app["size"]]}</dd></div>
-        <div><dt>Repository</dt>{repo_row}</div>
+        <div><dt>Repository</dt>{repo_row}</div>{web_row}
         <div><dt>Store</dt><dd>None &middot; APK only</dd></div>
       </dl>
     </div>
@@ -655,7 +667,7 @@ def build_architecture():
     <div class="container">
       <div class="section-heading">
         <div><p class="eyebrow">3 &middot; Roadmap</p><h2 class="section-title">Roadmap and real status</h2></div>
-        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, seven apps ship releases and two more have repositories. Status as of {UPDATED}.</p></div>
+        <div><p class="lead">28 repositories planned: 4 foundation repos and 24 apps. All four foundation repos exist, eight apps ship releases and one more has a repository. Status as of {UPDATED}.</p></div>
       </div>
       <div class="scroll">
       <table>

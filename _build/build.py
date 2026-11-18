@@ -494,6 +494,14 @@ def build_apps():
 
 
 # ---------------------------------------------------------------- app detail
+ICON_PLAY = ('<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/>'
+             '<path d="M10 8.5l6 3.5-6 3.5z"/></svg>')
+ICON_DOWNLOAD = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/>'
+                 '<path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>')
+ICON_LINK = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a3.9 3.9 0 0 0 5.5 0l2.2-2.2a3.9 3.9 0 0 0-5.5-5.5l-1.1 1.1"/>'
+             '<path d="M13.4 10.6a3.9 3.9 0 0 0-5.5 0l-2.2 2.2a3.9 3.9 0 0 0 5.5 5.5l1.1-1.1"/></svg>')
+
+
 def build_app_pages():
     outdir = ROOT / "apps"
     outdir.mkdir(exist_ok=True)
@@ -514,11 +522,11 @@ def build_app_pages():
         if app["status"] != "planned" and app.get("source_public", True):
             actions.insert(0, f'<a class="button" href="{GH}/{repo_name}">Source on GitHub</a>')
         if app.get("website"):
-            actions.insert(0, f'<a class="button" href="{app["website"]}">Website</a>')
+            actions.insert(0, f'<a class="button" href="{app["website"]}">{ICON_LINK}Website</a>')
         if app["status"] == "shipped":
-            actions.insert(0, f'<a class="button primary" href="{GH}/{repo_name}/releases/latest">Download</a>')
+            actions.insert(0, f'<a class="button primary" href="{GH}/{repo_name}/releases/latest">{ICON_DOWNLOAD}Download</a>')
         if app.get("web"):
-            actions.insert(0, f'<a class="button primary" href="{web_href(app["web"])}">Open web app</a>')
+            actions.insert(0, f'<a class="button primary" href="{web_href(app["web"])}">{ICON_PLAY}Open web app</a>')
         actions = "\n          ".join(actions)
 
         features = "\n".join(f'        <li>{E(f)}</li>' for f in app["features"])

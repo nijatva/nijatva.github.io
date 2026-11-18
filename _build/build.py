@@ -1017,32 +1017,82 @@ def build_404():
 def build_camera_page():
     """The camera's project page.
 
-    The camera is the one app whose browser build is a real camera - a Camera2-style
-    viewfinder in a tab - so its page has to say both what the app is and what the
-    browser version can and cannot do. Written by the generator, like every other page,
-    so it cannot drift from the site's header, footer or tokens.
+    Modelled on the pages the other apps have: a hero that says what the thing is and
+    what it costs you, two ways in, then the work itself. Every number on it was read
+    from the app - the permissions from its manifest, the API level from its build
+    file, the size from a built APK - rather than guessed.
     """
     app = next(a for a in APPS if a["slug"] == "camera")
     # The page is served from /camera/about/, two levels below the site root.
     root = "../../"
-    features = "\n".join(f"        <li>{E(f)}</li>" for f in app["features"])
+
+    def card(icon, title, text):
+        return f"""        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none">{icon}</span>
+            <h3 style="margin:0;font-size:16px">{E(title)}</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">{E(text)}</p>
+        </article>"""
+
+    def stat(text):
+        return f'<span class="badge">{E(text)}</span>'
+
+    I_AIM = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="7.2"/><path d="M12 4.8v3M12 16.2v3M4.8 12h3M16.2 12h3"/></svg>'
+    I_RAW = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="5" width="16" height="14" rx="2.5"/><path d="M4 10h16M9 10v9"/></svg>'
+    I_NIGHT = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.4 6.4 0 0 0 10.5 10.5z"/></svg>'
+    I_HDR = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.4 5.4l2.1 2.1M16.5 16.5l2.1 2.1M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1"/></svg>'
+    I_GRADE = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16.5l4.5-9 4 7 3-4.5 4 6.5z"/><path d="M4 20h16"/></svg>'
+    I_FRAME = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M12 8.5v7M8.5 12h7"/></svg>'
+    I_SUITE = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg>'
+
+    cards = "\n".join([
+        card(I_AIM, "Pro controls",
+             "Manual ISO, shutter time and focus behind CONTROL_AE_MODE_OFF, with a live "
+             "readout of what the sensor is actually doing."),
+        card(I_RAW, "RAW and DNG",
+             "RAW capture written as a DNG, and a 10-bit packed path where the sensor allows "
+             "it - half the file, same information."),
+        card(I_NIGHT, "Night and astro stacking",
+             "Pyramid alignment and an inverse-variance merge in our own C++, then demosaic, "
+             "white balance and a tone curve that puts 18% grey where it belongs."),
+        card(I_HDR, "Auto HDR",
+             "When the frame is clipping, a plain photo quietly becomes a short burst and is "
+             "merged, so the sky keeps its colour instead of turning white."),
+        card(I_GRADE, "Grading after the shot",
+             "Five looks, per-lens tuning, four sliders and an optional portrait blur. The "
+             "same pipeline every time, so a look can never break a capture."),
+        card(I_FRAME, "Framing aids",
+             "Grid, horizon level with a haptic tick, focus peaking and a histogram - and the "
+             "photo keeps the exposure and white balance the preview showed you."),
+        card(I_SUITE, "Part of a suite",
+             "Hands shots to Nijatva Gallery and Nijatva Photos, and accepts IMAGE_CAPTURE and "
+             "VIDEO_CAPTURE, so any other app can ask it for a photo."),
+    ])
+
     body = f"""{header(root, "apps.html")}
 <main id="main">
 
   <section class="section">
     <div class="container">
-      <p class="eyebrow">Project page</p>
-      <h1 class="hero-title">{E(app["name"])}</h1>
-      <p class="lead">{E(app["summary"])}</p>
-      <div class="badge-row">
-        <span class="badge">{E(SIZE_LABEL[app["size"]])}</span>
-        <span class="status-badge {STATUS_CLASS[app["status"]]}">{E(STATUS_LABEL[app["status"]])}</span>
-        <span class="badge">Camera2 · RAW · Night</span>
+      <div class="app-hero-head">
+        <img class="app-icon" src="{root}assets/icons/camera.svg" alt="" width="52" height="52">
+        <div>
+          <p class="eyebrow">Project page</p>
+          <h1 class="hero-title">{E(app["name"])}</h1>
+        </div>
+      </div>
+      <p class="lead">Camera2 with manual controls, RAW, night stacking, exposure fusion and
+      panorama - and the maths written here, not borrowed.</p>
+      <div class="badge-row" style="margin:0 0 22px">
+        {stat("Android 10+")}{stat("11 MB APK")}{stat("No INTERNET permission")}
+        {stat("0 trackers")}{stat("English + हिंदी")}
       </div>
       <div class="actions">
-        <a class="button primary" href="{root}camera/">{ICON_PLAY}Open the camera</a>
         <a class="button primary" href="{GH}/nijatva-camera/releases/latest">{ICON_DOWNLOAD}Download the APK</a>
-        <a class="button" href="{root}apps/camera.html">The app page</a>
+        <a class="button primary" href="{root}camera/">{ICON_PLAY}Open the web app</a>
+        <a class="button" href="{GH}/nijatva-camera">{ICON_LINK}View source</a>
       </div>
     </div>
   </section>
@@ -1050,31 +1100,41 @@ def build_camera_page():
   <section class="section section-band">
     <div class="container">
       <div class="section-heading">
-        <div><p class="eyebrow">What it does</p><h2 class="section-title">One job, done properly</h2></div>
+        <div><p class="eyebrow">Two ways to use it</p><h2 class="section-title">Same idea, two engines</h2></div>
+        <div><p class="lead">Pick whichever fits the moment.</p></div>
       </div>
-      <ul class="feature-list">
-{features}
-      </ul>
+      <div class="grid two">
+        <article class="card">
+          <h3 style="margin:0 0 4px">Android app</h3>
+          <p style="margin:0;color:var(--ink-soft)">The whole camera: manual ISO, shutter and
+          focus, RAW and DNG, night and astro stacking, Auto HDR, panorama, looks and sliders.
+          Works with no network at all.</p>
+          <div class="app-card-actions">
+            <a class="button primary" href="{GH}/nijatva-camera/releases/latest">{ICON_DOWNLOAD}Download</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3 style="margin:0 0 4px">Web app</h3>
+          <p style="margin:0;color:var(--ink-soft)">Runs in a browser tab: live viewfinder,
+          grid, front and back, capture straight to your device. No install, no account.
+          What a browser cannot give it - manual exposure, RAW, stacking - it does not
+          pretend to.</p>
+          <div class="app-card-actions">
+            <a class="button" href="{root}camera/">{ICON_PLAY}Open the web app</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="section-heading">
-        <div><p class="eyebrow">In the browser</p><h2 class="section-title">What works, and what cannot</h2></div>
+        <div><p class="eyebrow">What it does</p><h2 class="section-title">Everything a photo needs</h2></div>
+        <div><p class="lead">Nothing on this list needs an account, a server or a Play Services library.</p></div>
       </div>
-      <p class="lead">The browser build opens your camera through <code>getUserMedia</code>, so it needs no
-      install and no account. It is the same idea, not the same engine: a browser tab cannot
-      reach the sensor directly.</p>
-      <ul class="feature-list">
-        <li>Live viewfinder with grid, mirror and front/back switching</li>
-        <li>Photo capture at the stream's own resolution, saved as a JPEG on your device</li>
-        <li>Live readout of what the browser reports: resolution, frame rate, facing mode</li>
-        <li>No manual ISO, no shutter time, no RAW - a browser exposes none of those</li>
-        <li>No night stacking: the browser gives one frame at a time</li>
-      </ul>
-      <div class="actions">
-        <a class="button primary" href="{root}camera/">{ICON_PLAY}Try it now</a>
+      <div class="grid three">
+{cards}
       </div>
     </div>
   </section>
@@ -1085,28 +1145,18 @@ def build_camera_page():
         <div><p class="eyebrow">How it is built</p><h2 class="section-title">Camera2, and our own maths</h2></div>
       </div>
       <ul class="feature-list">
-        <li>Camera2 API, no CameraX and no Play Services</li>
-        <li>Manual ISO, shutter and focus behind <code>CONTROL_AE_MODE_OFF</code></li>
-        <li>RAW capture with a DNG writer, and a 10-bit packed path where the sensor allows it</li>
-        <li>Night and HDR merge run in our own C++: pyramid alignment, inverse-variance merge,
-            demosaic, white balance, tone curve</li>
-        <li>Auto HDR turns a plain photo into a burst when the frame is clipping</li>
-        <li>Grading runs after the shot: looks, per-lens tuning, four sliders, optional portrait blur</li>
+        <li>Camera2 API directly. No CameraX, no Play Services, no analytics, no ads</li>
+        <li>Two permissions in total: <code>CAMERA</code> and <code>RECORD_AUDIO</code>. No
+            <code>INTERNET</code>, so nothing can leave the phone even by accident</li>
+        <li>Night, astro and HDR merge run in C++: pyramid alignment, inverse-variance merge,
+            demosaic, white balance, colour matrix, tone curve</li>
+        <li>Grading is Kotlin, after the capture: looks, per-lens tuning, four sliders,
+            chroma denoise, thresholded sharpening, optional portrait blur</li>
+        <li>The preview and the photo agree: the capture locks the preview's exposure and
+            white balance, and the framing maths match what the viewfinder showed</li>
       </ul>
-      <div class="actions">
-        <a class="button" href="{GH}/nijatva-camera">{ICON_LINK}Source on GitHub</a>
-        <a class="button" href="{GH}/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <div><p class="eyebrow">Build it</p><h2 class="section-title">From source</h2></div>
-      </div>
-      <p class="lead">JDK 17, Android SDK 35, NDK 27.2.12479018 and CMake 3.22.1. The native module
-      pins both, so a plain checkout builds without editing anything.</p>
+      <p class="lead" style="margin-top:22px">Build it from a plain checkout - JDK 17, SDK 35,
+      NDK 27.2.12479018 and CMake 3.22.1, all pinned by the native module.</p>
       <pre style="margin:0 0 16px;padding:14px 16px;border-radius:10px;overflow-x:auto;
                   background:var(--surface-quiet);border:1px solid var(--line);
                   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -1114,6 +1164,10 @@ def build_camera_page():
 cd nijatva-camera
 ./gradlew :app:assembleFullDebug</pre>
       <p class="note">{E(app.get("note", ""))}</p>
+      <div class="actions">
+        <a class="button" href="{root}apps/camera.html">The app page</a>
+        <a class="button" href="{GH}/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
+      </div>
     </div>
   </section>
 

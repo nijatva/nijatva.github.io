@@ -120,18 +120,23 @@
 
   <section class="section">
     <div class="container">
-      <p class="eyebrow">Project page</p>
-      <h1 class="hero-title">Camera</h1>
-      <p class="lead">Camera2 with manual controls, RAW, night stacking, exposure fusion and panorama.</p>
-      <div class="badge-row">
-        <span class="badge">Medium build</span>
-        <span class="status-badge shipped">Shipped</span>
-        <span class="badge">Camera2 · RAW · Night</span>
+      <div class="app-hero-head">
+        <img class="app-icon" src="../../assets/icons/camera.svg" alt="" width="52" height="52">
+        <div>
+          <p class="eyebrow">Project page</p>
+          <h1 class="hero-title">Camera</h1>
+        </div>
+      </div>
+      <p class="lead">Camera2 with manual controls, RAW, night stacking, exposure fusion and
+      panorama - and the maths written here, not borrowed.</p>
+      <div class="badge-row" style="margin:0 0 22px">
+        <span class="badge">Android 10+</span><span class="badge">11 MB APK</span><span class="badge">No INTERNET permission</span>
+        <span class="badge">0 trackers</span><span class="badge">English + हिंदी</span>
       </div>
       <div class="actions">
-        <a class="button primary" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open the camera</a>
         <a class="button primary" href="https://github.com/nijatva/nijatva-camera/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Download the APK</a>
-        <a class="button" href="../../apps/camera.html">The app page</a>
+        <a class="button primary" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open the web app</a>
+        <a class="button" href="https://github.com/nijatva/nijatva-camera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a3.9 3.9 0 0 0 5.5 0l2.2-2.2a3.9 3.9 0 0 0-5.5-5.5l-1.1 1.1"/><path d="M13.4 10.6a3.9 3.9 0 0 0-5.5 0l-2.2 2.2a3.9 3.9 0 0 0 5.5 5.5l1.1-1.1"/></svg>View source</a>
       </div>
     </div>
   </section>
@@ -139,35 +144,96 @@
   <section class="section section-band">
     <div class="container">
       <div class="section-heading">
-        <div><p class="eyebrow">What it does</p><h2 class="section-title">One job, done properly</h2></div>
+        <div><p class="eyebrow">Two ways to use it</p><h2 class="section-title">Same idea, two engines</h2></div>
+        <div><p class="lead">Pick whichever fits the moment.</p></div>
       </div>
-      <ul class="feature-list">
-        <li>Manual ISO, shutter and focus</li>
-        <li>RAW capture</li>
-        <li>Night stacking and exposure fusion</li>
-        <li>Panorama</li>
-        <li>A GPS-strip toggle on export</li>
-      </ul>
+      <div class="grid two">
+        <article class="card">
+          <h3 style="margin:0 0 4px">Android app</h3>
+          <p style="margin:0;color:var(--ink-soft)">The whole camera: manual ISO, shutter and
+          focus, RAW and DNG, night and astro stacking, Auto HDR, panorama, looks and sliders.
+          Works with no network at all.</p>
+          <div class="app-card-actions">
+            <a class="button primary" href="https://github.com/nijatva/nijatva-camera/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Download</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3 style="margin:0 0 4px">Web app</h3>
+          <p style="margin:0;color:var(--ink-soft)">Runs in a browser tab: live viewfinder,
+          grid, front and back, capture straight to your device. No install, no account.
+          What a browser cannot give it - manual exposure, RAW, stacking - it does not
+          pretend to.</p>
+          <div class="app-card-actions">
+            <a class="button" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open the web app</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="section-heading">
-        <div><p class="eyebrow">In the browser</p><h2 class="section-title">What works, and what cannot</h2></div>
+        <div><p class="eyebrow">What it does</p><h2 class="section-title">Everything a photo needs</h2></div>
+        <div><p class="lead">Nothing on this list needs an account, a server or a Play Services library.</p></div>
       </div>
-      <p class="lead">The browser build opens your camera through <code>getUserMedia</code>, so it needs no
-      install and no account. It is the same idea, not the same engine: a browser tab cannot
-      reach the sensor directly.</p>
-      <ul class="feature-list">
-        <li>Live viewfinder with grid, mirror and front/back switching</li>
-        <li>Photo capture at the stream's own resolution, saved as a JPEG on your device</li>
-        <li>Live readout of what the browser reports: resolution, frame rate, facing mode</li>
-        <li>No manual ISO, no shutter time, no RAW - a browser exposes none of those</li>
-        <li>No night stacking: the browser gives one frame at a time</li>
-      </ul>
-      <div class="actions">
-        <a class="button primary" href="../../camera/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Try it now</a>
+      <div class="grid three">
+        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="7.2"/><path d="M12 4.8v3M12 16.2v3M4.8 12h3M16.2 12h3"/></svg></span>
+            <h3 style="margin:0;font-size:16px">Pro controls</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Manual ISO, shutter time and focus behind CONTROL_AE_MODE_OFF, with a live readout of what the sensor is actually doing.</p>
+        </article>
+        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="5" width="16" height="14" rx="2.5"/><path d="M4 10h16M9 10v9"/></svg></span>
+            <h3 style="margin:0;font-size:16px">RAW and DNG</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">RAW capture written as a DNG, and a 10-bit packed path where the sensor allows it - half the file, same information.</p>
+        </article>
+        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.4 6.4 0 0 0 10.5 10.5z"/></svg></span>
+            <h3 style="margin:0;font-size:16px">Night and astro stacking</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Pyramid alignment and an inverse-variance merge in our own C++, then demosaic, white balance and a tone curve that puts 18% grey where it belongs.</p>
+        </article>
+        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.4 5.4l2.1 2.1M16.5 16.5l2.1 2.1M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1"/></svg></span>
+            <h3 style="margin:0;font-size:16px">Auto HDR</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">When the frame is clipping, a plain photo quietly becomes a short burst and is merged, so the sky keeps its colour instead of turning white.</p>
+        </article>
+        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16.5l4.5-9 4 7 3-4.5 4 6.5z"/><path d="M4 20h16"/></svg></span>
+            <h3 style="margin:0;font-size:16px">Grading after the shot</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Five looks, per-lens tuning, four sliders and an optional portrait blur. The same pipeline every time, so a look can never break a capture.</p>
+        </article>
+        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M12 8.5v7M8.5 12h7"/></svg></span>
+            <h3 style="margin:0;font-size:16px">Framing aids</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Grid, horizon level with a haptic tick, focus peaking and a histogram - and the photo keeps the exposure and white balance the preview showed you.</p>
+        </article>
+        <article class="card">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="display:grid;place-items:center;width:38px;height:38px;border-radius:11px;
+                         background:var(--accent-soft);color:var(--accent);flex:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span>
+            <h3 style="margin:0;font-size:16px">Part of a suite</h3>
+          </div>
+          <p style="margin:0;color:var(--ink-soft);font-size:14.5px;line-height:1.55">Hands shots to Nijatva Gallery and Nijatva Photos, and accepts IMAGE_CAPTURE and VIDEO_CAPTURE, so any other app can ask it for a photo.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -178,28 +244,18 @@
         <div><p class="eyebrow">How it is built</p><h2 class="section-title">Camera2, and our own maths</h2></div>
       </div>
       <ul class="feature-list">
-        <li>Camera2 API, no CameraX and no Play Services</li>
-        <li>Manual ISO, shutter and focus behind <code>CONTROL_AE_MODE_OFF</code></li>
-        <li>RAW capture with a DNG writer, and a 10-bit packed path where the sensor allows it</li>
-        <li>Night and HDR merge run in our own C++: pyramid alignment, inverse-variance merge,
-            demosaic, white balance, tone curve</li>
-        <li>Auto HDR turns a plain photo into a burst when the frame is clipping</li>
-        <li>Grading runs after the shot: looks, per-lens tuning, four sliders, optional portrait blur</li>
+        <li>Camera2 API directly. No CameraX, no Play Services, no analytics, no ads</li>
+        <li>Two permissions in total: <code>CAMERA</code> and <code>RECORD_AUDIO</code>. No
+            <code>INTERNET</code>, so nothing can leave the phone even by accident</li>
+        <li>Night, astro and HDR merge run in C++: pyramid alignment, inverse-variance merge,
+            demosaic, white balance, colour matrix, tone curve</li>
+        <li>Grading is Kotlin, after the capture: looks, per-lens tuning, four sliders,
+            chroma denoise, thresholded sharpening, optional portrait blur</li>
+        <li>The preview and the photo agree: the capture locks the preview's exposure and
+            white balance, and the framing maths match what the viewfinder showed</li>
       </ul>
-      <div class="actions">
-        <a class="button" href="https://github.com/nijatva/nijatva-camera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a3.9 3.9 0 0 0 5.5 0l2.2-2.2a3.9 3.9 0 0 0-5.5-5.5l-1.1 1.1"/><path d="M13.4 10.6a3.9 3.9 0 0 0-5.5 0l-2.2 2.2a3.9 3.9 0 0 0 5.5 5.5l1.1-1.1"/></svg>Source on GitHub</a>
-        <a class="button" href="https://github.com/nijatva/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <div><p class="eyebrow">Build it</p><h2 class="section-title">From source</h2></div>
-      </div>
-      <p class="lead">JDK 17, Android SDK 35, NDK 27.2.12479018 and CMake 3.22.1. The native module
-      pins both, so a plain checkout builds without editing anything.</p>
+      <p class="lead" style="margin-top:22px">Build it from a plain checkout - JDK 17, SDK 35,
+      NDK 27.2.12479018 and CMake 3.22.1, all pinned by the native module.</p>
       <pre style="margin:0 0 16px;padding:14px 16px;border-radius:10px;overflow-x:auto;
                   background:var(--surface-quiet);border:1px solid var(--line);
                   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -207,6 +263,10 @@
 cd nijatva-camera
 ./gradlew :app:assembleFullDebug</pre>
       <p class="note">v0.4.10 debug build, 17 November 2026. Release signing is not set up yet.</p>
+      <div class="actions">
+        <a class="button" href="../../apps/camera.html">The app page</a>
+        <a class="button" href="https://github.com/nijatva/nijatva-camera/blob/main/docs/INTEROP.md">How it talks to the suite</a>
+      </div>
     </div>
   </section>
 

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nijatva Contacts — Nijatva</title>
+<meta name="description" content="A fast, private contacts app with groups, favourites, sorting and offline vCard backup. Cloud sync is optional and off until you ask for it.">
+<meta property="og:title" content="Nijatva Contacts">
+<meta property="og:description" content="The address book your phone should have shipped with.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0E1016;
+  --surface: #151922;
+  --surface-2: #1B2130;
+  --border: rgba(255,255,255,.09);
+  --border-strong: rgba(255,255,255,.16);
+  --text: #F2F4F8;
+  --dim: #98A0AE;
+  --accent: #D69A2D;
+  --accent-soft: rgba(214,154,45,.13);
+  --slate: #2B3244;
+  --green: #4E9A6B;
+  --radius: 16px;
+  --font: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font); background: var(--bg); color: var(--text);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(900px 480px at 12% -8%, rgba(214,154,45,.09), transparent 70%),
+    radial-gradient(700px 420px at 92% 4%, rgba(43,50,68,.55), transparent 72%);
+  background-repeat: no-repeat;
+}
+.wrap { width: min(1120px, calc(100% - 44px)); margin: 0 auto; }
+a { color: inherit; text-decoration: none; }
+
+/* ---------- header ---------- */
+header {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(14,16,22,.82); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav { display: flex; align-items: center; gap: 18px; padding: 14px 0; }
+.brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -.01em; }
+.brand svg { display: block; }
+.brand span { font-size: 15px; }
+.nav-links { margin-left: auto; display: flex; gap: 22px; align-items: center; }
+.nav-links a { font-size: 14px; color: var(--dim); transition: color .15s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  font-size: 13.5px; font-weight: 600; padding: 9px 16px; border-radius: 999px;
+  background: var(--accent); color: #17130A; transition: filter .15s;
+}
+.nav-cta:hover { filter: brightness(1.08); }
+@media (max-width: 720px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding: 74px 0 58px; display: grid; grid-template-columns: 1.35fr .65fr; gap: 48px; align-items: center; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; gap: 30px; padding: 48px 0 40px; } }
+.eyebrow {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); display: flex; align-items: center; gap: 9px; margin-bottom: 18px;
+}
+.eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+h1 { font-size: clamp(34px, 5.2vw, 56px); line-height: 1.06; letter-spacing: -.028em; font-weight: 700; }
+h1 em { font-style: normal; color: var(--accent); }
+.lead { margin-top: 20px; font-size: 17.5px; color: var(--dim); max-width: 56ch; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 9px; padding: 13px 22px; border-radius: 999px;
+  font-size: 15px; font-weight: 600; border: 1px solid transparent; transition: transform .12s, filter .15s, border-color .15s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--accent); color: #17130A; }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { border-color: var(--border-strong); color: var(--text); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.meta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: var(--mono); font-size: 11.5px; color: var(--dim);
+  border: 1px solid var(--border); border-radius: 999px; padding: 5px 11px; background: rgba(255,255,255,.02);
+}
+.hero-icon { display: flex; justify-content: center; }
+.hero-icon .appicon { filter: drop-shadow(0 26px 48px rgba(0,0,0,.55)); }
+
+/* ---------- sections ---------- */
+section { padding: 54px 0; border-top: 1px solid var(--border); }
+.section-label {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 10px;
+}
+h2 { font-size: clamp(24px, 3vw, 32px); letter-spacing: -.02em; margin-bottom: 8px; }
+.section-sub { color: var(--dim); max-width: 62ch; margin-bottom: 32px; }
+
+.feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 760px) { .feature-grid { grid-template-columns: 1fr; } }
+.feature {
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 22px 18px;
+}
+.feature h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 9px; }
+.feature h3::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); flex: none; }
+.feature ul { list-style: none; display: grid; gap: 7px; }
+.feature li { font-size: 14.5px; color: #CBD1DB; padding-left: 15px; position: relative; }
+.feature li::before { content: ""; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--border-strong); }
+
+/* ---------- never block ---------- */
+.never-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 900px) { .never-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .never-grid { grid-template-columns: 1fr; } }
+.never { border: 1px solid var(--border); border-radius: 14px; padding: 18px; background: rgba(78,154,107,.06); }
+.never strong { display: block; font-size: 14px; margin-bottom: 6px; color: #DDE6DE; }
+.never span { font-size: 13.5px; color: var(--dim); }
+.never strong::before { content: "—"; color: var(--green); margin-right: 7px; }
+
+/* ---------- download ---------- */
+.download-card {
+  border: 1px solid var(--border-strong); border-radius: 20px; padding: 34px;
+  background:
+    radial-gradient(600px 200px at 88% 0%, rgba(214,154,45,.16), transparent 70%),
+    linear-gradient(180deg, var(--surface-2), var(--surface));
+  display: grid; grid-template-columns: 1.4fr .6fr; gap: 30px; align-items: center;
+}
+@media (max-width: 780px) { .download-card { grid-template-columns: 1fr; padding: 26px; } }
+.download-card h2 { margin-bottom: 10px; }
+.download-card p { color: var(--dim); font-size: 15px; max-width: 52ch; }
+.file-meta { margin-top: 18px; display: grid; gap: 7px; font-family: var(--mono); font-size: 12.5px; color: var(--dim); }
+.file-meta div { display: flex; justify-content: space-between; gap: 18px; border-bottom: 1px dashed var(--border); padding-bottom: 6px; }
+.file-meta b { color: #CBD1DB; font-weight: 500; }
+.download-actions { display: grid; gap: 10px; }
+.download-actions .btn { justify-content: center; }
+
+/* ---------- family ---------- */
+.family { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 780px) { .family { grid-template-columns: 1fr; } }
+.family a {
+  display: flex; gap: 14px; align-items: center; padding: 16px; border-radius: 14px;
+  border: 1px solid var(--border); background: var(--surface); transition: border-color .15s, transform .12s;
+}
+.family a:hover { border-color: var(--accent); transform: translateY(-1px); }
+.family .appicon { width: 42px; height: 42px; }
+.family b { display: block; font-size: 14.5px; }
+.family small { color: var(--dim); font-size: 12.5px; line-height: 1.4; display: block; }
+.family .current { border-color: var(--accent-soft); background: rgba(214,154,45,.06); }
+
+.note {
+  margin-top: 26px; border-left: 2px solid var(--accent); padding: 12px 0 12px 16px;
+  color: var(--dim); font-size: 14px; max-width: 74ch;
+}
+
+footer { border-top: 1px solid var(--border); padding: 34px 0 46px; color: var(--dim); font-size: 13.5px; }
+.foot-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center; }
+.foot-links { display: flex; gap: 20px; }
+.foot-links a:hover { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="https://nijatva.github.io/">
+      <svg width="26" height="26" viewBox="0 0 108 108" aria-hidden="true"><rect x="4" y="4" width="100" height="100" rx="26" fill="#2B3244"/><rect x="4" y="4" width="100" height="100" rx="26" fill="none" stroke="#3C4459" stroke-width="2"/><text x="54" y="72" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="52" font-weight="700" fill="#D69A2D">N</text></svg>
+      <span>Nijatva</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#download">Download</a>
+      <a href="https://github.com/nijatva/nijatva-contacts">Source</a>
+      <a class="nav-cta" href="https://github.com/nijatva/nijatva-contacts/releases/download/v1.1/Nijatva_Contacts_v1.1.apk">Get the APK</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">Nijatva Contacts · v1.1</div>
+      <h1>The address book your phone should <em>have shipped with.</em></h1>
+      <p class="lead">A fast, private contacts app with groups, favourites, sorting and offline vCard backup. Cloud sync is optional and off until you ask for it.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/nijatva/nijatva-contacts/releases/download/v1.1/Nijatva_Contacts_v1.1.apk">Download the APK</a>
+        <a class="btn btn-ghost" href="https://github.com/nijatva/nijatva-contacts">View source</a>
+      </div>
+      <div class="meta">
+        <span class="chip">v1.1</span>
+        <span class="chip">53 KB</span>
+        <span class="chip">Android 5.0+</span>
+        <span class="chip">com.nijatva.contacts</span>
+      </div>
+    </div>
+    <div class="hero-icon"><svg class="appicon" width="200" height="200" viewBox="0 0 108 108" role="img" aria-label="app icon">
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="#2B3244"/>
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="none" stroke="#3C4459" stroke-width="1.4"/>
+        <g transform="translate(22.8,22.8) scale(2.6)">
+          <path d="M12,12c2.21,0 4,-1.79 4,-4s-1.79,-4 -4,-4 -4,1.79 -4,4 1.79,4 4,4zM12,14c-2.67,0 -8,1.34 -8,4v2h16v-2c0,-2.66 -5.33,-4 -8,-4z" fill="none" stroke="#FFFFFF" stroke-width="0.55"
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </g>
+      </svg></div>
+  </div>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-label">What it does</div>
+      <h2>Every feature, no filler</h2>
+      <p class="section-sub">Nothing here needs an account, a subscription or a network connection.</p>
+      <div class="feature-grid">
+        <div class="feature"><h3>Finding people</h3><ul><li>Photo avatars and coloured initials</li><li>A to Z sections with instant search</li><li>Sort by first or last name</li><li>Favourites tab for starred contacts</li></ul></div>
+        <div class="feature"><h3>Organising</h3><ul><li>Groups with live contact counts</li><li>Tap a group to filter the list</li><li>One contact list across SIM, WhatsApp and Google</li></ul></div>
+        <div class="feature"><h3>Backup</h3><ul><li>Export every contact to a .vcf file</li><li>Import a .vcf file back into the phone</li><li>Works entirely offline</li></ul></div>
+        <div class="feature"><h3>Optional cloud</h3><ul><li>Zoho sign-in inside the app</li><li>OAuth with PKCE, no password stored</li><li>Refresh token so later syncs need no login</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-label">Privacy</div>
+      <h2>What it never does</h2>
+      <p class="section-sub">These are structural, not policy promises — you can check each one in the source.</p>
+      <div class="never-grid">
+        <div class="never"><strong>No server-side address book</strong><span>Contacts live in Android's own database on your phone.</span></div>
+        <div class="never"><strong>No tracking</strong><span>No ads, no analytics, no third-party libraries.</span></div>
+        <div class="never"><strong>No forced cloud</strong><span>Zoho sync stays off until you sign in; the app is fully usable without it.</span></div>
+        <div class="never"><strong>No account for the basics</strong><span>Everything except the optional Zoho import works with no account at all.</span></div>
+      </div>
+      <p class="note">The Internet permission exists for one reason only: the optional Zoho import. If you never sign in, the app makes no network calls.</p>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="wrap">
+      <div class="download-card">
+        <div>
+          <div class="section-label">Download</div>
+          <h2>Install Nijatva Contacts</h2>
+          <p>Signed APK, installed directly. No store, no account, no update service phoning home.</p>
+          <div class="file-meta">
+            <div><span>Version</span><b>1.1 (build 2)</b></div>
+            <div><span>Size</span><b>53 KB</b></div>
+            <div><span>Package</span><b>com.nijatva.contacts</b></div>
+            <div><span>Requires</span><b>Android 5.0 and newer</b></div>
+          </div>
+        </div>
+        <div class="download-actions">
+          <a class="btn btn-primary" href="https://github.com/nijatva/nijatva-contacts/releases/download/v1.1/Nijatva_Contacts_v1.1.apk">Download the APK</a>
+          <a class="btn btn-ghost" href="https://github.com/nijatva/nijatva-contacts/releases/tag/v1.1">Release notes</a>
+          <a class="btn btn-ghost" href="https://github.com/nijatva/nijatva-contacts">Source on GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="family">
+    <div class="wrap">
+      <div class="section-label">The suite</div>
+      <h2>Works on its own, better together</h2>
+      <p class="section-sub">Each app installs separately. When more than one is present they hand off to each other without a server.</p>
+      <div class="family">
+        <div class="family"><a href="Nijatva_Dialer_Website.html"><svg class="appicon" width="42" height="42" viewBox="0 0 108 108" role="img" aria-label="app icon">
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="#2B3244"/>
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="none" stroke="#3C4459" stroke-width="1.4"/>
+        <g transform="translate(22.8,22.8) scale(2.6)">
+          <path d="M6.62,10.79c1.44,2.83 3.76,5.14 6.59,6.59l2.2,-2.2c0.27,-0.27 0.67,-0.36 1.02,-0.24 1.12,0.37 2.33,0.57 3.57,0.57 0.55,0 1,0.45 1,1V20c0,0.55 -0.45,1 -1,1 -9.39,0 -17,-7.61 -17,-17 0,-0.55 0.45,-1 1,-1h3.5c0.55,0 1,0.45 1,1 0,1.25 0.2,2.45 0.57,3.57 0.11,0.35 0.03,0.74 -0.25,1.02l-2.2,2.2z" fill="none" stroke="#FFFFFF" stroke-width="0.55"
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </g>
+      </svg><span><b>Nijatva Dialer</b><small>Calls, contacts and SMS in one phone app.</small></span></a></div>
+        <div class="family"><a class="current" href="#download"><svg class="appicon" width="42" height="42" viewBox="0 0 108 108" role="img" aria-label="app icon">
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="#2B3244"/>
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="none" stroke="#3C4459" stroke-width="1.4"/>
+        <g transform="translate(22.8,22.8) scale(2.6)">
+          <path d="M12,12c2.21,0 4,-1.79 4,-4s-1.79,-4 -4,-4 -4,1.79 -4,4 1.79,4 4,4zM12,14c-2.67,0 -8,1.34 -8,4v2h16v-2c0,-2.66 -5.33,-4 -8,-4z" fill="none" stroke="#FFFFFF" stroke-width="0.55"
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </g>
+      </svg><span><b>Nijatva Contacts</b><small>Groups, favourites and vCard backup.</small></span></a></div>
+        <div class="family"><a href="Nijatva_Messages_Website.html"><svg class="appicon" width="42" height="42" viewBox="0 0 108 108" role="img" aria-label="app icon">
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="#2B3244"/>
+        <rect x="4" y="4" width="100" height="100" rx="24" fill="none" stroke="#3C4459" stroke-width="1.4"/>
+        <g transform="translate(22.8,22.8) scale(2.6)">
+          <path d="M20,2H4c-1.1,0 -1.99,0.9 -1.99,2L2,22l4,-4h14c1.1,0 2,-0.9 2,-2V4c0,-1.1 -0.9,-2 -2,-2z" fill="none" stroke="#FFFFFF" stroke-width="0.55"
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </g>
+      </svg><span><b>Nijatva Messages</b><small>SMS with smart categories and OTP detection.</small></span></a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>Nijatva — small, single-purpose Android apps with no Google Play Services, no accounts, no ads and no analytics. Built in India.</div>
+    <div class="foot-links">
+      <a href="https://nijatva.github.io/">All apps</a>
+      <a href="https://github.com/nijatva/nijatva-contacts">GitHub</a>
+      <a href="https://github.com/nijatva/nijatva-contacts/blob/main/PRIVACY.md">Privacy policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

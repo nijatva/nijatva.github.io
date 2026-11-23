@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Photo Editor — Nijatva</title>
-<meta name="description" content="Photo Editor — A standalone editor for photos already on the device. The repository exists; nothing is released yet.">
+<title>Photo Editor â€” Nijatva</title>
+<meta name="description" content="Photo Editor â€” Offline, non-destructive editor for the photos already on your phone: curves, eight-channel HSL, six mask types, markup and real redaction.">
 <meta name="theme-color" content="#1b1f45" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0c0e1c" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
@@ -47,8 +47,8 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nijatva">
 <meta property="og:locale" content="en_IN">
-<meta property="og:title" content="Photo Editor — Nijatva">
-<meta property="og:description" content="Photo Editor — A standalone editor for photos already on the device. The repository exists; nothing is released yet.">
+<meta property="og:title" content="Photo Editor â€” Nijatva">
+<meta property="og:description" content="Photo Editor â€” Offline, non-destructive editor for the photos already on your phone: curves, eight-channel HSL, six mask types, markup and real redaction.">
 <meta property="og:url" content="https://nijatva.github.io/apps/editor.html">
 <meta property="og:image" content="https://nijatva.github.io/og.png">
 <meta property="og:image:width" content="1200">
@@ -127,25 +127,28 @@
           <div>
             <h1>Photo Editor</h1>
             <div class="badge-row">
-              <span class="status-badge progress">In progress</span>
+              <span class="status-badge shipped">Shipped</span>
               <span class="badge">Medium build</span>
               <span class="badge">Ecosystem</span>
             </div>
           </div>
         </div>
-        <p class="lead">A standalone editor for photos already on the device. The repository exists; nothing is released yet.</p>
+        <p class="lead">Offline, non-destructive editor for the photos already on your phone: curves, eight-channel HSL, six mask types, markup and real redaction.</p>
         <div class="actions">
+          <a class="button primary" href="../editor/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></svg>Open web app</a>
+          <a class="button primary" href="https://github.com/nijatva/nijatva-photo-editor/releases/latest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M8 11l4 4 4-4"/><path d="M5 19h14"/></svg>Download</a>
           <a class="button" href="https://nijatva.github.io/nijatva-photo-editor/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a3.9 3.9 0 0 0 5.5 0l2.2-2.2a3.9 3.9 0 0 0-5.5-5.5l-1.1 1.1"/><path d="M13.4 10.6a3.9 3.9 0 0 0-5.5 0l-2.2 2.2a3.9 3.9 0 0 0 5.5 5.5l1.1-1.1"/></svg>Website</a>
-          <a class="button" href="https://github.com/nijatva/nijatva-editor">Source on GitHub</a>
+          <a class="button" href="https://github.com/nijatva/nijatva-photo-editor">Source on GitHub</a>
           <a class="button" href="../apps.html">All apps</a>
         </div>
-      <p class="note">Repository created, no release yet.</p>
+      <p class="note">v1.5.0 release build, 18 November 2026.</p>
       </div>
       <dl class="app-meta">
-        <div><dt>Status</dt><dd>In progress</dd></div>
+        <div><dt>Status</dt><dd>Shipped</dd></div>
         <div><dt>Part of</dt><dd>The ecosystem, not the 24</dd></div>
         <div><dt>Build size</dt><dd>Medium build</dd></div>
-        <div><dt>Repository</dt><dd><a href="https://github.com/nijatva/nijatva-editor">nijatva-editor</a></dd></div>
+        <div><dt>Repository</dt><dd><a href="https://github.com/nijatva/nijatva-photo-editor">nijatva-photo-editor</a></dd></div>
+        <div><dt>Web app</dt><dd><a href="../editor/">Open in browser</a></dd></div>
         <div><dt>Store</dt><dd>None &middot; APK only</dd></div>
       </dl>
     </div>
@@ -154,12 +157,15 @@
   <section class="section" style="border-bottom:0">
     <div class="container" style="max-width:760px">
       <p class="eyebrow">What it does</p>
-      <h2 class="section-title">Features in the build</h2>
+      <h2 class="section-title">Shipped features</h2>
       <ul class="feature-list">
-        <li>Edits stay on the device</li>
-        <li>Opens from any folder you grant</li>
-        <li>Planned as a handoff target for Photos and Camera</li>
-        <li>No upload, no account</li>
+        <li>Non-destructive edit stack with unlimited undo and redo</li>
+        <li>Tone curve with per-channel R/G/B, eight-channel HSL mixer, detail controls</li>
+        <li>Six mask types: brush, gradients, light and colour ranges, eraser</li>
+        <li>Markup with real pixelate, blur and blackout redaction</li>
+        <li>Healing brush, thirteen presets, split compare, live histogram</li>
+        <li>Runs in the browser too, no install, nothing uploaded</li>
+        <li>No INTERNET permission, so no photo can leave the device</li>
       </ul>
       <p class="lead" style="margin-top:28px;font-size:15.5px">This is the store itself: every other app on this site installs through it. No Google Play Services, no account, no ads, no analytics.</p>
     </div>

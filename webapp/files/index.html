@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0F1729">
+<title>Nijatva File Manager — Your Files. Your Control.</title>
+<meta name="description" content="A fast, offline Android file manager. No ads, no tracking, no internet permission. Browse, manage, preview and clean up your files.">
+<style>
+  :root{
+    --bg:#0F1729; --surface:#182238; --surface2:#1E2A44; --line:#26334F;
+    --text:#FFFFFF; --sub:#9AA6B8; --accent:#2F80ED; --violet:#7C6CF0;
+    --green:#22C55E; --amber:#F59E0B; --red:#EF4444;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  header.nav{position:sticky;top:0;z-index:10;background:rgba(15,23,41,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;gap:12px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.2px;white-space:nowrap}
+  .brand .mark{width:34px;height:34px;border-radius:10px;background:var(--surface2);display:grid;place-items:center}
+  .brand svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .nav nav{margin-left:auto;display:flex;gap:6px;align-items:center}
+  .nav nav a{font-size:13px;color:var(--sub);text-decoration:none;padding:8px 12px;border-radius:10px}
+  .nav nav a:hover{color:var(--text);background:var(--surface)}
+  .btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;font-size:14px;font-weight:600;padding:12px 18px;cursor:pointer;text-decoration:none;transition:transform .08s ease}
+  .btn:active{transform:scale(.97)}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  .hero{padding:72px 0 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--green);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);padding:6px 12px;border-radius:999px}
+  h1{font-size:clamp(30px,5vw,50px);line-height:1.08;letter-spacing:-1.2px;margin:18px 0 14px}
+  h1 span{color:var(--accent)}
+  .lead{font-size:16px;color:var(--sub);max-width:46ch;margin:0 0 26px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .tiny{font-size:12px;color:#6b7789;margin-top:14px}
+  /* phone mockup */
+  .phone{width:min(300px,100%);margin:0 auto;border-radius:34px;border:1px solid var(--line);background:var(--surface);padding:12px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+  .screen{background:var(--bg);border-radius:24px;overflow:hidden;border:1px solid var(--line)}
+  .sbar{display:flex;justify-content:space-between;font-size:9px;color:var(--sub);padding:8px 12px 0}
+  .shead{padding:6px 14px 10px;display:flex;align-items:center;gap:8px}
+  .shead .t{font-size:15px;font-weight:700}
+  .scard{margin:0 12px 12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+  .scard .lbl{font-size:10px;color:var(--sub)}
+  .scard .big{font-size:16px;font-weight:700;margin-top:4px}
+  .seg{height:6px;border-radius:99px;margin-top:10px;background:var(--surface2);overflow:hidden;display:flex}
+  .seg i{display:block;height:100%}
+  .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 12px}
+  .stile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 8px;text-align:center}
+  .stile .ico{width:26px;height:26px;border-radius:8px;margin:0 auto 6px;display:grid;place-items:center;background:#243a63}
+  .stile .ico svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .stile .n{font-size:9px;font-weight:600}
+  .stile .c{font-size:8px;color:var(--sub)}
+  .snav{display:flex;justify-content:space-around;padding:10px 0 12px;margin-top:12px;border-top:1px solid var(--line);font-size:8px;color:var(--sub)}
+  .snav b{color:var(--accent);font-weight:600}
+  /* sections */
+  section{padding:56px 0}
+  h2{font-size:clamp(22px,3.4vw,32px);letter-spacing:-.6px;margin:0 0 10px}
+  .sub{color:var(--sub);font-size:15px;margin:0 0 28px;max-width:60ch}
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+  .card .ico{width:40px;height:40px;border-radius:12px;background:var(--surface2);display:grid;place-items:center;margin-bottom:14px}
+  .card .ico svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{margin:0 0 6px;font-size:15px}
+  .card p{margin:0;font-size:13px;color:var(--sub)}
+  .strip{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+  .strip .k{font-size:22px;font-weight:700}
+  .strip .v{font-size:12px;color:var(--sub);margin-top:2px}
+  .privacy{display:flex;gap:14px;align-items:flex-start;background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.22);border-radius:18px;padding:20px}
+  .privacy svg{width:22px;height:22px;stroke:var(--green);fill:none;stroke-width:1.8;flex:0 0 auto;margin-top:2px}
+  .privacy p{margin:0;font-size:13px;color:#c8d3e3}
+  .download{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#17233c,#101a2e);border:1px solid var(--line);border-radius:22px;padding:28px}
+  .download h2{margin:0 0 6px}
+  .download p{margin:0;color:var(--sub);font-size:13px}
+  footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--sub);font-size:12px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+  footer a{color:var(--sub);text-decoration:none}
+  footer a:hover{color:var(--text)}
+  .stamp{font-size:11px;color:#5a6578}
+  @media (max-width:560px){
+    .nav nav a:not(.btn){display:none}
+    .nav .wrap{gap:8px}
+  }
+  @media (max-width:420px){
+    .brand{font-size:14px}
+    .brand .mark{width:30px;height:30px}
+    .nav .wrap{height:58px}
+  }
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;gap:32px;padding-top:44px}
+    .phone{order:-1}
+    .nav nav a.hide-sm{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <span class="mark"><svg viewBox="0 0 24 24"><path d="M3 7.5h6l2 2.5h10v9.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5z"/><path d="M3 7.5V6a1.5 1.5 0 0 1 1.5-1.5h4L11 7"/></svg></span>
+      Nijatva File Manager
+    </div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#privacy" class="hide-sm">Privacy</a>
+      <a href="#download" class="hide-sm">Download</a>
+      <a class="btn primary" href="https://github.com/nijatva/nijatva-file" style="padding:9px 14px;font-size:13px">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div>
+      <span class="eyebrow">● Offline · No ads · No tracking</span>
+      <h1>Your files.<br><span>Your control.</span></h1>
+      <p class="lead">A fast, lightweight Android file manager built in plain Java. Browse, organise, preview and clean up your storage — with no internet permission at all.</p>
+      <div class="cta">
+        <a class="btn primary" href="../files.html">Open the web app</a>
+        <a class="btn ghost" href="https://github.com/nijatva/nijatva-file">View source</a>
+      </div>
+      <p class="tiny">Android 6.0+ · ~120 KB · open source (Apache-2.0)</p>
+    </div>
+
+    <div class="phone">
+      <div class="screen">
+        <div class="sbar"><span>9:41</span><span>▮▮▮</span></div>
+        <div class="shead"><span class="t">Nijatva File Manager</span></div>
+        <div class="scard">
+          <div class="lbl">All files</div>
+          <div class="big">84.54 GB | 106.45 GB</div>
+          <div class="seg">
+            <i style="width:22%;background:#FF5252"></i><i style="width:8%;background:#7C4DFF"></i>
+            <i style="width:6%;background:#00BCD4"></i><i style="width:14%;background:#2196F3"></i>
+            <i style="width:10%;background:#4CAF50"></i><i style="width:40%;background:#26334F"></i>
+          </div>
+        </div>
+        <div class="sgrid">
+          <div class="stile"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="M4 17l5-5 4 4 3-3 4 4"/></svg></div><div class="n">Photos</div><div class="c">312</div></div>
+          <div class="stile"><div class="ico" style="background:#2c2450"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></div><div class="n">Videos</div><div class="c">0</div></div>
+          <div class="stile"><div class="ico" style="background:#123a3f"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></div><div class="n">Audio</div><div class="c">0</div></div>
+          <div class="stile"><div class="ico" style="background:#1b3050"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></div><div class="n">Docs</div><div class="c">9</div></div>
+          <div class="stile"><div class="ico" style="background:#1f2a22"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 1 7 7v7H5v-7a7 7 0 0 1 7-7z"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/></svg></div><div class="n">APKs</div><div class="c">18</div></div>
+          <div class="stile"><div class="ico" style="background:#3d3218"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 3v6M12 11v2M12 15v2"/></svg></div><div class="n">Archives</div><div class="c">8</div></div>
+        </div>
+        <div class="snav"><span><b>⌂ Home</b></span><span>▤ Browse</span><span>◫ Categories</span><span>⚙ Settings</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="wrap">
+    <h2>Everything you need. Nothing you don't.</h2>
+    <p class="sub">Built for speed and clarity — the features that matter, without the bloat.</p>
+    <div class="features">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 7.5h6l2 2.5h10v9.5H3z"/></svg></div><h3>Powerful browsing</h3><p>Grid, list, waterfall and compact views. Sort by name, date, size or type, ascending or descending, in a quick bottom sheet.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3>Real file operations</h3><p>Copy, move, rename, delete to Trash, batch rename, ZIP and extract — every action on a background thread, with confirmation.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg></div><h3>Storage analyser</h3><p>See what is using space: per-category breakdown, largest files, duplicate detection by content hash and empty folders.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div><h3>Smart search</h3><p>Search the current folder or the whole storage, by name or extension, without rescanning everything each time.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></div><h3>Built-in viewers</h3><p>Images, video and music play in the app. Text and code open in an editor with read-aloud. PDFs render page by page.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div><h3>Private by design</h3><p>No internet permission, no analytics, no accounts. Your files never leave the device.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="strip">
+      <div><div class="k">~120 KB</div><div class="v">APK size</div></div>
+      <div><div class="k">0</div><div class="v">Internet permissions</div></div>
+      <div><div class="k">Android 6.0+</div><div class="v">minSdk 23 · target 34</div></div>
+      <div><div class="k">Apache-2.0</div><div class="v">Open source licence</div></div>
+    </div>
+  </section>
+
+  <section id="privacy" class="wrap">
+    <div class="privacy">
+      <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+      <p><b>Privacy first.</b> Nijatva File Manager declares no <code>INTERNET</code> permission, ships no ads or trackers, and works completely offline. Deleting files moves them to a Trash you can restore — the app never silently overwrites your data.</p>
+    </div>
+  </section>
+
+  <section id="download" class="wrap">
+    <div class="download">
+      <div>
+        <h2>Get Nijatva File Manager</h2>
+        <p>No APK release yet. Build it from source, or open the web app and use it now.</p>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/nijatva/nijatva-file">View source</a>
+        <a class="btn ghost" href="../files.html">Open the web app</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Nijatva · Designed &amp; developed by Vasudev Dangaya</div>
+    <div class="cta" style="gap:14px">
+      <a href="https://github.com/nijatva/nijatva-file">GitHub</a>
+      <a href="../files.html">Web app</a>
+      <span class="stamp">site v1.0 · 2026-11-23</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
